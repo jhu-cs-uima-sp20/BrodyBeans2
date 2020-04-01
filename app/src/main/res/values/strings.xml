@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">BrodyBeans2</string>
+    <string name="signin">Sign In</string>
+    <string name="username">username</string>
+    <string name="pswd">password</string>
+    <string name="espresso">Espresso</string>
+    <string name="nEspresso">Non Espresso</string>
+    <string name="bBeverages">Blended Beverages</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="other">other</string>
+
+
+</resources>
