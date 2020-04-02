@@ -48,12 +48,7 @@ public class signinActivity extends AppCompatActivity {
                 }
                 else {
                     //user is signed out
-                    AuthUI.getInstance()
-                            .createSignInIntentBuilder()
-                            .setIsSmartLockEnabled(false)
-                            .setAvailableProviders(AuthUI.EMAIL_PROVIDER)
-                            .build(),
-                            RC_SIGN_IN);
+                    createSignInIntent();
                 }
             }
         };
@@ -70,6 +65,7 @@ public class signinActivity extends AppCompatActivity {
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
+                        .setIsSmartLockEnabled(false)
                         .setAvailableProviders(providers)
                         .build(),
                 RC_SIGN_IN);
