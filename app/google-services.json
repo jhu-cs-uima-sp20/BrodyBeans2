@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "59121131556",
+    "firebase_url": "https://brodybeans-15f8b.firebaseio.com",
+    "project_id": "brodybeans-15f8b",
+    "storage_bucket": "brodybeans-15f8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59121131556:android:2b4f0e2f7486c1ec6e78b1",
+        "android_client_info": {
+          "package_name": "com.example.brodybeans2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "59121131556-rmtn2cj5qureav2rpr9r6l54l5ei865i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.brodybeans2",
+            "certificate_hash": "41ce6e29e10dfd199385dd2b477217db4c5c0122"
+          }
+        },
+        {
+          "client_id": "59121131556-3d5b0gj0aksqi2qu1mafjbiv6lub6vqm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDu7Hch4e1DAPIHZU36gMfL0nvHSGsvB6E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "59121131556-3d5b0gj0aksqi2qu1mafjbiv6lub6vqm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
