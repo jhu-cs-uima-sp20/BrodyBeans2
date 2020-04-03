@@ -59,12 +59,11 @@ public class HomeActivity extends AppCompatActivity {
             }
         };
 
-        newOrderBtn = findViewById(R.id.new_order_btn);
+        newOrderBtn = (Button) findViewById(R.id.new_order_btn);
         newOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, MenuActivity.class);
-
-                startActivity(intent);
+                openMenuActivity();
                 Toast.makeText(HomeActivity.this, "Button Clicked",
                         Toast.LENGTH_SHORT).show();
             }
@@ -173,6 +172,11 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void openMenuActivity() {
+        Intent intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
     }
 }
 
