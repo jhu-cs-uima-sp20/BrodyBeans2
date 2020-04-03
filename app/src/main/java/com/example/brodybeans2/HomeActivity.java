@@ -33,23 +33,13 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private static final int RC_SIGN_IN = 1;
 
-    private Button signOut;
-
-    private Toolbar mTopToolbar;
+    private Button newOrderBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        signOut = (Button) findViewById(R.id.signOutBTN);
-        signOut.setOnClickListener(new View.OnClickListener() {
-                                       @Override
-                                       public void onClick(View v) {
-                                           signOut();
-                                       }
-                                   }
-        );
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
 
@@ -69,6 +59,16 @@ public class HomeActivity extends AppCompatActivity {
             }
         };
 
+        newOrderBtn = findViewById(R.id.new_order_btn);
+        newOrderBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, MenuActivity.class);
+
+                startActivity(intent);
+                Toast.makeText(HomeActivity.this, "Button Clicked",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void createSignInIntent() {
@@ -139,13 +139,13 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+        //mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        //mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
     }
 
     @Override
@@ -164,7 +164,11 @@ public class HomeActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cart) {
-            Toast.makeText(HomeActivity.this, "Action clicked", Toast.LENGTH_LONG).show();
+            Toast.makeText(HomeActivity.this, "Go to cart", Toast.LENGTH_LONG).show();
+            return true;
+        } else if (id == R.id.action_settings) {
+            signOut();
+            Toast.makeText(HomeActivity.this, "Signed Out", Toast.LENGTH_LONG).show();
             return true;
         }
 

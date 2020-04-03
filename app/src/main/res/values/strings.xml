@@ -11,5 +11,7 @@
     <string name="signout">Sign Out</string>
     <string name="home">Home</string>
     <string name="cart">Cart</string>
+    <string name="new_order">New Order</string>
+    <string name="menu">Menu</string>
 
 </resources>

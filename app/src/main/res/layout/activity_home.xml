@@ -9,16 +9,25 @@
     tools:context=".HomeActivity">
 
     <Button
-        android:id="@+id/signOutBTN"
+        android:id="@+id/new_order_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@color/colorAccent"
-        android:text="@string/signout"
-        android:textAlignment="textEnd"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp"
+        android:layout_marginTop="15dp"
+        android:background="#DFA127"
+        android:text="@string/new_order"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_order_text" />
 
+    <TextView
+        android:id="@+id/new_order_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/new_order"
+        android:textColor="#DFA127"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
