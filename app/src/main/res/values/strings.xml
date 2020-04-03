@@ -8,6 +8,7 @@
     <string name="bBeverages">Blended Beverages</string>
     <string name="breakfast">Breakfast</string>
     <string name="other">other</string>
+    <string name="signout">Sign Out</string>
 
 
 </resources>

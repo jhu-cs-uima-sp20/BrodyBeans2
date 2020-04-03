@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Arrays;
 import java.util.List;
 
-public class signinActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessagesDatabaseReference;
@@ -38,14 +38,14 @@ public class signinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
 
-         signOut = (Button) findViewById(R.id.signupBTN);
-         signOut.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            signOut();
-                                        }
-                                    }
-         );
+        signOut = (Button) findViewById(R.id.signOutBTN);
+        signOut.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+                                           signOut();
+                                       }
+                                   }
+        );
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
 
@@ -55,7 +55,7 @@ public class signinActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     //user is signed in
-                    Toast.makeText(signinActivity.this, "You are now signed in",
+                    Toast.makeText(HomeActivity.this, "You are now signed in",
                             Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -144,3 +144,4 @@ public class signinActivity extends AppCompatActivity {
         mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
     }
 }
+
