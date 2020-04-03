@@ -139,13 +139,13 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
     }
 
     @Override
