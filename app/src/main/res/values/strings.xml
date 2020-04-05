@@ -20,5 +20,8 @@
     <string name="other_btn">other</string>
     <string name="plus">+</string>
     <string name="welcome_user">Welcome, user!</string>
+    <string name="add_item">Add Item</string>
+    <string name="your_order">Your current order:</string>
+    <string name="place_order">Place Order</string>
 
 </resources>
