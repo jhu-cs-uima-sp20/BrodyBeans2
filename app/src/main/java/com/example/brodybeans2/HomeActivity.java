@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,7 +34,10 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private static final int RC_SIGN_IN = 1;
 
+    private String mUsername;
+
     private Button newOrderBtn;
+    private TextView welcomeMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +53,18 @@ public class HomeActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     //user is signed in
-                    Toast.makeText(HomeActivity.this, "You are now signed in",
-                            Toast.LENGTH_SHORT).show();
+                    OnSignedInInitialize(user.getDisplayName());
+                    //Toast.makeText(HomeActivity.this, "You are now signed in",
+                            //Toast.LENGTH_SHORT).show();
+
+                    welcomeMsg = (TextView) findViewById(R.id.welcome_msg);
+                    welcomeMsg.setText("Welcome, " + mUsername + "!");
                 }
                 else {
                     //user is signed out
+                    OnSignedOutCleanup();
                     createSignInIntent();
+
                 }
             }
         };
@@ -68,6 +78,8 @@ public class HomeActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     public void createSignInIntent() {
@@ -167,7 +179,7 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_settings) {
             signOut();
-            Toast.makeText(HomeActivity.this, "Signed Out", Toast.LENGTH_LONG).show();
+            //Toast.makeText(HomeActivity.this, "Signed Out", Toast.LENGTH_LONG).show();
             return true;
         }
 
@@ -178,5 +190,14 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
+
+    public void OnSignedInInitialize(String username) {
+        mUsername = username;
+    }
+
+    public void OnSignedOutCleanup() {
+        mUsername = "user";
+    }
+
 }
 
