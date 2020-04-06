@@ -11,6 +11,8 @@ import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,7 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CafeHomeActivity extends AppCompatActivity {
+public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.OnExpandListener {
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mOrdersDatabaseReference;
@@ -111,7 +113,7 @@ public class CafeHomeActivity extends AppCompatActivity {
 
         //mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
-        orderAdapter = new OrderAdapter(orderList);
+        orderAdapter = new OrderAdapter(orderList, this);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(orderAdapter);
@@ -128,5 +130,12 @@ public class CafeHomeActivity extends AppCompatActivity {
                     }
                 });
         // [END auth_fui_signout]
+        finish();
+    }
+
+    @Override
+    public void onExpandClick(int position) {
+        orderList.get(position);
+        Toast.makeText(CafeHomeActivity.this, "Go to cart", Toast.LENGTH_LONG).show();
     }
 }
