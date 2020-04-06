@@ -19,14 +19,24 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
+            <CheckBox
+                android:id="@+id/in_progress"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:checked="false"
+                android:buttonTint="@color/colorPrimaryDark" />
+
             <TextView
                 android:id="@+id/order_number"
-                android:layout_width="250dp"
+                android:layout_width="108dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:text="Order 1"
                 android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="30sp" />
 
             <ImageView
