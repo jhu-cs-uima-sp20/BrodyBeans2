@@ -53,13 +53,18 @@ public class HomeActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    //user is signed in
-                    OnSignedInInitialize(user.getDisplayName());
-                    //Toast.makeText(HomeActivity.this, "You are now signed in",
-                            //Toast.LENGTH_SHORT).show();
+                    if (user.getUid().equals("0ZGJZEbHdYOB5myO9PbWl1f1RR92")) {
+                        Intent intent = new Intent(HomeActivity.this, CafeHomeActivity.class);
+                        startActivity(intent);
+                    } else {
+                        //user is signed in
+                        OnSignedInInitialize(user.getDisplayName());
+                        //Toast.makeText(HomeActivity.this, "You are now signed in",
+                        //Toast.LENGTH_SHORT).show();
 
-                    welcomeMsg = (TextView) findViewById(R.id.welcome_msg);
-                    welcomeMsg.setText("Welcome, " + mUsername + "!");
+                        welcomeMsg = (TextView) findViewById(R.id.welcome_msg);
+                        welcomeMsg.setText("Welcome, " + mUsername + "!");
+                    }
                 }
                 else {
                     //user is signed out
