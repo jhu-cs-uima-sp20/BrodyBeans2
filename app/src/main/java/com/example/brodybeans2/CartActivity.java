@@ -55,7 +55,9 @@ public class CartActivity extends AppCompatActivity {
         buildRecyclerView();
         insertItem();
 
+        //initialize Firebase components
         mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mOrdersDatabaseReference = mFirebaseDatabase.getReference().child("orders");
 
         placeOrderBtn = (Button) findViewById(R.id.place_order_btn);
         placeOrderBtn.setOnClickListener(new View.OnClickListener() {
@@ -73,9 +75,6 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        //initialize Firebase components
-        mOrdersDatabaseReference = mFirebaseDatabase.getReference().child("orders");
 
 
         mChildEventListener = new ChildEventListener() {
