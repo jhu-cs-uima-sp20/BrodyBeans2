@@ -3,6 +3,8 @@ package com.example.brodybeans2;
 public class OrderItem {
     private String category;
 
+    public OrderItem() {}
+
     public OrderItem(String item) {
         category = item;
     }

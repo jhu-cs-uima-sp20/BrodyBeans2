@@ -1,15 +1,15 @@
 package com.example.brodybeans2;
 
-import com.google.firebase.auth.FirebaseUser;
-
 import java.util.ArrayList;
 
 public class Order {
     private ArrayList<OrderItem> order;
-    private FirebaseUser user;
-    private int orderNumber;
+    private String user;
+    private Integer orderNumber;
 
-    public Order(ArrayList<OrderItem> order, FirebaseUser user, int orderNumber) {
+    public Order() {}
+
+    public Order(ArrayList<OrderItem> order, String user, Integer orderNumber) {
         this.order = order;
         this.user = user;
         this.orderNumber = orderNumber;
@@ -19,11 +19,11 @@ public class Order {
         return order;
     }
 
-    public FirebaseUser getUser() {
+    public String getUser() {
         return user;
     }
 
-    public int getOrderNumber() {
+    public Integer getOrderNumber() {
         return orderNumber;
     }
 
@@ -31,11 +31,11 @@ public class Order {
         this.order = order;
     }
 
-    public void setOrderNumber(int orderNumber) {
+    public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
     }
 
-    public void setUser(FirebaseUser user) {
+    public void setUser(String user) {
         this.user = user;
     }
 }

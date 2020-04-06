@@ -67,7 +67,7 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
                 FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                Order order = new Order(itemList, user, 1);
+                Order order = new Order(itemList, user.getDisplayName(), 1);
 
                 mOrdersDatabaseReference.push().setValue(order);
                 itemList.clear();
