@@ -2,8 +2,11 @@ package com.example.brodybeans2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,6 +16,7 @@ public class MenuActivity extends AppCompatActivity {
     Button nonEspressoBtn;
     Button blendedBevBtn;
     Button bfastBtn;
+    private Context context;
 
 
 
@@ -30,6 +34,8 @@ public class MenuActivity extends AppCompatActivity {
         espressoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                context = getApplicationContext();
+                PreferenceManager.getDefaultSharedPreferences(context).edit().putString("category", "Espresso").apply();
                 Intent intent = new Intent(v.getContext(), CartActivity.class);
                 startActivity(intent);
             }
@@ -41,6 +47,8 @@ public class MenuActivity extends AppCompatActivity {
         nonEspressoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                context = getApplicationContext();
+                PreferenceManager.getDefaultSharedPreferences(context).edit().putString("category", "Non Espresso").apply();
                 Intent intent = new Intent(v.getContext(), CartActivity.class);
                 startActivity(intent);
             }
@@ -51,6 +59,8 @@ public class MenuActivity extends AppCompatActivity {
         blendedBevBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                context = getApplicationContext();
+                PreferenceManager.getDefaultSharedPreferences(context).edit().putString("category", "Blended Beverage").apply();
                 Intent intent = new Intent(v.getContext(), CartActivity.class);
                 startActivity(intent);
             }
@@ -62,6 +72,8 @@ public class MenuActivity extends AppCompatActivity {
         bfastBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                context = getApplicationContext();
+                PreferenceManager.getDefaultSharedPreferences(context).edit().putString("category", "Breakfast").apply();
                 Intent intent = new Intent(v.getContext(), CartActivity.class);
                 startActivity(intent);
             }

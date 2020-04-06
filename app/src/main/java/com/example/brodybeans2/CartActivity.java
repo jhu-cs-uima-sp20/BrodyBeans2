@@ -3,8 +3,12 @@ package com.example.brodybeans2;
 import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.widget.ListView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -28,49 +32,27 @@ public class CartActivity extends AppCompatActivity {
     private DatabaseReference mOrdersDatabaseReference;
     private ChildEventListener mChildEventListener;
 
+
     private Button placeOrderBtn;
     Button addItem;
-
-
-    //recycelr view things added by hkl
+    private Context context;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    static ArrayList<OrderItem> itemList;
+    private ArrayList<OrderItem> itemList;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+        context = getApplicationContext();
 
 
-        //code added to bring user back to menu category page when add another item btn clicked
-        addItem = (Button) findViewById(R.id.new_order_btn);
-        addItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MenuActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-
-        //things added by hkl
-        ArrayList<OrderItem> itemList = new ArrayList<>();
-        //todo hard coding this to be espresso, need to use getter to get value of key pressed
-        itemList.add(new OrderItem("espresso"));
-
-        mRecyclerView =findViewById(R.id.cartList);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new OrderItemAdapter(itemList);
-
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
-
-
-
+        createItemList();
+        buildRecyclerView();
+        insertItem();
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -79,6 +61,15 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 OrderItem orderItem = new OrderItem("orderNumber");
+            }
+        });
+        //code added to bring user back to menu category page when add another item btn clicked
+        addItem = (Button) findViewById(R.id.new_order_btn);
+        addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MenuActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -115,4 +106,30 @@ public class CartActivity extends AppCompatActivity {
 
         mOrdersDatabaseReference.addChildEventListener(mChildEventListener);
     }
+
+    public void createItemList() {
+        itemList = new ArrayList<>();
+        itemList.add(new OrderItem("blended beverage"));
+        //itemList.add(new OrderItem("item2"));
+        //itemList.add(new OrderItem("item3"));
+
+    }
+
+    public void buildRecyclerView() {
+        mRecyclerView =findViewById(R.id.cartList);
+        //mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new OrderItemAdapter(itemList);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+
+    }
+
+    public void insertItem() {
+        String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("category", "defaultStringIfNothingFound");
+        itemList.add(new OrderItem(cat));
+        mAdapter.notifyItemInserted(itemList.size() - 1);
+    }
+
 }

@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/new_order_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:background="@color/colorAccent"
         android:text="@string/add_item"
-        android:textAllCaps="false"
-        android:layout_marginTop="30dp"
-        />
+        android:textAllCaps="false" />
 
     <TextView
         android:id="@+id/your_order_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="@string/your_order"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
-        android:layout_marginTop="40dp"
-        />
+        android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cartList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        android:background="@color/colorPrimary" />
 
     <Button
         android:id="@+id/place_order_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:background="@color/colorAccent"
         android:text="@string/place_order"
-        android:textAllCaps="false"
-        android:layout_marginTop="30dp"
-        />
+        android:textAllCaps="false" />
 </LinearLayout>
