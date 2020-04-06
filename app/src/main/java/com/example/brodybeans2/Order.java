@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Order {
     private ArrayList<OrderItem> order;
-    private String user;
+    private String email;
     private Integer orderNumber;
 
     public Order() {}
 
     public Order(ArrayList<OrderItem> order, String user, Integer orderNumber) {
         this.order = order;
-        this.user = user;
+        this.email = user;
         this.orderNumber = orderNumber;
     }
 
@@ -19,8 +19,8 @@ public class Order {
         return order;
     }
 
-    public String getUser() {
-        return user;
+    public String getEmail() {
+        return email;
     }
 
     public Integer getOrderNumber() {
@@ -35,7 +35,7 @@ public class Order {
         this.orderNumber = orderNumber;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setEmail(String user) {
+        this.email = user;
     }
 }

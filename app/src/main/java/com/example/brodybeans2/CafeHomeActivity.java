@@ -78,11 +78,11 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
                 }*/
 
                 Integer num = dataSnapshot.child("orderNumber").getValue(Integer.class);
-                String username = dataSnapshot.child("user").getValue(String.class);
+                String email = dataSnapshot.child("email").getValue(String.class);
 
-                Log.d("User",username);
+                Log.d("User",email);
 
-                order.setUser(username);
+                order.setEmail(email);
                 order.setOrderNumber(num);
                 order.setOrder(items);
 

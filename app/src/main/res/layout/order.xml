@@ -4,7 +4,8 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="10dp"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:layout_width="210dp"
@@ -23,6 +24,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@color/colorPrimary"
                 android:text="Order 1"
                 android:textAlignment="center"
                 android:textSize="30sp" />
