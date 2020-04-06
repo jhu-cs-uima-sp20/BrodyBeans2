@@ -39,7 +39,8 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<OrderItem> itemList;
+    private static ArrayList<OrderItem> itemList;
+    private static boolean listInitialized;
 
 
 
@@ -107,9 +108,10 @@ public class CartActivity extends AppCompatActivity {
         mOrdersDatabaseReference.addChildEventListener(mChildEventListener);
     }
 
+    //REMOVED by Justin - initialization moved to buildRecyclerView()
     public void createItemList() {
-        itemList = new ArrayList<>();
-        itemList.add(new OrderItem("blended beverage"));
+        //itemList = new ArrayList<>();
+        //itemList.add(new OrderItem("blended beverage"));
         //itemList.add(new OrderItem("item2"));
         //itemList.add(new OrderItem("item3"));
 
@@ -117,6 +119,10 @@ public class CartActivity extends AppCompatActivity {
 
     public void buildRecyclerView() {
         mRecyclerView =findViewById(R.id.cartList);
+        if (!listInitialized) {
+            itemList = new ArrayList<>();
+            listInitialized = true;
+        }
         //mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new OrderItemAdapter(itemList);
