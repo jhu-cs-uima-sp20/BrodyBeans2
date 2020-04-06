@@ -34,6 +34,7 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
     private DatabaseReference mOrdersDatabaseReference;
     private ChildEventListener mChildEventListener;
     private OrderAdapter orderAdapter;
+    private OrderItemAdapter orderItemAdapter;
     private ArrayList<Order> orderList;
 
     private RecyclerView mRecyclerView;
@@ -134,8 +135,18 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
     }
 
     @Override
-    public void onExpandClick(int position) {
+    public void onExpandClick(int position, View view) {
         orderList.get(position);
         Toast.makeText(CafeHomeActivity.this, "Go to cart", Toast.LENGTH_LONG).show();
+        mRecyclerView = view.findViewById(R.id.more_view);
+
+        //mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        orderItemAdapter = new OrderItemAdapter(orderList.get(position).getOrder());
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(orderItemAdapter);
+
+        orderItemAdapter.notifyDataSetChanged();
     }
 }

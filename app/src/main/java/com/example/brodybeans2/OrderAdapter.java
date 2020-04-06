@@ -34,7 +34,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolder>
 
         @Override
         public void onClick(View view) {
-            onExpandListener.onExpandClick(getAdapterPosition());
+            onExpandListener.onExpandClick(getAdapterPosition(), itemView);
         }
     }
 
@@ -60,6 +60,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolder>
     public int getItemCount() { return mOrderList.size(); }
 
     public interface OnExpandListener {
-        void onExpandClick(int position);
+        void onExpandClick(int position, View view);
     }
 }
