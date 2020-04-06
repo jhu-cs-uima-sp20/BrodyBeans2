@@ -23,5 +23,6 @@
     <string name="add_item">Add Item</string>
     <string name="your_order">Your current order:</string>
     <string name="place_order">Place Order</string>
+    <string name="favorites">Favorites</string>
 
 </resources>

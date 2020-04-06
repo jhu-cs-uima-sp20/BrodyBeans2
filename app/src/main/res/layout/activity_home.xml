@@ -68,61 +68,65 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/fav1"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="1dp"
         android:background="@drawable/beans_logo_background"
+        android:contentDescription="image of fav1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+        app:layout_constraintEnd_toStartOf="@+id/fav2"
         app:layout_constraintHorizontal_bias="0.193"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton3"
+        app:layout_constraintTop_toBottomOf="@+id/fav3"
         app:layout_constraintVertical_bias="0.121"
-        app:srcCompat="@mipmap/hot_coffee_foreground" />
+        app:srcCompat="@mipmap/latte_foreground" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/fav2"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:background="@color/colorPrimary"
+        android:contentDescription="image of fav2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton5"
-        app:layout_constraintVertical_bias="0.18"
-        app:srcCompat="@mipmap/latte_foreground" />
+        app:layout_constraintStart_toEndOf="@+id/fav1"
+        app:layout_constraintTop_toBottomOf="@+id/fav4"
+        app:layout_constraintVertical_bias="0.121"
+        app:srcCompat="@mipmap/hot_coffee_foreground" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/fav3"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="1dp"
         android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton5"
+        android:contentDescription="image of fav3"
+        app:layout_constraintEnd_toStartOf="@+id/fav4"
         app:layout_constraintHorizontal_bias="0.197"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_order_text2"
         app:srcCompat="@mipmap/mocah_foreground" />
 
     <ImageButton
-        android:id="@+id/imageButton5"
+        android:id="@+id/fav4"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:background="@color/colorPrimary"
+        android:contentDescription="image of fav4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton3"
+        app:layout_constraintStart_toEndOf="@+id/fav3"
         app:layout_constraintTop_toBottomOf="@+id/new_order_text2"
-        app:srcCompat="@mipmap/transparent_iced_coffee_foreground" />
+        app:srcCompat="@mipmap/icedcoffee_foreground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
