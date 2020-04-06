@@ -135,14 +135,21 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
     }
 
     @Override
-    public void onExpandClick(int position, View view) {
-        orderList.get(position);
-        Toast.makeText(CafeHomeActivity.this, "Go to cart", Toast.LENGTH_LONG).show();
+    public void onExpandClick(int position, View view, boolean open) {
         mRecyclerView = view.findViewById(R.id.more_view);
 
         //mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
-        orderItemAdapter = new OrderItemAdapter(orderList.get(position).getOrder());
+
+        if (!open) {
+            orderItemAdapter = new OrderItemAdapter(orderList.get(position).getOrder());
+            Log.d("IS IT OPEN?", "NO");
+        } else {
+            orderItemAdapter = new OrderItemAdapter(new ArrayList<OrderItem>());
+            Log.d("IS IT OPEN?", "YES");
+        }
+
+        Toast.makeText(CafeHomeActivity.this, "Go to cart", Toast.LENGTH_LONG).show();
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(orderItemAdapter);

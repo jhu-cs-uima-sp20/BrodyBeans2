@@ -1,5 +1,7 @@
 package com.example.brodybeans2;
 
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolder> {
@@ -34,7 +37,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolder>
 
         @Override
         public void onClick(View view) {
-            onExpandListener.onExpandClick(getAdapterPosition(), itemView);
+            if (expandImageView.getDrawable().getConstantState() == view.getResources().getDrawable(R.drawable.expand_arrow_closed).getConstantState()) {
+                expandImageView.setImageResource(R.drawable.expand_arrow_opened);
+                onExpandListener.onExpandClick(getAdapterPosition(), itemView, false);
+            } else {
+                expandImageView.setImageResource(R.drawable.expand_arrow_closed);
+                onExpandListener.onExpandClick(getAdapterPosition(), itemView, true);
+            }
+            Log.d("Drawable", expandImageView.getDrawable().toString());
         }
     }
 
@@ -60,6 +70,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolder>
     public int getItemCount() { return mOrderList.size(); }
 
     public interface OnExpandListener {
-        void onExpandClick(int position, View view);
+        void onExpandClick(int position, View view, boolean open);
     }
 }
