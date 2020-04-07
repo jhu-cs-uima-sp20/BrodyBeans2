@@ -3,49 +3,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDark">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/brodybeanimage"
-        app:srcCompat="@mipmap/beans_logo_foreground" />
 
-    <Button
-        android:id="@+id/new_order_btn"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="@color/colorAccent"
-        android:text="@string/add_item"
-        android:textAllCaps="false" />
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark">
 
-    <TextView
-        android:id="@+id/your_order_msg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/your_order"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cartList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorPrimary" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/colorPrimaryDark">
 
-    <Button
-        android:id="@+id/place_order_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="@color/colorAccent"
-        android:text="@string/place_order"
-        android:textAllCaps="false" />
+            <TextView
+                android:id="@+id/your_order_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/your_order"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cartList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@color/colorPrimary" />
+
+
+            <Button
+                android:id="@+id/new_order_btn"
+                android:layout_width="82dp"
+                android:layout_height="76dp"
+                android:layout_marginTop="42dp"
+                android:background="@mipmap/pluss_foreground"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:maxWidth="42dp"
+                android:maxHeight="42dp"
+                android:scaleType="fitCenter" />
+
+            <Button
+                android:id="@+id/place_order_btn"
+                android:layout_width="131dp"
+                android:layout_height="68dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="42dp"
+                android:background="@color/colorAccent"
+                android:text="@string/place_order" />
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>
