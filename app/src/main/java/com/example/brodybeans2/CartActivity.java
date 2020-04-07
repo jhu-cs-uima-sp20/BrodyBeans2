@@ -4,11 +4,13 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -67,10 +69,11 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
                 FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                Order order = new Order(itemList, user.getDisplayName(), 1);
+                Order order = new Order(itemList, user.getEmail(), 1);
 
                 mOrdersDatabaseReference.push().setValue(order);
                 itemList.clear();
+                PreferenceManager.getDefaultSharedPreferences(context).edit().clear().apply();
                 buildRecyclerView();
             }
         });
@@ -140,9 +143,21 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void insertItem() {
-        String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("category", "defaultStringIfNothingFound");
-        itemList.add(new OrderItem(cat));
-        mAdapter.notifyItemInserted(itemList.size() - 1);
+        String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("category", null);
+        if (cat != null) {
+            itemList.add(new OrderItem(cat));
+        }
+
+        mAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return true;
+    }
 }

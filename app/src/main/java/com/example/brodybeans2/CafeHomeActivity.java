@@ -72,17 +72,10 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
                 GenericTypeIndicator<ArrayList<OrderItem>> map = new GenericTypeIndicator<ArrayList<OrderItem>>(){};
                 items = dataSnapshot.child("order").getValue(map);
 
-                /*for (int i = 0; i < map.size(); i++) {
-                    OrderItem o = new OrderItem((String) map.get(String.valueOf(i)));
-                    items.add(o);
-                }*/
-
                 Integer num = dataSnapshot.child("orderNumber").getValue(Integer.class);
-                String username = dataSnapshot.child("user").getValue(String.class);
+                String email = dataSnapshot.child("email").getValue(String.class);
 
-                Log.d("User",username);
-
-                order.setUser(username);
+                order.setEmail(email);
                 order.setOrderNumber(num);
                 order.setOrder(items);
 
