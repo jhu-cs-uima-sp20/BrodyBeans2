@@ -36,8 +36,8 @@ public class CartActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mOrdersDatabaseReference;
     private DatabaseReference nOrdersDatabaseReference;
-    private ChildEventListener nChildEventListener;
     private ChildEventListener mChildEventListener;
+    private ChildEventListener nChildEventListener;
 
 
     private Button placeOrderBtn;
@@ -66,29 +66,7 @@ public class CartActivity extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mOrdersDatabaseReference = mFirebaseDatabase.getReference().child("orders");
         nOrdersDatabaseReference = mFirebaseDatabase.getReference().child("numTracker");
-        Log.d("Num Tracker", nOrdersDatabaseReference.toString());
-
-        nChildEventListener = new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                orderNumber =  dataSnapshot.getValue(Integer.class);
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                orderNumber = dataSnapshot.getValue(Integer.class);
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {}
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {}
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        };
-        nOrdersDatabaseReference.addChildEventListener(nChildEventListener);
+        //Log.d("Num Tracker", mOrdersDatabaseReference.toString());
 
         placeOrderBtn = (Button) findViewById(R.id.place_order_btn);
         placeOrderBtn.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +74,7 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
                 FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                Order order = new Order(itemList, user.getEmail(), 1);
+                Order order = new Order(itemList, user.getEmail(), orderNumber);
 
                 if (!itemList.isEmpty()) {
                     dbIncreaseOrderNumber();
@@ -119,35 +97,28 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
-
-        /*mChildEventListener = new ChildEventListener() {
+        nChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                orderNumber =  dataSnapshot.getValue(Integer.class);
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                orderNumber =  dataSnapshot.getValue(Integer.class);
             }
 
             @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {}
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {}
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         };
+        nOrdersDatabaseReference.addChildEventListener(nChildEventListener);
 
-        mOrdersDatabaseReference.addChildEventListener(mChildEventListener);*/
     }
 
     //REMOVED by Justin - initialization moved to buildRecyclerView()
@@ -194,6 +165,7 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void dbIncreaseOrderNumber() {
-        nOrdersDatabaseReference.setValue(orderNumber++);
+        orderNumber++;
+        nOrdersDatabaseReference.child("num").setValue(orderNumber);
     }
 }
