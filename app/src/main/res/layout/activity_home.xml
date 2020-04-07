@@ -35,7 +35,9 @@
         android:textSize="75sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_order_text" />
+        app:layout_constraintTop_toBottomOf="@+id/new_order_text"
+        android:elevation="8dp"
+        android:radius="180px"/>
 
     <TextView
         android:id="@+id/new_order_text"
@@ -82,7 +84,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fav3"
         app:layout_constraintVertical_bias="0.121"
-        app:srcCompat="@mipmap/latte_foreground" />
+        app:srcCompat="@mipmap/latte_foreground"
+        android:elevation="8dp"
+        android:radius="180px"/>
 
     <ImageButton
         android:id="@+id/fav2"
@@ -98,7 +102,9 @@
         app:layout_constraintStart_toEndOf="@+id/fav1"
         app:layout_constraintTop_toBottomOf="@+id/fav4"
         app:layout_constraintVertical_bias="0.121"
-        app:srcCompat="@mipmap/hot_coffee_foreground" />
+        app:srcCompat="@mipmap/hot_coffee_foreground"
+        android:elevation="8dp"
+        android:radius="180px"/>
 
     <ImageButton
         android:id="@+id/fav3"
@@ -113,7 +119,9 @@
         app:layout_constraintHorizontal_bias="0.197"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_order_text2"
-        app:srcCompat="@mipmap/mocah_foreground" />
+        app:srcCompat="@mipmap/mocah_foreground"
+        android:elevation="8dp"
+        android:radius="180px"/>
 
     <ImageButton
         android:id="@+id/fav4"
@@ -127,6 +135,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/fav3"
         app:layout_constraintTop_toBottomOf="@+id/new_order_text2"
-        app:srcCompat="@mipmap/icedcoffee_foreground" />
+        app:srcCompat="@mipmap/icedcoffee_foreground"
+        android:elevation="8dp"
+        android:radius="180px"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

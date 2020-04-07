@@ -125,6 +125,7 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
                 });
         // [END auth_fui_signout]
         finish();
+        finish();
     }
 
     @Override

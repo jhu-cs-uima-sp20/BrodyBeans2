@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,8 @@ public class CartActivity extends AppCompatActivity {
     //Firebase instance variables
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mOrdersDatabaseReference;
+    private DatabaseReference nOrdersDatabaseReference;
+    private ChildEventListener nChildEventListener;
     private ChildEventListener mChildEventListener;
 
 
@@ -46,7 +49,7 @@ public class CartActivity extends AppCompatActivity {
     private static ArrayList<OrderItem> itemList;
     private static boolean listInitialized;
 
-
+    private static Integer orderNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,30 @@ public class CartActivity extends AppCompatActivity {
         //initialize Firebase components
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mOrdersDatabaseReference = mFirebaseDatabase.getReference().child("orders");
+        nOrdersDatabaseReference = mFirebaseDatabase.getReference().child("numTracker");
+        Log.d("Num Tracker", nOrdersDatabaseReference.toString());
+
+        nChildEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                orderNumber =  dataSnapshot.getValue(Integer.class);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                orderNumber = dataSnapshot.getValue(Integer.class);
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {}
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {}
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        };
+        nOrdersDatabaseReference.addChildEventListener(nChildEventListener);
 
         placeOrderBtn = (Button) findViewById(R.id.place_order_btn);
         placeOrderBtn.setOnClickListener(new View.OnClickListener() {
@@ -71,11 +98,16 @@ public class CartActivity extends AppCompatActivity {
                 FirebaseUser user = mFirebaseAuth.getCurrentUser();
                 Order order = new Order(itemList, user.getEmail(), 1);
 
+                if (!itemList.isEmpty()) {
+                    dbIncreaseOrderNumber();
+                }
+
                 mOrdersDatabaseReference.push().setValue(order);
                 itemList.clear();
                 PreferenceManager.getDefaultSharedPreferences(context).edit().clear().apply();
                 buildRecyclerView();
             }
+
         });
         //code added to bring user back to menu category page when add another item btn clicked
         addItem = (Button) findViewById(R.id.new_order_btn);
@@ -88,7 +120,7 @@ public class CartActivity extends AppCompatActivity {
         });
 
 
-        mChildEventListener = new ChildEventListener() {
+        /*mChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
@@ -115,7 +147,7 @@ public class CartActivity extends AppCompatActivity {
             }
         };
 
-        mOrdersDatabaseReference.addChildEventListener(mChildEventListener);
+        mOrdersDatabaseReference.addChildEventListener(mChildEventListener);*/
     }
 
     //REMOVED by Justin - initialization moved to buildRecyclerView()
@@ -159,5 +191,9 @@ public class CartActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    private void dbIncreaseOrderNumber() {
+        nOrdersDatabaseReference.setValue(orderNumber++);
     }
 }
