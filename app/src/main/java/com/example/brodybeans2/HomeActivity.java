@@ -55,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
                 if (user != null) {
                     if (user.getUid().equals("0ZGJZEbHdYOB5myO9PbWl1f1RR92")) {
                         Intent intent = new Intent(HomeActivity.this, CafeHomeActivity.class);
+                        finish();
                         startActivity(intent);
                     } else {
                         //user is signed in
