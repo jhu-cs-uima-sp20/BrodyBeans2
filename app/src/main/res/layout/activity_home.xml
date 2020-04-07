@@ -5,7 +5,7 @@
     android:id="@+id/linearLayoutCompat"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#271509"
+    android:background="@color/colorPrimaryDark"
     tools:context=".HomeActivity">
 
     <TextView
@@ -13,10 +13,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="83dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="270dp"
         android:layout_marginEnd="83dp"
         android:text="Favorites"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -25,26 +25,25 @@
 
     <Button
         android:id="@+id/new_order_btn"
-        android:layout_width="107dp"
-        android:layout_height="98dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginStart="83dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="83dp"
-        android:background="#DFA127"
+        android:background="@drawable/button_selector2"
+        android:elevation="10dp"
         android:text="@string/plus"
         android:textSize="75sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_order_text"
-        android:elevation="8dp"
-        android:radius="180px"/>
+        app:layout_constraintTop_toBottomOf="@+id/new_order_text" />
 
     <TextView
         android:id="@+id/new_order_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="83dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="84dp"
         android:layout_marginEnd="83dp"
         android:text="@string/new_order"
         android:textColor="@color/colorAccent"
@@ -71,72 +70,68 @@
 
     <ImageButton
         android:id="@+id/fav1"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="1dp"
-        android:background="@drawable/beans_logo_background"
         android:contentDescription="image of fav1"
+        android:background="@drawable/button_selector"
+        android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/fav2"
         app:layout_constraintHorizontal_bias="0.193"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fav3"
         app:layout_constraintVertical_bias="0.121"
-        app:srcCompat="@mipmap/latte_foreground"
-        android:elevation="8dp"
-        android:radius="180px"/>
+        app:srcCompat="@mipmap/latte_foreground" />
 
     <ImageButton
         android:id="@+id/fav2"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/colorPrimary"
         android:contentDescription="image of fav2"
+        android:background="@drawable/button_selector"
+        android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/fav1"
         app:layout_constraintTop_toBottomOf="@+id/fav4"
         app:layout_constraintVertical_bias="0.121"
-        app:srcCompat="@mipmap/hot_coffee_foreground"
-        android:elevation="8dp"
-        android:radius="180px"/>
+        app:srcCompat="@mipmap/hot_coffee_foreground" />
 
     <ImageButton
         android:id="@+id/fav3"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="1dp"
-        android:background="@color/colorPrimary"
         android:contentDescription="image of fav3"
+        android:background="@drawable/button_selector"
+        android:elevation="10dp"
         app:layout_constraintEnd_toStartOf="@+id/fav4"
         app:layout_constraintHorizontal_bias="0.197"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_order_text2"
-        app:srcCompat="@mipmap/mocah_foreground"
-        android:elevation="8dp"
-        android:radius="180px"/>
+        app:srcCompat="@mipmap/mocah_foreground" />
 
     <ImageButton
         android:id="@+id/fav4"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/colorPrimary"
         android:contentDescription="image of fav4"
+        android:background="@drawable/button_selector"
+        android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/fav3"
         app:layout_constraintTop_toBottomOf="@+id/new_order_text2"
-        app:srcCompat="@mipmap/icedcoffee_foreground"
-        android:elevation="8dp"
-        android:radius="180px"/>
+        app:srcCompat="@mipmap/icedcoffee_foreground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
