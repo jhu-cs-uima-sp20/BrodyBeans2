@@ -1,8 +1,10 @@
 package com.example.brodybeans2;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +41,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private Button newOrderBtn;
     private TextView welcomeMsg;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +187,8 @@ public class HomeActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cart) {
+            context = getApplicationContext();
+            PreferenceManager.getDefaultSharedPreferences(context).edit().clear().apply();
             Intent intent = new Intent(this, CartActivity.class);
             startActivity(intent);
             return true;
