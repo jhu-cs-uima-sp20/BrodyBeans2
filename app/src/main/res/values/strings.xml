@@ -24,5 +24,11 @@
     <string name="your_order">Your current order:</string>
     <string name="place_order">Place Order</string>
     <string name="favorites">Favorites</string>
+    <string name="line1">Line 1</string>
+    <string name="moreInfo">></string>
+    <string name="noimagefound">X to delete image</string>
+    <string name="brodybeanimage">no logo source found</string>
+
+
 
 </resources>
