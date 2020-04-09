@@ -5,8 +5,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +31,9 @@ public class OrdersActivity extends AppCompatActivity {
     private boolean orderInProg = false;
 
     private TextView orderNumberText;
+    private TextView thanksText;
+    private TextView orderPlacedText;
+    private TextView orderNumberMessage;
 
 
     @Override
@@ -36,6 +42,9 @@ public class OrdersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_orders);
 
         orderNumberText = (TextView) findViewById(R.id.order_num);
+        thanksText = (TextView) findViewById(R.id.thanks_txt);
+        orderPlacedText = (TextView) findViewById(R.id.order_placed_msg);
+        orderNumberMessage = (TextView) findViewById(R.id.order_num_msg);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mOrdersDatabaseReference = mFirebaseDatabase.getReference().child("orders");
@@ -43,12 +52,22 @@ public class OrdersActivity extends AppCompatActivity {
         email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        orderNum = 0;
+        orderInProg = false;
+
+
+
         mChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                orderNum =  dataSnapshot.child("orderNumber").getValue(Integer.class);
-                orderNumberText.setText(orderNum.toString());
-                orderInProg = true;
+
+                if (dataSnapshot.child("email").getValue().equals(email)) {
+                    orderNum = dataSnapshot.child("orderNumber").getValue(Integer.class);
+                    orderNumberText.setText(orderNum.toString());
+                    orderInProg = true;
+                }
+
+                PreferenceManager.getDefaultSharedPreferences(OrdersActivity.this).edit().putString("status", Boolean.toString(orderInProg)).apply();
 
                 if (orderInProg) {
                     if (getSupportActionBar() != null) {
@@ -73,20 +92,19 @@ public class OrdersActivity extends AppCompatActivity {
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 if (email.equals(dataSnapshot.child("email").getValue(String.class))) {
                     orderInProg = false;
+                    //thanksText.setVisibility(View.INVISIBLE);
+                    orderPlacedText.setVisibility(View.INVISIBLE);
+                    orderNumberMessage.setVisibility(View.INVISIBLE);
+                    orderNumberText.setVisibility(View.INVISIBLE);
+                    thanksText.setText("Your order has been paid \n\nClick the back button to place a new one!");
                 }
+                PreferenceManager.getDefaultSharedPreferences(OrdersActivity.this).edit().putString("status", Boolean.toString(orderInProg)).apply();
+                if (getSupportActionBar() != null) {
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    getSupportActionBar().setHomeButtonEnabled(true);
+                }
+                orderNum = 0;
 
-                if (orderInProg) {
-                    if (getSupportActionBar() != null) {
-                        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                        getSupportActionBar().setHomeButtonEnabled(false);
-                    }
-                }
-                else {
-                    if (getSupportActionBar() != null) {
-                        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                        getSupportActionBar().setHomeButtonEnabled(true);
-                    }
-                }
             }
 
             @Override
@@ -101,7 +119,9 @@ public class OrdersActivity extends AppCompatActivity {
         };
         mOrdersDatabaseReference.addChildEventListener(mChildEventListener); //what does this do
 
-
+        if (orderNum == 0) {
+            onEmptyOrderList();
+        }
 
     }
 
@@ -112,6 +132,11 @@ public class OrdersActivity extends AppCompatActivity {
     }
 
      */
+
+    public void onEmptyOrderList() {
+        PreferenceManager.getDefaultSharedPreferences(OrdersActivity.this).edit().putString("status", Boolean.toString(orderInProg)).apply();
+    }
+
 
     @Override
     public void onBackPressed() {

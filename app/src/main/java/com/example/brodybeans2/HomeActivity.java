@@ -27,6 +27,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mUsersDatabaseReference;
+    private DatabaseReference mOrdersDatabaseReference;
     private ChildEventListener mChildEventListener;
 
     private FirebaseAuth mFirebaseAuth;
@@ -37,13 +38,33 @@ public class HomeActivity extends AppCompatActivity {
     private Button newOrderBtn;
     private TextView welcomeMsg;
     private Context context;
+    private DataSnapshot ds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mOrdersDatabaseReference = mFirebaseDatabase.getReference().child("orders");
+//        if (mOrdersDatabaseReference == null) {
+//            PreferenceManager.getDefaultSharedPreferences(HomeActivity.this).edit().putString("status", "false").apply();
+//        }
+        Log.d("Database REf",mOrdersDatabaseReference.toString());
+
+        if (PreferenceManager.getDefaultSharedPreferences(HomeActivity.this).contains("status")) {
+            if (PreferenceManager.getDefaultSharedPreferences(HomeActivity.this).getString("status", null).equals("true")) {
+
+                Intent i = new Intent(this, OrdersActivity.class);
+                startActivity(i);
+
+            }
+        }
+
+        setContentView(R.layout.activity_home);
+
+
+
         mFirebaseAuth = FirebaseAuth.getInstance();
         userId = mFirebaseAuth.getCurrentUser().getUid();
         mUsersDatabaseReference = mFirebaseDatabase.getInstance().getReference().child("users");
@@ -99,6 +120,8 @@ public class HomeActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     @Override
