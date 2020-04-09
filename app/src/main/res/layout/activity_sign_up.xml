@@ -59,7 +59,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
+            android:hint="Phone Number (xxx-xxx-xxxx)"
             android:textColorHint="@color/colorPrimary"
             android:transitionName="phone_number_tran"
             app:counterTextAppearance="@style/CounterStyle"

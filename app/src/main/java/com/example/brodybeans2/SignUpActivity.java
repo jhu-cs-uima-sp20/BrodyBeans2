@@ -70,6 +70,18 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
+                //check that follows format user@jhu.edu
+                if (!email.substring(email.length() - 8).equals("@jhu.edu")) {
+                    mEmail.setError("Must be a jhu email address.");
+                    return;
+                }
+
+                //check that follows format xxx-xxx-xxxx
+                if (phoneNumber.charAt(3) != '-' || phoneNumber.charAt(7) != '-') {
+                    mPhoneNumber.setError("Must match form xxx-xxx-xxxx.");
+                    return;
+                }
+
                 if (TextUtils.isEmpty(password)) {
                     mPassword.setError("Password is required.");
                     return;
