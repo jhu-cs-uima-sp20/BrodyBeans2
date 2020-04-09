@@ -3,6 +3,7 @@ package com.example.brodybeans2;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,6 +105,10 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         };
         mOrdersDatabaseReference.addChildEventListener(mChildEventListener);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+
     }
 
     public void buildRecyclerView() {
@@ -115,6 +122,40 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
         mRecyclerView.setAdapter(orderAdapter);
 
     }
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            int position = viewHolder.getAdapterPosition();
+            switch (direction) {
+                case ItemTouchHelper.LEFT:
+                    Order o = orderList.remove(position);
+                    orderAdapter.notifyItemRemoved(position);
+                    mOrdersDatabaseReference.orderByChild("email").equalTo(o.getEmail()).limitToFirst(1).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                ds.getRef().removeValue();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                    break;
+                case ItemTouchHelper.RIGHT:
+                    break;
+            }
+        }
+    };
 
     public void signOut() {
         FirebaseAuth.getInstance().signOut();
