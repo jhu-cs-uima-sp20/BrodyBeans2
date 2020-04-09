@@ -12,8 +12,11 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -29,6 +32,7 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -166,24 +170,44 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
     @Override
     public void onExpandClick(int position, View view, boolean open) {
-        mRecyclerView = view.findViewById(R.id.more_view);
+        //mRecyclerView = view.findViewById(R.id.more_view);
+        ListView listView = view.findViewById(R.id.more_view);
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        for (OrderItem oi : orderList.get(position).getOrder()) {
+            arrayList.add(oi.getCategory());
+        }
+
 
         //mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
+        //mLayoutManager = new LinearLayoutManager(this);
 
         if (!open) {
-            orderItemAdapter = new OrderItemAdapter(orderList.get(position).getOrder());
+            //orderItemAdapter = new OrderItemAdapter(orderList.get(position).getOrder());
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.height = 135 * arrayList.size();
+            listView.setLayoutParams(params);
+            listView.requestLayout();
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, arrayList);
+            listView.setAdapter(arrayAdapter);
             Log.d("IS IT OPEN?", "NO");
         } else {
-            orderItemAdapter = new OrderItemAdapter(new ArrayList<OrderItem>());
+            //orderItemAdapter = new OrderItemAdapter(new ArrayList<OrderItem>());
+            arrayList.clear();
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            listView.setLayoutParams(params);
+            listView.requestLayout();
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, arrayList);
+            listView.setAdapter(arrayAdapter);
             Log.d("IS IT OPEN?", "YES");
         }
 
-        Toast.makeText(CafeHomeActivity.this, "Go to cart", Toast.LENGTH_LONG).show();
+        Toast.makeText(CafeHomeActivity.this, "Order Paid", Toast.LENGTH_SHORT).show();
 
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(orderItemAdapter);
+        //mRecyclerView.setLayoutManager(mLayoutManager);
+        //mRecyclerView.setAdapter(orderItemAdapter);
 
-        orderItemAdapter.notifyDataSetChanged();
+        //orderItemAdapter.notifyDataSetChanged();
     }
 }
