@@ -7,21 +7,51 @@
     android:background="#271509"
     tools:context=".OrdersActivity">
 
-    <ListView
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/order1"
-            android:layout_width="wrap_content"
+            android:id="@+id/thanks_txt"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="order1" />
+            android:text="@string/thanks"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="36sp"
+            android:layout_marginTop="100dp"
+            />
 
-        //this is a co
+        <TextView
+            android:id="@+id/order_placed_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/order_placed"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"
+            android:layout_marginTop="5dp"
+            />
 
-    </ListView>
+        <TextView
+            android:id="@+id/order_num_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/order_msg"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"
+            android:layout_marginTop="60dp"/>
+
+        <TextView
+            android:id="@+id/order_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="@string/order_num"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="100sp" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

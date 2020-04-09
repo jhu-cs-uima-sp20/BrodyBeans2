@@ -1,6 +1,5 @@
 package com.example.brodybeans2;
 
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolder> {
@@ -28,7 +26,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolder>
         public OrderHolder(View itemView, OnExpandListener onExpandListener) {
             super(itemView);
             //TODO edit this
-            orderNumberView = itemView.findViewById(R.id.order_number);
+            orderNumberView = itemView.findViewById(R.id.order_num);
             expandImageView = itemView.findViewById(R.id.more_info);
             this.onExpandListener = onExpandListener;
 

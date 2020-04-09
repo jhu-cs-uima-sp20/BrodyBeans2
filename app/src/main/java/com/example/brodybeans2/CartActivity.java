@@ -81,9 +81,18 @@ public class CartActivity extends AppCompatActivity {
                 }
 
                 mOrdersDatabaseReference.push().setValue(order);
+
+                Intent sendIntent = new Intent(getBaseContext(), OrdersActivity.class);
+                // Verify that the intent will resolve to an activity
+                if (sendIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(sendIntent);
+                }
+
                 itemList.clear();
                 PreferenceManager.getDefaultSharedPreferences(context).edit().clear().apply();
                 buildRecyclerView();
+
+
             }
 
         });

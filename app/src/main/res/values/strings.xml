@@ -28,6 +28,10 @@
     <string name="moreInfo">></string>
     <string name="noimagefound">X to delete image</string>
     <string name="brodybeanimage">no logo source found</string>
+    <string name="thanks">Thank you!</string>
+    <string name="order_placed">Your order has been placed</string>
+    <string name="order_msg">Your order number:</string>
+    <string name="order_num">0</string>
 
 
 </resources>
