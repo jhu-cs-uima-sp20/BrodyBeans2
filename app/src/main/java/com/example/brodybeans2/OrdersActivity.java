@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -23,6 +25,7 @@ public class OrdersActivity extends AppCompatActivity {
     private String email;
     private String userId;
     private Integer orderNum;
+    private boolean orderInProg = false;
 
     private TextView orderNumberText;
 
@@ -45,6 +48,20 @@ public class OrdersActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 orderNum =  dataSnapshot.child("orderNumber").getValue(Integer.class);
                 orderNumberText.setText(orderNum.toString());
+                orderInProg = true;
+
+                if (orderInProg) {
+                    if (getSupportActionBar() != null) {
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                        getSupportActionBar().setHomeButtonEnabled(false);
+                    }
+                }
+                else {
+                    if (getSupportActionBar() != null) {
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                        getSupportActionBar().setHomeButtonEnabled(true);
+                    }
+                }
             }
 
             @Override
@@ -54,7 +71,22 @@ public class OrdersActivity extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                if (email.equals(dataSnapshot.child("email").getValue(String.class))) {
+                    orderInProg = false;
+                }
 
+                if (orderInProg) {
+                    if (getSupportActionBar() != null) {
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                        getSupportActionBar().setHomeButtonEnabled(false);
+                    }
+                }
+                else {
+                    if (getSupportActionBar() != null) {
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                        getSupportActionBar().setHomeButtonEnabled(true);
+                    }
+                }
             }
 
             @Override
@@ -73,9 +105,23 @@ public class OrdersActivity extends AppCompatActivity {
 
     }
 
+    /*
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+    }
+
+     */
+
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
+        if (!orderInProg) {
+            super.onBackPressed();
+        }
+        else {
+            //do nothing
+            Toast toast = Toast.makeText(getApplicationContext(), "Cannot make new order while order is in progress", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 }
