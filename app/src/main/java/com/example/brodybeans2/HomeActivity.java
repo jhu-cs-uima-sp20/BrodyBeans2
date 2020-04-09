@@ -1,10 +1,10 @@
 package com.example.brodybeans2;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,31 +13,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
     private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mMessagesDatabaseReference;
+    private DatabaseReference mUsersDatabaseReference;
+    private ChildEventListener mChildEventListener;
 
     private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
-    private static final int RC_SIGN_IN = 1;
 
-    private String mUsername;
+    private User mUser;
+    private String userId;
 
     private Button newOrderBtn;
     private TextView welcomeMsg;
@@ -50,34 +45,50 @@ public class HomeActivity extends AppCompatActivity {
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
+        userId = mFirebaseAuth.getCurrentUser().getUid();
+        mUsersDatabaseReference = mFirebaseDatabase.getInstance().getReference().child("users");
 
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+        welcomeMsg = (TextView) findViewById(R.id.welcome_msg);
+
+        mChildEventListener = new ChildEventListener() {
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    if (user.getUid().equals("0ZGJZEbHdYOB5myO9PbWl1f1RR92")) {
-                        Intent intent = new Intent(HomeActivity.this, CafeHomeActivity.class);
-                        finish();
-                        startActivity(intent);
-                    } else {
-                        //user is signed in
-                        OnSignedInInitialize(user.getDisplayName());
-                        //Toast.makeText(HomeActivity.this, "You are now signed in",
-                        //Toast.LENGTH_SHORT).show();
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Log.d("USER ID user", dataSnapshot.child("userID").getValue(String.class));
+                Log.d("USER ID auth", userId);
+                if (dataSnapshot.child("userID").getValue(String.class).equals(userId)) {
+                    mUser = new User(userId,
+                            dataSnapshot.child("fullName").getValue(String.class),
+                            dataSnapshot.child("email").getValue(String.class),
+                            dataSnapshot.child("phoneNumber").getValue(String.class));
 
-                        welcomeMsg = (TextView) findViewById(R.id.welcome_msg);
-                        welcomeMsg.setText("Welcome, " + mUsername + "!");
-                    }
-                }
-                else {
-                    //user is signed out
-                    OnSignedOutCleanup();
-                    createSignInIntent();
-
+                    welcomeMsg.setText("Welcome, " +  mUser.getFullName() + "!");
                 }
             }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
         };
+        mUsersDatabaseReference.addChildEventListener(mChildEventListener);
+
+
+
 
         newOrderBtn = (Button) findViewById(R.id.new_order_btn);
         newOrderBtn.setOnClickListener(new View.OnClickListener() {
@@ -88,87 +99,16 @@ public class HomeActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
-
-
-    }
-
-    public void createSignInIntent() {
-        // [START auth_fui_create_intent]
-        // Choose authentication providers
-        List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build());
-
-        // Create and launch sign-in intent
-        startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setIsSmartLockEnabled(false)
-                        .setAvailableProviders(providers)
-                        .build(),
-                RC_SIGN_IN);
-        // [END auth_fui_create_intent]
-    }
-
-    // [START auth_fui_result]
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_SIGN_IN) {
-            IdpResponse response = IdpResponse.fromResultIntent(data);
-
-            if (resultCode == RESULT_OK) {
-                // Successfully signed in
-                //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                // ...
-            } else {
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
-                Toast.makeText(this, "Sign in cancelled", Toast.LENGTH_LONG).show();
-                finish();
-            }
-        }
-    }
-    // [END auth_fui_result]
-
-    public void signOut() {
-        // [START auth_fui_signout]
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // ...
-                    }
-                });
-        // [END auth_fui_signout]
-    }
-
-    //can delete users account completely if we want to
-    public void delete() {
-        // [START auth_fui_delete]
-        AuthUI.getInstance()
-                .delete(this)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // ...
-                    }
-                });
-        // [END auth_fui_delete]
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
     }
 
     @Override
@@ -185,7 +125,7 @@ public class HomeActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //Menu options
         if (id == R.id.cart) {
             context = getApplicationContext();
             PreferenceManager.getDefaultSharedPreferences(context).edit().clear().apply();
@@ -194,24 +134,22 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_settings) {
             signOut();
-            //Toast.makeText(HomeActivity.this, "Signed Out", Toast.LENGTH_LONG).show();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    public void signOut() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(HomeActivity.this, LogInActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public void openMenuActivity() {
         Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
-    }
-
-    public void OnSignedInInitialize(String username) {
-        mUsername = username;
-    }
-
-    public void OnSignedOutCleanup() {
-        mUsername = "user";
     }
 
 }

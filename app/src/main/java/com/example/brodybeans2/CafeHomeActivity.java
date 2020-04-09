@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -116,15 +117,9 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
     }
 
     public void signOut() {
-        // [START auth_fui_signout]
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // ...
-                    }
-                });
-        // [END auth_fui_signout]
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(CafeHomeActivity.this, LogInActivity.class);
+        startActivity(intent);
         finish();
     }
 

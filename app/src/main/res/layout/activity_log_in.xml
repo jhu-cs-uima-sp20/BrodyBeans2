@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#271509"
+    tools:context=".LogInActivity"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/logo_image"
+        android:layout_width="150dp"
+        android:layout_height="108dp"
+        app:srcCompat="@drawable/logo"
+        android:transitionName="logo_image"/>
+
+    <TextView
+        android:id="@+id/logo_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello there, Welcome Back"
+        android:textSize="40sp"
+        android:textColor="@color/colorAccent"
+        android:transitionName="logo_text"/>
+
+    <TextView
+        android:id="@+id/slogan_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign In to continue"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:transitionName="logo_greeting"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/log_in_email"
+            android:hint="Email"
+            android:textColorHint="@color/colorPrimary"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:transitionName="phone_number_tran">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/password"
+            android:hint="Password"
+            android:textColorHint="@color/colorPrimary"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorPrimary"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:transitionName="password_tran">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textColor="@color/colorPrimary"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:layout_gravity="right"
+        android:elevation="0dp"
+        android:layout_margin="5dp"
+        android:text="FORGET PASSWORD?"
+        android:textColor="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/go"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GO"
+        android:background="@color/colorAccent"
+        android:textColor="#fff"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:transitionName="button_tran"/>
+
+    <Button
+        android:id="@+id/signup_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:layout_gravity="right"
+        android:elevation="0dp"
+        android:layout_margin="5dp"
+        android:text="NEW USER? SIGNUP"
+        android:textColor="@color/colorPrimary"
+        android:transitionName="login_signup_tran"/>
+
+    <ProgressBar
+        android:id="@+id/log_in_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:visibility="invisible" />
+
+
+</LinearLayout>
