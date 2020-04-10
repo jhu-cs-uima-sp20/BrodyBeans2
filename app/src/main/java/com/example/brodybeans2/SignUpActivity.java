@@ -81,6 +81,10 @@ public class SignUpActivity extends AppCompatActivity {
                     mPhoneNumber.setError("Must match form xxx-xxx-xxxx.");
                     return;
                 }
+                if (phoneNumber.length() > 10) {
+                    mPhoneNumber.setError("Invalid phone number.");
+                    return;
+                }
 
                 if (TextUtils.isEmpty(password)) {
                     mPassword.setError("Password is required.");

@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-20dp"
+        android:fontFamily="@font/happy_monkey"
         android:text="Welcome"
         android:textColor="@color/colorAccent"
         android:textSize="40sp"
@@ -27,6 +28,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/happy_monkey"
         android:text="SignUp to start the grind"
         android:textColor="@color/colorPrimary"
         android:textSize="18dp"
@@ -50,6 +52,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/happy_monkey"
                 android:inputType="text"
                 android:textColor="@color/colorPrimary" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -68,6 +71,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/happy_monkey"
                 android:inputType="text"
                 android:textColor="@color/colorPrimary" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -83,6 +87,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/happy_monkey"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/colorPrimary" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -101,6 +106,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/happy_monkey"
                 android:inputType="textPassword"
                 android:textColor="@color/colorPrimary" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -112,6 +118,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
+        android:fontFamily="@font/happy_monkey"
         android:text="GO"
         android:textColor="@color/colorPrimary"
         android:transitionName="button_tran" />
@@ -121,6 +128,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#00000000"
+        android:fontFamily="@font/happy_monkey"
         android:text="ALREADY HAVE AN ACCOUNT? LOGIN"
         android:textColor="@color/colorPrimary"
         android:transitionName="login_signup_tran" />
