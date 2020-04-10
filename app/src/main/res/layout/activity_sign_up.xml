@@ -4,25 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity"
-    android:orientation="vertical"
     android:background="@color/colorPrimaryDark"
-    android:padding="20dp">
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".SignUpActivity">
 
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/logo"
-        android:transitionName="logo_image"/>
+        android:transitionName="logo_image" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-20dp"
         android:text="Welcome"
+        android:textColor="@color/colorAccent"
         android:textSize="40sp"
-        android:transitionName="logo_text"
-        android:textColor="@color/colorAccent"/>
+        android:transitionName="logo_text" />
 
     <TextView
         android:layout_width="match_parent"
@@ -35,23 +35,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Full Name"
-            android:textColorHint="@color/colorPrimary"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:textColorHint="@color/colorPrimary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -74,35 +74,35 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/sign_up_email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:textColorHint="@color/colorPrimary"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:textColorHint="@color/colorPrimary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
             android:textColorHint="@color/colorPrimary"
+            android:transitionName="password_tran"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/colorPrimary"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:transitionName="password_tran">
+            app:passwordToggleTint="@color/colorPrimary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
@@ -111,19 +111,19 @@
         android:id="@+id/register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GO"
         android:background="@color/colorAccent"
+        android:text="GO"
         android:textColor="@color/colorPrimary"
-        android:transitionName="button_tran"/>
+        android:transitionName="button_tran" />
 
     <Button
         android:id="@+id/login_screen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ALREADY HAVE AN ACCOUNT? LOGIN"
         android:background="#00000000"
+        android:text="ALREADY HAVE AN ACCOUNT? LOGIN"
         android:textColor="@color/colorPrimary"
-        android:transitionName="login_signup_tran"/>
+        android:transitionName="login_signup_tran" />
 
     <ProgressBar
         android:id="@+id/sign_up_progress_bar"
