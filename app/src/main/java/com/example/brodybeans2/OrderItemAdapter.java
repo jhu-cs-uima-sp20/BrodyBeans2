@@ -47,3 +47,4 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         return mItemList.size();
     }
 }
+

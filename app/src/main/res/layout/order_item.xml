@@ -40,15 +40,17 @@
                     android:textSize="36sp"
                     android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView"
+                    app:layout_constraintEnd_toStartOf="@+id/deleteItem"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+
+                <ImageButton
+                    android:id="@+id/deleteItem"
+                    android:layout_width="121dp"
+                    android:layout_height="80dp"
                     android:layout_marginEnd="16dp"
                     android:layout_weight="1"
+                    android:background="@color/colorPrimary"
                     android:contentDescription="@string/noimagefound"
                     android:paddingStart="8dp"
                     android:paddingTop="14dp"
@@ -56,6 +58,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0"
                     app:srcCompat="@android:drawable/presence_offline" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,15 +1,13 @@
 package com.example.brodybeans2;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,7 +25,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 public class CartActivity extends AppCompatActivity {
@@ -48,6 +45,7 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private static ArrayList<OrderItem> itemList;
     private static boolean listInitialized;
+    private ImageButton deleteItem;
 
     private static Integer orderNumber;
 
@@ -106,14 +104,43 @@ public class CartActivity extends AppCompatActivity {
         //code added to bring user back to menu category page when add another item btn clicked
         addItem = (Button) findViewById(R.id.new_order_btn);
         addItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), MenuActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+
+
+        deleteItem = (ImageButton) findViewById(R.id.deleteItem);
+         /*
+        deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MenuActivity.class);
-                startActivity(intent);
+                //int position = mAdapter.getAdapterPosition();
+                removeAt(0);
+            }
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+            }
+        });
+        deleteItem = (ImageButton) findViewById(R.id.deleteItem);
+        deleteItem.setOnClickListener {
+            public void onClick(@NonNull RecyclerView.ViewHolder viewHolder) {
+                int position = orderItemHolder.getAdapterPosition();
+                OrderItem o = itemList.remove(position);
+                mAdapter.notifyItemRemoved(position);
+
             }
         });
 
-        nChildEventListener = new ChildEventListener() {
+ */
+
+
+
+
+            nChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 orderNumber =  dataSnapshot.getValue(Integer.class);
@@ -155,6 +182,7 @@ public class CartActivity extends AppCompatActivity {
         //mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new OrderItemAdapter(itemList);
+        //orderItemAdapter = new OrderItemAdapter(itemList);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
@@ -183,5 +211,11 @@ public class CartActivity extends AppCompatActivity {
     private void dbIncreaseOrderNumber() {
         orderNumber++;
         nOrdersDatabaseReference.child("num").setValue(orderNumber);
+    }
+
+    private void removeAt(int position) {
+        itemList.remove(position);
+        mAdapter.notifyItemRemoved(position);
+        //notifyItemRangeChanged(position, mDataSet.size());
     }
 }
