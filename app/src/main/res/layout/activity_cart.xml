@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,15 +10,15 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark">
-
+        android:layout_height="487dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:isScrollContainer="false"
             android:orientation="vertical"
-            android:background="@color/colorPrimaryDark">
+            android:scrollbarStyle="insideOverlay">
 
             <TextView
                 android:id="@+id/your_order_msg"
@@ -34,31 +35,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:background="@color/colorPrimary" />
+                android:isScrollContainer="true"
+                android:scrollbarStyle="insideOverlay"
+                android:scrollbars="vertical">
 
+            </androidx.recyclerview.widget.RecyclerView>
 
             <Button
                 android:id="@+id/new_order_btn"
-                android:layout_width="82dp"
-                android:layout_height="76dp"
-                android:layout_marginTop="42dp"
-                android:background="@mipmap/pluss_foreground"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:maxWidth="42dp"
-                android:maxHeight="42dp"
+                android:layout_marginStart="186dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="185dp"
+                android:background="@mipmap/pluss_foreground"
+                android:isScrollContainer="false"
                 android:scaleType="fitCenter" />
 
-            <Button
-                android:id="@+id/place_order_btn"
-                android:layout_width="131dp"
-                android:layout_height="68dp"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_marginTop="42dp"
-                android:background="@color/colorAccent"
-                android:text="@string/place_order" />
 
         </LinearLayout>
     </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/place_order_btn"
+            android:layout_width="131dp"
+            android:layout_height="68dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginStart="140dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/colorAccent"
+            android:text="@string/place_order"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </LinearLayout>
