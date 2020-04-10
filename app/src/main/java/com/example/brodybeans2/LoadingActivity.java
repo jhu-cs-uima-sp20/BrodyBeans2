@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 public class LoadingActivity<animation> extends AppCompatActivity {
 
-    private static int SPLASH_SCREEN = 5000;
+    private static int SPLASH_SCREEN = 9000;
 
     private AnimationDrawable animation;
     private Animation topAnim, bottomAnim;
@@ -34,7 +34,7 @@ public class LoadingActivity<animation> extends AppCompatActivity {
         meme = (ImageView)findViewById(R.id.coffee_anim);
         animation = (AnimationDrawable)meme.getDrawable();
 
-        animation.start();
+        animation.setOneShot(false);
 
         //Animation
         topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
@@ -46,6 +46,12 @@ public class LoadingActivity<animation> extends AppCompatActivity {
         name.setAnimation(topAnim);
         slogan.setAnimation(bottomAnim);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        animation.start();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
