@@ -108,7 +108,9 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                           if (task.isSuccessful()) {
+                              /*
                               Toast.makeText(SignUpActivity.this, "User Created", Toast.LENGTH_SHORT).show();
+                               */
                               Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
                               userID = fAuth.getCurrentUser().getUid();
 

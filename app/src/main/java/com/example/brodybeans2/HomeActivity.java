@@ -116,8 +116,10 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openMenuActivity();
-                Toast.makeText(HomeActivity.this, "Button Clicked",
+                /*Toast.makeText(HomeActivity.this, "Button Clicked",
                         Toast.LENGTH_SHORT).show();
+
+                 */
             }
         });
 

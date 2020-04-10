@@ -91,7 +91,9 @@ public class LogInActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            /*
                             Toast.makeText(LogInActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
+                             */
                             if (fAuth.getCurrentUser().getUid().equals("tTrf1lio89S1SVI2tiiYAvxZqLG2")) {
                                 Intent intent = new Intent(LogInActivity.this, CafeHomeActivity.class);
                                 startActivity(intent);

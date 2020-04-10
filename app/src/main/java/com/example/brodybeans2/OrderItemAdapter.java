@@ -32,7 +32,9 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         @Override
         public void onClick(View v) {
             delete(getAdapterPosition()); //calls the method above to delete
+            /*
             Toast.makeText(v.getContext(), "Delete Button Clicked",Toast.LENGTH_SHORT).show();
+             */
         }
 
     }
