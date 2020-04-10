@@ -203,8 +203,6 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
             Log.d("IS IT OPEN?", "YES");
         }
 
-        Toast.makeText(CafeHomeActivity.this, "Order Paid", Toast.LENGTH_SHORT).show();
-
         //mRecyclerView.setLayoutManager(mLayoutManager);
         //mRecyclerView.setAdapter(orderItemAdapter);
 
