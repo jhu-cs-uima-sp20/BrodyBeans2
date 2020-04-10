@@ -85,26 +85,26 @@ public class OrdersActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                orderNum =  dataSnapshot.getValue(Integer.class);
+                //orderNum =  dataSnapshot.getValue(Integer.class);
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 if (email.equals(dataSnapshot.child("email").getValue(String.class))) {
                     orderInProg = false;
-                    //thanksText.setVisibility(View.INVISIBLE);
-                    orderPlacedText.setVisibility(View.INVISIBLE);
+                    //thanksText.setVisibility(View.INVISIBLE)
                     orderNumberMessage.setVisibility(View.INVISIBLE);
                     orderNumberText.setVisibility(View.INVISIBLE);
-                    thanksText.setText("Your order has been paid \n\nClick the back button to place a new one!");
+                    orderPlacedText.setText("Click the back button to place a new one!");
+                    orderPlacedText.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    thanksText.setText("Your order has been paid. \n\n");
+                    orderNum = 0;
+                    if (getSupportActionBar() != null) {
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                        getSupportActionBar().setHomeButtonEnabled(true);
+                    }
                 }
                 PreferenceManager.getDefaultSharedPreferences(OrdersActivity.this).edit().putString("status", Boolean.toString(orderInProg)).apply();
-                if (getSupportActionBar() != null) {
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                    getSupportActionBar().setHomeButtonEnabled(true);
-                }
-                orderNum = 0;
-
             }
 
             @Override
