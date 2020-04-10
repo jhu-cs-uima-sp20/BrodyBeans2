@@ -16,7 +16,6 @@
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowContentTransitions">true</item>
         <item name="android:fontFamily">@font/happy_monkey</item>
         <item name="android:actionBarStyle">@font/happy_monkey</item>
     </style>
