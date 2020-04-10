@@ -46,8 +46,8 @@
 
                 <ImageButton
                     android:id="@+id/deleteItem"
-                    android:layout_width="121dp"
-                    android:layout_height="80dp"
+                    android:layout_width="122dp"
+                    android:layout_height="75dp"
                     android:layout_marginEnd="16dp"
                     android:layout_weight="1"
                     android:background="@color/colorPrimary"

@@ -13,11 +13,11 @@
     <string name="cart">Cart</string>
     <string name="new_order" translatable="false">New Order:</string>
     <string name="menu">Menu</string>
-    <string name="espresso_text">espresso</string>
-    <string name="nonespresso_btn">non espresso</string>
-    <string name="blendedBev_btn">blended beverage</string>
-    <string name="breakfast_btn">breakfast</string>
-    <string name="other_btn">other</string>
+    <string name="espresso_text">Espresso</string>
+    <string name="nonespresso_btn">Non Espresso</string>
+    <string name="blendedBev_btn">Blended Beverage</string>
+    <string name="breakfast_btn">Breakfast</string>
+    <string name="other_btn">Other</string>
     <string name="plus">+</string>
     <string name="welcome_user">Welcome, user!</string>
     <string name="add_item">Add Item</string>
