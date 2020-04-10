@@ -81,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
                     mPhoneNumber.setError("Must match form xxx-xxx-xxxx.");
                     return;
                 }
-                if (phoneNumber.length() > 10) {
+                if (phoneNumber.length() > 12) {
                     mPhoneNumber.setError("Invalid phone number.");
                     return;
                 }
