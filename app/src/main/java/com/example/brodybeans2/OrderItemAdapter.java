@@ -3,7 +3,9 @@ package com.example.brodybeans2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,19 +16,34 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
     private ArrayList<OrderItem> mItemList;
 
-    public static class OrderItemHolder extends RecyclerView.ViewHolder {
+
+    public class OrderItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView orderTextView;
+        public ImageButton deleteItem;
 
         public OrderItemHolder(View itemView) {
             super(itemView);
-            //TODO edit this
             orderTextView = itemView.findViewById(R.id.itemTextView);
+            deleteItem = itemView.findViewById(R.id.deleteItem);
+            deleteItem.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            delete(getAdapterPosition()); //calls the method above to delete
+            Toast.makeText(v.getContext(), "Delete Button Clicked",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public OrderItemAdapter(ArrayList<OrderItem> itemList) {
         mItemList = itemList;
+    }
+
+    public void delete(int position) { //removes the row
+        mItemList.remove(position);
+        notifyItemRemoved(position);
     }
 
     @Override
@@ -46,5 +63,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     public int getItemCount() {
         return mItemList.size();
     }
+
+
 }
 

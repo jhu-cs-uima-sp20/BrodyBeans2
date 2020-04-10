@@ -112,34 +112,6 @@ public class CartActivity extends AppCompatActivity {
             });
 
 
-
-        deleteItem = (ImageButton) findViewById(R.id.deleteItem);
-         /*
-        deleteItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //int position = mAdapter.getAdapterPosition();
-                removeAt(0);
-            }
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getAdapterPosition();
-            }
-        });
-        deleteItem = (ImageButton) findViewById(R.id.deleteItem);
-        deleteItem.setOnClickListener {
-            public void onClick(@NonNull RecyclerView.ViewHolder viewHolder) {
-                int position = orderItemHolder.getAdapterPosition();
-                OrderItem o = itemList.remove(position);
-                mAdapter.notifyItemRemoved(position);
-
-            }
-        });
-
- */
-
-
-
-
             nChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
