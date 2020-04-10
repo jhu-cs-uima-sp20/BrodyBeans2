@@ -76,9 +76,15 @@ public class CartActivity extends AppCompatActivity {
                 FirebaseUser user = mFirebaseAuth.getCurrentUser();
                 Order order = new Order(itemList, user.getEmail(), orderNumber);
 
+                if (itemList.isEmpty()) {
+                    Toast.makeText(CartActivity.this, "Can't place an empty order!",
+                            Toast.LENGTH_SHORT).show();
+                }
+
                 if (!itemList.isEmpty()) {
                     dbIncreaseOrderNumber();
-                }
+
+
 
                 mOrdersDatabaseReference.push().setValue(order);
 
@@ -92,6 +98,7 @@ public class CartActivity extends AppCompatActivity {
                 PreferenceManager.getDefaultSharedPreferences(context).edit().clear().apply();
                 buildRecyclerView();
 
+                }
 
             }
 
