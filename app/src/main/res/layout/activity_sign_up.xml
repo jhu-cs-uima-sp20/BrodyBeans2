@@ -47,7 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Full Name"
-            android:textColorHint="@color/colorPrimary">
+            android:textColorHint="@color/colorPrimary"
+            android:theme="@style/EditTextTheme">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -66,7 +67,8 @@
             android:textColorHint="@color/colorPrimary"
             android:transitionName="phone_number_tran"
             app:counterTextAppearance="@style/CounterStyle"
-            app:passwordToggleTint="@color/colorPrimary">
+            app:passwordToggleTint="@color/colorPrimary"
+            android:theme="@style/EditTextTheme">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -82,7 +84,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:textColorHint="@color/colorPrimary">
+            android:textColorHint="@color/colorPrimary"
+            android:theme="@style/EditTextTheme">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -101,7 +104,8 @@
             android:textColorHint="@color/colorPrimary"
             android:transitionName="password_tran"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/colorPrimary">
+            app:passwordToggleTint="@color/colorPrimary"
+            android:theme="@style/EditTextTheme">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
