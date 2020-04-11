@@ -59,7 +59,7 @@ public class LoadingActivity<animation> extends AppCompatActivity {
                 Pair[] pairs = new Pair[2];
                 pairs[0] = new Pair<View,String>(meme, "logo_image");
                 pairs[1] = new Pair<View,String>(name, "logo_text");
-
+                animation.stop();
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoadingActivity.this,pairs);
                     startActivity(intent, options.toBundle());

@@ -50,7 +50,8 @@
             android:hint="Email"
             android:textColorHint="@color/colorPrimary"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:transitionName="phone_number_tran">
+            android:transitionName="phone_number_tran"
+            android:theme="@style/EditTextTheme">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -69,7 +70,8 @@
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorPrimary"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:transitionName="password_tran">
+            android:transitionName="password_tran"
+            android:theme="@style/EditTextTheme">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
