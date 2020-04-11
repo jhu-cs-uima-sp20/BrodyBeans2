@@ -1,0 +1,107 @@
+Hello Simon and Joanne, we hope you enjoy our app!
+
+existing log ins and passwords:
+-brody cafe log in:
+    -username: brody@jhu.edu
+    -password: brody1
+-customer 1:
+    -username: szeng7@jhu.edu
+    -password: jcanedy1
+-customer 2:
+    -username: jspecter@jhu.edu
+    -password: jcanedy1
+
+-----------------------------------------
+
+**fyi before you run the app, you might want to load it on two or more emulators,
+  one for the brody cafe side, and another (or two others) for the customers. As you'll
+  read later in this file, if you place an order as a customer, it locks your screen so
+  you can only have one order in progress at a time (which is why you'll need the cafe
+  to unlock it).
+
+
+features that have been included are:
+-A loading screen with a cute animation (please wait while our app loads and enjoy
+ the coffee brew). This was throwing a memory error on Jerry's computer, but not on
+ Abby's, Justin's and Hannah's, so if it throws an error for you, please let us know
+ and switch the landing page to the LogInActivity.
+-A sign up page for new customers (once the customer creates his/her account, the
+ user is added to the database)
+-A log in page for existing customers (clicking on "forgot password" button will
+ do nothing)
+
+    customer side (once logged in):
+    -a home page:
+        -if the user clicks the "+" (new order) button, he/she
+         is taken to the menu page
+        -clicking on any four of the "favorites" buttons will not
+         do anything
+        -in the top right corner there is an option to sign out, and takes user
+         back to log in screen when pressed
+        -in the top right corner there is a cart, which takes user to their cart
+         when pressed
+    -a menu page:
+        -a user may click on any of the category items they see and will be taken
+         to the cart when they do. Said item will be added to the bottom of the list
+         on the cart pag
+        -back arrow in toolbar allows the user to travel back to the home page
+    -a cart page:
+        -a user can click the big white "+" button below the list of items to be taken
+         back to the menu page where they can select another item and add it to the list
+        -a user can click the "x" button next to individual items in the list to delete
+         designated item from the list
+        -a user can click the "place order" button, taking them to the orders page. Upon
+         click, an Order object is created and is added to the database. This order also
+         gets added to the list on the cafe side
+        -back arrow in toolbar goes back to the previous activity
+     -an orders page:
+        -this screen shows the user his/her order number
+        -the back arrow in toolbar disappears until the brody cafe side swipes the order
+         away (on their list), implying it was paid. The back arrow on the phone itself
+         is also disabled until the order is paid
+        -once the order has been paid, as indicated (swiped) by cafe, the arrows take
+         the user back to the cart page
+
+    brody cafe side (once logged in):
+    -a list of orders (the cafe sees the order number, and can expand the drop
+     down to see the contents of the order)
+    -swipe function on each order (to the left) to delete the order from the
+     list(this implies the order has just been paid)
+    -swipe function removes the order from the database
+    -sign out button in top right corner logs user out
+
+
+-----------------------------------------
+
+Log of our meetings:
+
+Date	Duration	notes
+2/12	15 min	    discussed survey topics and preliminary questions
+2/19	15 min	    Jerry joined team K! We caught him up on our current goals and plan
+2/20	1hr 30min	created survey, rough design outline for app, discussed potential of switching
+                    to a different idea
+2/21	1 hr	    met with simon, walked through different app layouts, decided on the coffee
+                    mobile order app
+2/23	30 min	    finalized and sent out new survey, starting brainstorming our app layout,
+                    planned interviews
+2/26	1 hr 30min	drew out wire frames of our app, spilt up how we are going to finish the
+
+3/12	1 hr	    Team K meeting with Joanne and Simon to review and discuss design elements
+                    and implementation
+3/22	30 min 	    Make project board
+3/24	30 min	    set up github via zoom
+3/26	1 hr	    hop on zoom and talked about how we plan on splitting up tasks
+4/1	    1.5 hr	    ran into some conflicts and issues with our github -- worked together and
+                    made a new github repo
+4/2	    10 min	    did a 10 min check in to see where we were at in our sprint
+4/4	    30 min	    did a 30 min check in to reassign tasks and assess what we still needed to
+                    work on
+4/5	    2 hr	    met up to record presentation -- took lots of attempts
+4/6	    30 min	    rerecorded our presentation
+4/7	    20 min      re recorded jerrys part of the assignments
+4/7	    20 min	    sent weekly update to simon
+4/8	    1.5 hr 	    met up to check progress and make the changes that simon suggested fr sprint one
+4/10	1 hr 	    met up to compile work and finish README
+
+
+xoxo, team K
