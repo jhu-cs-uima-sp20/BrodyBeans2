@@ -157,8 +157,13 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(this, CartActivity.class);
             startActivity(intent);
             return true;
-        } else if (id == R.id.action_settings) {
+        }
+        else if (id == R.id.action_settings) {
             signOut();
+            return true;
+        }
+        else if (id == R.id.settings) {
+            settings();
             return true;
         }
 
@@ -170,6 +175,12 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(HomeActivity.this, LogInActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void settings() {
+        Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+        startActivity(intent);
+        //finish();
     }
 
     public void openMenuActivity() {
