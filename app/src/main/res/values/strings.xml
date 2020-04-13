@@ -32,6 +32,7 @@
     <string name="order_placed">Your order has been placed</string>
     <string name="order_msg">Your order number:</string>
     <string name="order_num">0</string>
+    <string name="settings">Settings</string>
 
 
 </resources>
