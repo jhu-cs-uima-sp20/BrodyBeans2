@@ -36,7 +36,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 context = getApplicationContext();
                 PreferenceManager.getDefaultSharedPreferences(context).edit().putString("category", "Espresso").apply();
-                Intent intent = new Intent(v.getContext(), CartActivity.class);
+                Intent intent = new Intent(v.getContext(), Customization.class);
                 startActivity(intent);
             }
         });
