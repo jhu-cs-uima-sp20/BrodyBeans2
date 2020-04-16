@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Customization"></activity>
+        <activity android:name=".Specific_Menu"></activity>
+        <activity android:name=".Customization" />
         <activity
             android:name=".SignUpActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".LoadingActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -27,7 +28,7 @@
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".LogInActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".HomeActivity" />
         <activity
             android:name=".MenuActivity"
@@ -48,7 +49,7 @@
         <activity
             android:name=".OrdersActivity"
             android:label="My Order"
-            android:parentActivityName=".OrdersActivity"></activity>
+            android:parentActivityName=".OrdersActivity" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/settings"
