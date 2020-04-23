@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.Adapter;
@@ -27,8 +28,11 @@ public class Specific_Menu extends AppCompatActivity {
     // this is hard coded
     private ArrayList<String> espresso;
     private ArrayList<String> menuCat;
-    private static ArrayList<String> nonEspresso = new ArrayList<>(Arrays.asList("drip coffee", "coffee refill", " chai tea latter" , "London Fog" ));
-    private  ArrayList<String> breakfast;
+    private static ArrayList<String> nonEspresso = new
+            ArrayList<>(Arrays.asList("Drip Coffee", "Coffee Refill",
+            "Chai Tea Latte" , "London Fog", "Hot Tea","Hot Chocolate", "Steamer", "Iced Coffee", "Iced Tea" ));
+    private static ArrayList<String> breakfast = new ArrayList<>(Arrays.asList("Bagel w/ Cream Cheese" , "Bagel w/ Butter or Jelly",
+            "Bagel w/ Hummus", "Egg & cheese"));
     private ArrayList<String> blendBev;
     private HashMap<String,  ArrayList<String>> menu;
 
@@ -57,18 +61,16 @@ public class Specific_Menu extends AppCompatActivity {
            // menu.put("Blended Beverage",blendBev);
 
 
-
-
         super.onCreate(savedInstanceState);
-
+        SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("category", null);
-        System.out.print("\n\n\n\n\n" + cat);
+        System.out.print("saved pref is   " + cat);
         if (cat != null) {
             menuCat = menu.get(cat);
             //System.out.print(menuCat);
         }
         setContentView(R.layout.activity_specific__menu);
-
+        buildRecyclerView();
 
 
     }

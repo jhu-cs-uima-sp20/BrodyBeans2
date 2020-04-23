@@ -162,7 +162,9 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void insertItem() {
-        String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("category", null);
+        //SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        //String cat = sharedPreferences.getString("item", "no item??");
+        String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("item", null);
         if (cat != null) {
             itemList.add(new OrderItem(cat));
         }

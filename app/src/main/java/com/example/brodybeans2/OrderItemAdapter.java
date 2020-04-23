@@ -36,7 +36,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             Toast.makeText(v.getContext(), "Delete Button Clicked",Toast.LENGTH_SHORT).show();
              */
         }
-
     }
 
     public OrderItemAdapter(ArrayList<OrderItem> itemList) {
