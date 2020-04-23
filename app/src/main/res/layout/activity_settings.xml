@@ -68,6 +68,18 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Button
+        android:id="@+id/change_name_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="110dp"
+        android:background="@color/colorAccent"
+        android:text="@string/update_name"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary" />
+
     <TextView
         android:id="@+id/settings_password_title"
         android:layout_width="match_parent"
