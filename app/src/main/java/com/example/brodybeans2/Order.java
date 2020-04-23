@@ -6,6 +6,7 @@ public class Order {
     private ArrayList<OrderItem> order;
     private String email;
     private Integer orderNumber;
+    private Boolean inProg;
 
     public Order() {}
 
@@ -13,6 +14,7 @@ public class Order {
         this.order = order;
         this.email = user;
         this.orderNumber = orderNumber;
+        this.inProg = false;
     }
 
     public ArrayList<OrderItem> getOrder() {
@@ -27,6 +29,10 @@ public class Order {
         return orderNumber;
     }
 
+    public Boolean getProgressStatus() {
+        return inProg;
+    }
+
     public void setOrder(ArrayList<OrderItem> order) {
         this.order = order;
     }
@@ -37,5 +43,9 @@ public class Order {
 
     public void setEmail(String user) {
         this.email = user;
+    }
+
+    public void setProgressStatus(Boolean progress) {
+        this.inProg = progress;
     }
 }

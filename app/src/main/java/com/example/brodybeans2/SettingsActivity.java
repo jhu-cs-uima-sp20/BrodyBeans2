@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
@@ -20,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,17 +33,22 @@ public class SettingsActivity extends AppCompatActivity {
     private TextInputLayout mNewPassword, mNewUsername, mCurPassword;
     private Switch notifToggle;
     private Button updatePswd;
+    private Button updateName;
 
     //database fields
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mUsersDatabaseReference;
+    private DatabaseReference mUsersDatabaseReferenceName;
     private ChildEventListener mChildEventListener;
     private FirebaseAuth mFirebaseAuth;
 
     private String uID;
+    private String email;
+    private String phone;
     private String curUsername;
     private String curPassword;
     private String newPassword;
+    private String newName;
 
     private FirebaseUser user;
 
@@ -54,6 +62,7 @@ public class SettingsActivity extends AppCompatActivity {
         mCurPassword = findViewById(R.id.cur_password);
         mNewUsername = findViewById(R.id.new_username);
         updatePswd = findViewById(R.id.change_pswd_btn);
+        updateName = findViewById(R.id.change_name_btn);
 
         //get the current FireBase user-- idk if this is necessary
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -67,6 +76,11 @@ public class SettingsActivity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         uID = mFirebaseAuth.getCurrentUser().getUid();
+        email = mFirebaseAuth.getCurrentUser().getEmail();
+        phone = mFirebaseAuth.getCurrentUser().getPhoneNumber();
+
+        //String key = getIntent().getExtras().getKey().toString();
+        //mUsersDatabaseReferenceName = mFirebaseDatabase.getInstance().getReference().child("users");
         mUsersDatabaseReference = mFirebaseDatabase.getInstance().getReference().child("users");
 
 
@@ -167,8 +181,14 @@ public class SettingsActivity extends AppCompatActivity {
 
 
 
+        updateName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        //change it in the database and it should update automatically via ^
+            }
+        });
+
+
 
 
     }
@@ -181,5 +201,24 @@ public class SettingsActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    /*
+    public void nameUpdateClick(View view) {
+        mUsersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().child("fullName").setValue(newName);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+     */
+
+
 
 }
