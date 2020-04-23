@@ -1,10 +1,13 @@
 package com.example.brodybeans2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.widget.Adapter;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -16,11 +19,15 @@ import java.util.*;
 public class Specific_Menu extends AppCompatActivity {
 
     private Context context;
+    private RecyclerView specMenRecyclerView;
+    private RecyclerView.Adapter specMenAdapter;
+    private RecyclerView.LayoutManager specMenLayoutManager;
+
 
     // this is hard coded
     private ArrayList<String> espresso;
     private ArrayList<String> menuCat;
-    private ArrayList<String> nonEspresso;
+    private static ArrayList<String> nonEspresso = new ArrayList<>(Arrays.asList("drip coffee", "coffee refill", " chai tea latter" , "London Fog" ));
     private  ArrayList<String> breakfast;
     private ArrayList<String> blendBev;
     private HashMap<String,  ArrayList<String>> menu;
@@ -34,10 +41,9 @@ public class Specific_Menu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         context = getApplicationContext();
+        //jsut so not null will fix in a little
         espresso = new ArrayList<String>();
         espresso.add("coffee");
-        nonEspresso = new ArrayList<String>();
-        nonEspresso.add("tea");
         breakfast = new ArrayList<String>();
         breakfast.add("Bagel");
         blendBev = new ArrayList<String>();
@@ -54,12 +60,30 @@ public class Specific_Menu extends AppCompatActivity {
 
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_specific__menu);
 
         String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("category", null);
+        System.out.print("\n\n\n\n\n" + cat);
         if (cat != null) {
             menuCat = menu.get(cat);
+            //System.out.print(menuCat);
         }
+        setContentView(R.layout.activity_specific__menu);
+
+
+
+    }
+
+
+    public void buildRecyclerView() {
+        specMenRecyclerView =findViewById(R.id.specMenList);
+
+        //mRecyclerView.setHasFixedSize(true);
+        specMenLayoutManager = new LinearLayoutManager(this);
+        specMenAdapter = new specMenAdapter(menuCat);
+        //orderItemAdapter = new OrderItemAdapter(itemList);
+
+        specMenRecyclerView.setLayoutManager(specMenLayoutManager);
+        specMenRecyclerView.setAdapter(specMenAdapter);
 
     }
 }
