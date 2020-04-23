@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#271509"
+    android:orientation="vertical"
+    tools:context = ".Customization"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="171dp">
+
+            <CheckBox
+                android:id="@+id/hotCB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="120dp"
+                android:text="hot"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/icedCB"
+                app:layout_constraintHorizontal_bias="0.683"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <CheckBox
+                android:id="@+id/icedCB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="112dp"
+                android:text="iced"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.136" />
+
+            <CheckBox
+                android:id="@+id/smallCB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:text="small"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintEnd_toStartOf="@+id/mediumCB"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hotCB" />
+
+            <CheckBox
+                android:id="@+id/mediumCB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:text="medium"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintEnd_toStartOf="@+id/LargeCB"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/icedCB" />
+
+            <CheckBox
+                android:id="@+id/LargeCB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="88dp"
+                android:text="large"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/icedCB" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/modficationsTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Modifications"
+            android:textColor="@color/colorAccent" />
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/customInput"
+            android:layout_width="match_parent"
+            android:layout_height="186dp"
+            android:fontFamily="@font/happy_monkey"
+            android:textColor="@color/colorPrimary"
+            android:visibility="visible" />
+
+
+        <Button
+            android:id="@+id/addToCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/colorAccent"
+            android:fontFamily="@font/happy_monkey"
+            android:text="Add to cart "
+            android:textColor="#fff"
+            android:transitionName="button_tran" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
