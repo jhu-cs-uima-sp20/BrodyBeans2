@@ -26,14 +26,14 @@ public class Specific_Menu extends AppCompatActivity {
 
 
     // this is hard coded
-    private ArrayList<String> espresso;
     private ArrayList<String> menuCat;
+    private static ArrayList<String> espresso = new ArrayList<>(Arrays.asList("Americano","Latte", "Mocha","Red Eye","Cappuccino","Macchiato Traditional","Espresso","Dirty Chai"));
     private static ArrayList<String> nonEspresso = new
             ArrayList<>(Arrays.asList("Drip Coffee", "Coffee Refill",
             "Chai Tea Latte" , "London Fog", "Hot Tea","Hot Chocolate", "Steamer", "Iced Coffee", "Iced Tea" ));
     private static ArrayList<String> breakfast = new ArrayList<>(Arrays.asList("Bagel w/ Cream Cheese" , "Bagel w/ Butter or Jelly",
             "Bagel w/ Hummus", "Egg & cheese"));
-    private ArrayList<String> blendBev;
+    private static ArrayList<String> blendBev = new ArrayList<>(Arrays.asList("Mocha Java","Chocolate Chunk","Cookies & Cream","Toasted Coconut","Coffee Toffee","Java Chip", "Green Tea", "Fruit Smoothie"));
     private HashMap<String,  ArrayList<String>> menu;
 
     //espresso.add("latte");
@@ -46,19 +46,13 @@ public class Specific_Menu extends AppCompatActivity {
 
         context = getApplicationContext();
         //jsut so not null will fix in a little
-        espresso = new ArrayList<String>();
-        espresso.add("coffee");
-        breakfast = new ArrayList<String>();
-        breakfast.add("Bagel");
-        blendBev = new ArrayList<String>();
-        blendBev.add("Java Chip");
 
         menu = new HashMap<String, ArrayList<String>>();
 
-            //menu.put("Espresso",espresso);
+            menu.put("Espresso",espresso);
             menu.put("Non Espresso",nonEspresso);
-           // menu.put("Breakfast",breakfast);
-           // menu.put("Blended Beverage",blendBev);
+            menu.put("Breakfast",breakfast);
+            menu.put("Blended Beverage",blendBev);
 
 
         super.onCreate(savedInstanceState);
