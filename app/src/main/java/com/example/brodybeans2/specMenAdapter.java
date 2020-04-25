@@ -32,15 +32,20 @@ public class specMenAdapter extends RecyclerView.Adapter<specMenAdapter.specMenH
 
     // need to add items to the list
         private ArrayList<String> specMenItemList;
+    private Context cxt;
+    private Intent intent;
 
 
         public class specMenHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
             public TextView specMenTextView;
-            private Context context;
+
+
 
             public specMenHolder(View itemView) {
                 super(itemView);
+
+
                 specMenTextView = itemView.findViewById(R.id.specMenTextView);
                 //clickItem = itemView.findViewById(R.id.deleteItem);
                 specMenTextView.setOnClickListener(this);
@@ -48,26 +53,27 @@ public class specMenAdapter extends RecyclerView.Adapter<specMenAdapter.specMenH
 
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = sharedPreferences.edit();
+                //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                //SharedPreferences.Editor editor = sharedPreferences.edit();
                 //context = getApplicationContext();
                 //delete(getAdapterPosition()); //calls the method above to delete
 
                 //SharedPreferences app_preferences
                 String menItem = (String) specMenTextView.getText();
                 System.out.println("the item I want to add to cart is" + menItem);
-                editor.putString("item", menItem);
-                //PreferenceManager.getDefaultSharedPreferences(context).edit().putString("item", menItem ).apply();
+                //editor.putString("item", menItem);
+                PreferenceManager.getDefaultSharedPreferences(cxt).edit().putString("item", menItem ).apply();
                 Toast.makeText(v.getContext(), menItem,Toast.LENGTH_SHORT).show();
-
-                //Intent intent = new Intent(v.getContext(), CartActivity.class);
-                //startActivity(intent);
+                intent = new Intent(cxt, CartActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                cxt.startActivity(intent);
             }
 
         }
 
-        public specMenAdapter(ArrayList<String> specMenList) {
+        public specMenAdapter(ArrayList<String> specMenList, Context cxt) {
             specMenItemList = specMenList;
+            this.cxt = cxt;
         }
 
         public void delete(int position) { //removes the row

@@ -81,7 +81,7 @@ public class Specific_Menu extends AppCompatActivity {
 
         //mRecyclerView.setHasFixedSize(true);
         specMenLayoutManager = new LinearLayoutManager(this);
-        specMenAdapter = new specMenAdapter(menuCat);
+        specMenAdapter = new specMenAdapter(menuCat, context);
         //orderItemAdapter = new OrderItemAdapter(itemList);
 
         specMenRecyclerView.setLayoutManager(specMenLayoutManager);
