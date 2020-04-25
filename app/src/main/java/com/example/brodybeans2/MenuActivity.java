@@ -37,7 +37,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 context = getApplicationContext();
                 PreferenceManager.getDefaultSharedPreferences(context).edit().putString("category", "Espresso").apply();
-                Intent intent = new Intent(v.getContext(), Customization.class);
+                Intent intent = new Intent(v.getContext(), Specific_Menu.class);
                 startActivity(intent);
             }
         });
@@ -62,7 +62,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 context = getApplicationContext();
                 PreferenceManager.getDefaultSharedPreferences(context).edit().putString("category", "Blended Beverage").apply();
-                Intent intent = new Intent(v.getContext(), CartActivity.class);
+                Intent intent = new Intent(v.getContext(), Specific_Menu.class);
                 startActivity(intent);
             }
         });
@@ -75,7 +75,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 context = getApplicationContext();
                 PreferenceManager.getDefaultSharedPreferences(context).edit().putString("category", "Breakfast").apply();
-                Intent intent = new Intent(v.getContext(), CartActivity.class);
+                Intent intent = new Intent(v.getContext(), Specific_Menu.class);
                 startActivity(intent);
             }
         });
