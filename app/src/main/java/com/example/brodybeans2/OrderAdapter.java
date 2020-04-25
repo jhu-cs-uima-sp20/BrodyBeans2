@@ -4,8 +4,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolder>
 
         public TextView orderNumberView;
         public ImageView expandImageView;
+        public CheckBox checkBoxView;
         OnExpandListener onExpandListener;
 
         public OrderHolder(View itemView, OnExpandListener onExpandListener) {
@@ -28,14 +31,20 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolder>
             //TODO edit this
             orderNumberView = itemView.findViewById(R.id.order_num);
             expandImageView = itemView.findViewById(R.id.more_info);
+            checkBoxView = itemView.findViewById(R.id.checkBox);
             this.onExpandListener = onExpandListener;
 
             expandImageView.setOnClickListener(this);
+            checkBoxView.setOnClickListener(this);
         }
+
 
         @Override
         public void onClick(View view) {
-            if (expandImageView.getDrawable().getConstantState() == view.getResources().getDrawable(R.drawable.expand_arrow_closed).getConstantState()) {
+            if(checkBoxView != null && checkBoxView.isChecked()){
+                onExpandListener.onCheckboxClick(getAdapterPosition(), itemView, true);
+            }
+            else if (expandImageView.getDrawable().getConstantState() == view.getResources().getDrawable(R.drawable.expand_arrow_closed).getConstantState()) {
                 expandImageView.setImageResource(R.drawable.expand_arrow_opened);
                 onExpandListener.onExpandClick(getAdapterPosition(), itemView, false);
             } else {
@@ -69,5 +78,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolder>
 
     public interface OnExpandListener {
         void onExpandClick(int position, View view, boolean open);
+        void onCheckboxClick(int position, View view, boolean clicked);
     }
 }

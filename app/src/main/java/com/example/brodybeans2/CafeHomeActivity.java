@@ -172,6 +172,12 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
     }
 
     @Override
+    public void onCheckboxClick(int position, View view, boolean clicked) {
+        //do something
+        Toast.makeText(view.getContext(), "Testing",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void onExpandClick(int position, View view, boolean open) {
         //mRecyclerView = view.findViewById(R.id.more_view);
         ListView listView = view.findViewById(R.id.more_view);
