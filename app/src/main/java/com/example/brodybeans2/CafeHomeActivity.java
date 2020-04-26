@@ -12,28 +12,37 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.OnExpandListener {
 
@@ -94,11 +103,12 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
                 Integer num = dataSnapshot.child("orderNumber").getValue(Integer.class);
                 String email = dataSnapshot.child("email").getValue(String.class);
+                String key = dataSnapshot.getKey();
 
                 order.setEmail(email);
                 order.setOrderNumber(num);
                 order.setOrder(items);
-                order.setFirebaseKey(dataSnapshot.getKey());
+                order.setFirebaseKey(key);
 
                 orderList.add(order);
 
@@ -184,22 +194,13 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
     @Override
     public void onCheckboxClick(int position, View view, boolean clicked) {
-        CheckBox cbox = view.findViewById(R.id.checkBox);
-
+        //do something
         if (clicked) {
-            //send notification
             orderList.get(position).setProgressStatus(true);
             final int orderNumber = orderList.get(position).getOrderNumber();
             String key = orderList.get(position).getFirebaseKey();
 
             mOrdersDatabaseReference.child(key).child("progressStatus").setValue("true");
-
-
-
-            //update token?  19:43 in video
-            //updateToken(FirebaseInstanceId.getInstance().getToken());
-        } else {
-            //do nothing
         }
     }
 
