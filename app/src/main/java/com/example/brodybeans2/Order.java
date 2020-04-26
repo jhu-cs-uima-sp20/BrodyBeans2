@@ -7,7 +7,7 @@ public class Order {
     private String email;
     private Integer orderNumber;
     private Boolean inProg;
-    private Boolean paid;
+    private String firebaseKey;
 
     public Order() {}
 
@@ -16,7 +16,7 @@ public class Order {
         this.email = user;
         this.orderNumber = orderNumber;
         this.inProg = false;
-        this.paid = false;
+        this.firebaseKey = "";
     }
 
     public ArrayList<OrderItem> getOrder() {
@@ -51,11 +51,7 @@ public class Order {
         this.inProg = progress;
     }
 
-    public Boolean getPaid() {
-        return paid;
-    }
+    public String getFirebaseKey() { return firebaseKey; }
 
-    public void setPaid(Boolean paid) {
-        this.paid = paid;
-    }
+    public void setFirebaseKey(String fKey) { this.firebaseKey = fKey; }
 }

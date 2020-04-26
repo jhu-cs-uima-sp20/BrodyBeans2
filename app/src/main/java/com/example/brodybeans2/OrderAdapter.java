@@ -41,17 +41,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolder>
 
         @Override
         public void onClick(View view) {
-            if(checkBoxView != null && checkBoxView.isChecked()){
-                onExpandListener.onCheckboxClick(getAdapterPosition(), itemView, true);
+            if (view.equals(checkBoxView)) {
+                if (checkBoxView != null && checkBoxView.isChecked()) {
+                    onExpandListener.onCheckboxClick(getAdapterPosition(), itemView, true);
+                }
             }
-            else if (expandImageView.getDrawable().getConstantState() == view.getResources().getDrawable(R.drawable.expand_arrow_closed).getConstantState()) {
-                expandImageView.setImageResource(R.drawable.expand_arrow_opened);
-                onExpandListener.onExpandClick(getAdapterPosition(), itemView, false);
-            } else {
-                expandImageView.setImageResource(R.drawable.expand_arrow_closed);
-                onExpandListener.onExpandClick(getAdapterPosition(), itemView, true);
+            else {
+                if (expandImageView.getDrawable().getConstantState() == view.getResources().getDrawable(R.drawable.expand_arrow_closed).getConstantState()) {
+                    expandImageView.setImageResource(R.drawable.expand_arrow_opened);
+                    onExpandListener.onExpandClick(getAdapterPosition(), itemView, false);
+                } else if (expandImageView.getDrawable().getConstantState() == view.getResources().getDrawable(R.drawable.expand_arrow_opened).getConstantState()) {
+                    expandImageView.setImageResource(R.drawable.expand_arrow_closed);
+                    onExpandListener.onExpandClick(getAdapterPosition(), itemView, true);
+                }
+                Log.d("Drawable", expandImageView.getDrawable().toString());
             }
-            Log.d("Drawable", expandImageView.getDrawable().toString());
         }
     }
 

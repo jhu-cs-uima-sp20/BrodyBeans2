@@ -12,40 +12,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.OnExpandListener, NavigationView.OnNavigationItemSelectedListener {
+public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.OnExpandListener {
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mOrdersDatabaseReference;
@@ -66,20 +56,16 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cafe_home);
 
-        if (savedInstanceState == null) {
-            Toolbar toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-            drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
 
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                    R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            NavigationView navigationView = findViewById(R.id.nav_view);
-            navigationView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
-            drawer.addDrawerListener(toggle);
-            toggle.syncState();
-        }
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mOrdersDatabaseReference = mFirebaseDatabase.getReference().child("orders");
@@ -99,54 +85,30 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
         mChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (!dataSnapshot.child("paid").getValue(Boolean.class)) {
+                Log.d("Children Num",String.valueOf(dataSnapshot.getChildrenCount()));
+                Order order = new Order();
+                ArrayList<OrderItem> items = new ArrayList<>();
 
-                    Log.d("Children Num", String.valueOf(dataSnapshot.getChildrenCount()));
-                    Order order = new Order();
-                    ArrayList<OrderItem> items = new ArrayList<>();
+                GenericTypeIndicator<ArrayList<OrderItem>> map = new GenericTypeIndicator<ArrayList<OrderItem>>(){};
+                items = dataSnapshot.child("order").getValue(map);
 
-                    GenericTypeIndicator<ArrayList<OrderItem>> map = new GenericTypeIndicator<ArrayList<OrderItem>>() {
-                    };
-                    items = dataSnapshot.child("order").getValue(map);
+                Integer num = dataSnapshot.child("orderNumber").getValue(Integer.class);
+                String email = dataSnapshot.child("email").getValue(String.class);
 
-                    Integer num = dataSnapshot.child("orderNumber").getValue(Integer.class);
-                    String email = dataSnapshot.child("email").getValue(String.class);
+                order.setEmail(email);
+                order.setOrderNumber(num);
+                order.setOrder(items);
+                order.setFirebaseKey(dataSnapshot.getKey());
 
-                    order.setEmail(email);
-                    order.setOrderNumber(num);
-                    order.setOrder(items);
+                orderList.add(order);
 
-                    orderList.add(order);
-
-                    orderAdapter.notifyDataSetChanged();
-                    Log.d("Array size", String.valueOf(orderList.size()));
-                }
+                orderAdapter.notifyDataSetChanged();
+                Log.d("Array size", String.valueOf(orderList.size()));
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (!dataSnapshot.child("paid").getValue(Boolean.class)) {
-
-                    Log.d("Children Num", String.valueOf(dataSnapshot.getChildrenCount()));
-                    Order order = new Order();
-                    ArrayList<OrderItem> items = new ArrayList<>();
-
-                    GenericTypeIndicator<ArrayList<OrderItem>> map = new GenericTypeIndicator<ArrayList<OrderItem>>() {
-                    };
-                    items = dataSnapshot.child("order").getValue(map);
-
-                    Integer num = dataSnapshot.child("orderNumber").getValue(Integer.class);
-                    String email = dataSnapshot.child("email").getValue(String.class);
-
-                    order.setEmail(email);
-                    order.setOrderNumber(num);
-                    order.setOrder(items);
-
-                    orderList.add(order);
-
-                    orderAdapter.notifyDataSetChanged();
-                    Log.d("Array size", String.valueOf(orderList.size()));
-                }
+                //send notification
             }
 
             @Override
@@ -197,24 +159,7 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                /**Order order = new Order();
-                                ArrayList<OrderItem> items = new ArrayList<>();
-
-                                GenericTypeIndicator<ArrayList<OrderItem>> map = new GenericTypeIndicator<ArrayList<OrderItem>>(){};
-                                items = ds.child("order").getValue(map);
-
-                                Integer num = ds.child("orderNumber").getValue(Integer.class);
-                                String email = ds.child("email").getValue(String.class);
-
-                                order.setEmail(email);
-                                order.setOrderNumber(num);
-                                order.setOrder(items);**/
-
-                                ds.getRef().child("paid").setValue(true);
-
-                                /**FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                                DatabaseReference ordersDatabaseReference = firebaseDatabase.getReference().child("paid");
-                                ordersDatabaseReference.push().setValue(order);**/
+                                ds.getRef().removeValue();
                             }
                         }
 
@@ -239,8 +184,23 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
     @Override
     public void onCheckboxClick(int position, View view, boolean clicked) {
-        //do something
-        Toast.makeText(view.getContext(), "Testing",Toast.LENGTH_LONG).show();
+        CheckBox cbox = view.findViewById(R.id.checkBox);
+
+        if (clicked) {
+            //send notification
+            orderList.get(position).setProgressStatus(true);
+            final int orderNumber = orderList.get(position).getOrderNumber();
+            String key = orderList.get(position).getFirebaseKey();
+
+            mOrdersDatabaseReference.child(key).child("progressStatus").setValue("true");
+
+
+
+            //update token?  19:43 in video
+            //updateToken(FirebaseInstanceId.getInstance().getToken());
+        } else {
+            //do nothing
+        }
     }
 
     @Override
@@ -282,23 +242,6 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
         //mRecyclerView.setAdapter(orderItemAdapter);
 
         //orderItemAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.nav_home:
-                break;
-            case R.id.nav_paid:
-                Intent intent = new Intent(this,PaidActivity.class);
-                drawer.closeDrawer(GravityCompat.START);
-                startActivity(intent);
-                break;
-            case R.id.action_settings:
-                signOut();
-                break;
-        }
-        return true;
     }
 
     @Override
