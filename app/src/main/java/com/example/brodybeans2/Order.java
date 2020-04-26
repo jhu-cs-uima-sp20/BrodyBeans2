@@ -7,6 +7,7 @@ public class Order {
     private String email;
     private Integer orderNumber;
     private Boolean inProg;
+    private Boolean paid;
 
     public Order() {}
 
@@ -15,6 +16,7 @@ public class Order {
         this.email = user;
         this.orderNumber = orderNumber;
         this.inProg = false;
+        this.paid = false;
     }
 
     public ArrayList<OrderItem> getOrder() {
@@ -47,5 +49,13 @@ public class Order {
 
     public void setProgressStatus(Boolean progress) {
         this.inProg = progress;
+    }
+
+    public Boolean getPaid() {
+        return paid;
+    }
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
     }
 }

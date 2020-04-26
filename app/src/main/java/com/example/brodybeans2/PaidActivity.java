@@ -13,22 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -37,15 +29,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.OnExpandListener, NavigationView.OnNavigationItemSelectedListener {
+public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnExpandListener, NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mOrdersDatabaseReference;
@@ -56,15 +44,12 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-
-    private Button signOut;
-
     private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cafe_home);
+        setContentView(R.layout.activity_paid);
 
         if (savedInstanceState == null) {
             Toolbar toolbar = findViewById(R.id.toolbar);
@@ -99,8 +84,7 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
         mChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (!dataSnapshot.child("paid").getValue(Boolean.class)) {
-
+                if (dataSnapshot.child("paid").getValue(Boolean.class)) {
                     Log.d("Children Num", String.valueOf(dataSnapshot.getChildrenCount()));
                     Order order = new Order();
                     ArrayList<OrderItem> items = new ArrayList<>();
@@ -115,6 +99,7 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
                     order.setEmail(email);
                     order.setOrderNumber(num);
                     order.setOrder(items);
+                    order.setPaid(true);
 
                     orderList.add(order);
 
@@ -125,7 +110,7 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (!dataSnapshot.child("paid").getValue(Boolean.class)) {
+                if (dataSnapshot.child("paid").getValue(Boolean.class)) {
 
                     Log.d("Children Num", String.valueOf(dataSnapshot.getChildrenCount()));
                     Order order = new Order();
@@ -141,6 +126,7 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
                     order.setEmail(email);
                     order.setOrderNumber(num);
                     order.setOrder(items);
+                    order.setPaid(true);
 
                     orderList.add(order);
 
@@ -164,7 +150,6 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
-
     }
 
     public void buildRecyclerView() {
@@ -209,11 +194,10 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
                                 order.setEmail(email);
                                 order.setOrderNumber(num);
                                 order.setOrder(items);**/
-
-                                ds.getRef().child("paid").setValue(true);
+                                ds.getRef().child("paid").setValue(false);
 
                                 /**FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                                DatabaseReference ordersDatabaseReference = firebaseDatabase.getReference().child("paid");
+                                DatabaseReference ordersDatabaseReference = firebaseDatabase.getReference().child("orders");
                                 ordersDatabaseReference.push().setValue(order);**/
                             }
                         }
@@ -229,19 +213,6 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
             }
         }
     };
-
-    public void signOut() {
-        FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(CafeHomeActivity.this, LogInActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    @Override
-    public void onCheckboxClick(int position, View view, boolean clicked) {
-        //do something
-        Toast.makeText(view.getContext(), "Testing",Toast.LENGTH_LONG).show();
-    }
 
     @Override
     public void onExpandClick(int position, View view, boolean open) {
@@ -288,17 +259,32 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
+                drawer.closeDrawer(GravityCompat.START);
+                finish();
                 break;
             case R.id.nav_paid:
-                Intent intent = new Intent(this,PaidActivity.class);
-                drawer.closeDrawer(GravityCompat.START);
-                startActivity(intent);
+                //Intent intent = new Intent(this,PaidActivity.class);
+                //startActivity(intent);
                 break;
             case R.id.action_settings:
                 signOut();
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onCheckboxClick(int position, View view, boolean clicked) {
+        //do something
+        Toast.makeText(view.getContext(), "Testing",Toast.LENGTH_LONG).show();
+    }
+
+    public void signOut() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(PaidActivity.this, LogInActivity.class);
+        startActivity(intent);
+        finish();
+        finish();
     }
 
     @Override
