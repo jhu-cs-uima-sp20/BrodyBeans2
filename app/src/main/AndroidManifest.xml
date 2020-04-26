@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".PaidActivity"
+            android:label="Paid Orders"
             android:theme="@style/AppTheme2" />
         <activity android:name=".Specific_Menu" />
         <activity android:name=".Customization" />
@@ -27,6 +28,7 @@
         </activity>
         <activity
             android:name=".CafeHomeActivity"
+            android:label="Current Orders"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".LogInActivity"
