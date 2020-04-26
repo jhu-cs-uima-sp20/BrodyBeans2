@@ -5,13 +5,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
@@ -26,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.brodybeans2.notifications.MyFirebaseMessagingService;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -53,6 +60,8 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
     private OrderItemAdapter orderItemAdapter;
     private ArrayList<Order> orderList;
 
+    private String email;
+
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
 
@@ -78,6 +87,7 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mOrdersDatabaseReference = mFirebaseDatabase.getReference().child("orders");
+        //email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
         orderList = new ArrayList<>();
 
@@ -104,11 +114,13 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
                 Integer num = dataSnapshot.child("orderNumber").getValue(Integer.class);
                 String email = dataSnapshot.child("email").getValue(String.class);
                 String key = dataSnapshot.getKey();
+                String token = dataSnapshot.child("token").getValue(String.class);
 
                 order.setEmail(email);
                 order.setOrderNumber(num);
                 order.setOrder(items);
                 order.setFirebaseKey(key);
+                order.setToken(token);
 
                 orderList.add(order);
 
@@ -118,7 +130,52 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                //get the token to send
+                /*
+                MyFirebaseMessagingService m = new MyFirebaseMessagingService();
+                String t = m.getToken();
+                Log.d("TAG", "The token refreshed:" + t);
+
+                 */
+
                 //send notification
+                //s is the key of our dude
+                int i = 3;
+                Integer orderNum = (Integer)dataSnapshot.child("orderNumber").getValue();
+
+                String message = "Your order is being prepared!";
+                String title = "Brody Beans";
+                NotificationCompat.Builder builder =  new NotificationCompat.Builder(CafeHomeActivity.this)
+                        .setSmallIcon(R.drawable.beans_logo_background)
+                        .setContentTitle(title)
+                        .setContentText(message)
+                        .setAutoCancel(true);
+
+                Intent intent = new Intent(CafeHomeActivity.this, OrdersActivity.class);
+                intent .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("message", message);
+
+                PendingIntent pendingIntent = PendingIntent.getActivity(CafeHomeActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                builder.setContentIntent(pendingIntent);
+
+                NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+
+                //*************************************************************
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    String channelId = "Your_channel_id";
+                    int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                    NotificationChannel channel = new NotificationChannel(
+                            channelId,
+                            "Channel human readable title",
+                            importance);
+                    notificationManager.createNotificationChannel(channel);
+                    builder.setChannelId(channelId);
+
+                }
+                //*************************************************************
+
+                notificationManager.notify(0, builder.build());
             }
 
             @Override

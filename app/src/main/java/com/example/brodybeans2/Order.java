@@ -8,15 +8,17 @@ public class Order {
     private Integer orderNumber;
     private Boolean inProg;
     private String firebaseKey;
+    private String token;
 
     public Order() {}
 
-    public Order(ArrayList<OrderItem> order, String user, Integer orderNumber) {
+    public Order(ArrayList<OrderItem> order, String user, Integer orderNumber, String tokenInput) {
         this.order = order;
         this.email = user;
         this.orderNumber = orderNumber;
         this.inProg = false;
         this.firebaseKey = "";
+        this.token = tokenInput;
     }
 
     public ArrayList<OrderItem> getOrder() {
@@ -54,4 +56,12 @@ public class Order {
     public String getFirebaseKey() { return firebaseKey; }
 
     public void setFirebaseKey(String fKey) { this.firebaseKey = fKey; }
+
+    public String getToken() {
+        return this.token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }
