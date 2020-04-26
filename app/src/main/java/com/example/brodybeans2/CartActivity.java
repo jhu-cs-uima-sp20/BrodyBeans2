@@ -1,5 +1,6 @@
 package com.example.brodybeans2;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -7,8 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.content.Context;
-import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,7 +45,7 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private static ArrayList<OrderItem> itemList;
     private static boolean listInitialized;
-    private ImageButton deleteItem;
+    AlertDialog.Builder builder;
 
     private static Integer orderNumber;
 
@@ -54,7 +54,6 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         context = getApplicationContext();
-
 
         createItemList();
         buildRecyclerView();
@@ -65,6 +64,7 @@ public class CartActivity extends AppCompatActivity {
         mOrdersDatabaseReference = mFirebaseDatabase.getReference().child("orders");
         nOrdersDatabaseReference = mFirebaseDatabase.getReference().child("numTracker");
         //Log.d("Num Tracker", mOrdersDatabaseReference.toString());
+        builder = new AlertDialog.Builder(this,R.style.AlertDialogTheme);
 
         placeOrderBtn = (Button) findViewById(R.id.place_order_btn);
         placeOrderBtn.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +72,7 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
                 FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                Order order = new Order(itemList, user.getEmail(), orderNumber);
+                final Order order = new Order(itemList, user.getEmail(), orderNumber);
 
                 if (itemList.isEmpty()) {
                     Toast.makeText(CartActivity.this, "Can't place an empty order!",
@@ -80,23 +80,27 @@ public class CartActivity extends AppCompatActivity {
                 }
 
                 if (!itemList.isEmpty()) {
-                    dbIncreaseOrderNumber();
-
-
-
-                mOrdersDatabaseReference.push().setValue(order);
-
-                Intent sendIntent = new Intent(getBaseContext(), OrdersActivity.class);
-                // Verify that the intent will resolve to an activity
-                if (sendIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(sendIntent);
-                }
-
-                itemList.clear();
-                PreferenceManager.getDefaultSharedPreferences(context).edit().clear().apply();
-                buildRecyclerView();
-
-                }
+                    builder.setTitle("Confirmation");
+                    builder.setMessage("Are you sure you want to place order now?");
+                    builder.setPositiveButton("YES, Go Ahead", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dbIncreaseOrderNumber();
+                            mOrdersDatabaseReference.push().setValue(order);
+                            Intent sendIntent = new Intent(getBaseContext(), OrdersActivity.class);
+                            // Verify that the intent will resolve to an activity
+                            if (sendIntent.resolveActivity(getPackageManager()) != null) {
+                                startActivity(sendIntent);
+                            }
+                            itemList.clear();
+                            PreferenceManager.getDefaultSharedPreferences(context).edit().clear().apply();
+                            buildRecyclerView();
+                        }
+                    });
+                    builder.setNegativeButton("NO", null);
+                    AlertDialog placeOrderAlert = builder.create();
+                    placeOrderAlert.show();
+            }
 
             }
 
@@ -135,6 +139,7 @@ public class CartActivity extends AppCompatActivity {
         nOrdersDatabaseReference.addChildEventListener(nChildEventListener);
 
     }
+
 
     //REMOVED by Justin - initialization moved to buildRecyclerView()
     public void createItemList() {

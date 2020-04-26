@@ -1,13 +1,15 @@
 package com.example.brodybeans2;
 
+
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -31,10 +33,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
         @Override
         public void onClick(View v) {
-            delete(getAdapterPosition()); //calls the method above to delete
-            /*
-            Toast.makeText(v.getContext(), "Delete Button Clicked",Toast.LENGTH_SHORT).show();
-             */
+            delete(getAdapterPosition(),v); //calls the method below to delete item from the cart
         }
     }
 
@@ -42,9 +41,23 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         mItemList = itemList;
     }
 
-    public void delete(int position) { //removes the row
-        mItemList.remove(position);
-        notifyItemRemoved(position);
+    public void delete(final int position, View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext(), R.style.AlertDialogTheme); //!!!!!!!
+        builder.setTitle("Confirmation");
+        builder.setMessage("Are you sure you want to remove this item from the cart?");
+        builder.setPositiveButton("YES, REMOVE FROM CART", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                mItemList.remove(position);
+                notifyItemRemoved(position);
+            }
+        });
+        builder.setNegativeButton("NO", null);
+        AlertDialog removeItemAlert = builder.create();
+        removeItemAlert.show();
+
+        /*mItemList.remove(position);
+        notifyItemRemoved(position); */
     }
 
     @Override
