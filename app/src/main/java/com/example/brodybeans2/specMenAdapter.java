@@ -29,13 +29,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class specMenAdapter extends RecyclerView.Adapter<specMenAdapter.specMenHolder> {
 
     // need to add items to the list
-        private ArrayList<String> specMenItemList;
+    private ArrayList<String> specMenItemList;
+    private ArrayList<Integer> images;
     private Context cxt;
     private Intent intent;
 
@@ -51,6 +53,7 @@ public class specMenAdapter extends RecyclerView.Adapter<specMenAdapter.specMenH
         public specMenHolder(final View itemView) {
             super(itemView);
             specMenTextView = itemView.findViewById(R.id.specMenTextView);
+            imgView = itemView.findViewById(R.id.item_image_view);
             specMenTextView.setOnClickListener(this);
             starBtn = itemView.findViewById(R.id.starItem);
 
@@ -116,8 +119,9 @@ public class specMenAdapter extends RecyclerView.Adapter<specMenAdapter.specMenH
 
     }
 
-    public specMenAdapter(ArrayList<String> specMenList, Context cxt) {
+    public specMenAdapter(ArrayList<String> specMenList, ArrayList<Integer> images, Context cxt) {
         specMenItemList = specMenList;
+        this.images = images;
         this.cxt = cxt;
     }
 
@@ -135,6 +139,7 @@ public class specMenAdapter extends RecyclerView.Adapter<specMenAdapter.specMenH
     public void onBindViewHolder(@NonNull specMenAdapter.specMenHolder holder, int position) {
         String currItem = specMenItemList.get(position);
         holder.specMenTextView.setText(currItem);
+        holder.imgView.setImageResource(images.get(position));
         // check if the item is a favorite
         for (int i = 0; i < 4; i++) {
             if (PreferenceManager.getDefaultSharedPreferences(cxt).getString("fav_" + i, "N/A").equals(currItem)) {

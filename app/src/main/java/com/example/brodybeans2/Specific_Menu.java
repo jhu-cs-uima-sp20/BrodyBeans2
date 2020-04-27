@@ -39,6 +39,10 @@ public class Specific_Menu extends AppCompatActivity {
     private static ArrayList<String> blendBev = new ArrayList<>(Arrays.asList("Mocha Java","Chocolate Chunk","Cookies & Cream","Toasted Coconut","Coffee Toffee","Java Chip", "Green Tea", "Fruit Smoothie"));
     private HashMap<String,  ArrayList<String>> menu;
     //ActionBar actionBar = getActionBar();
+    private static ArrayList<Integer> bfastImages = new ArrayList<>(Arrays.asList(R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background));
+    private static ArrayList<Integer> espressImages = new ArrayList<>(Arrays.asList(R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background,R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background));
+    private static ArrayList<Integer> nonepressImages = new ArrayList<>(Arrays.asList(R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background));
+    private static ArrayList<Integer> blendImages = new ArrayList<>(Arrays.asList(R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background));
 
     //espresso.add("latte");
     //espresso.add("cappicino");
@@ -80,7 +84,17 @@ public class Specific_Menu extends AppCompatActivity {
         //mRecyclerView.setHasFixedSize(true);
         //specMenLayoutManager = new LinearLayoutManager(this);
         GridLayoutManager specMenLayoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
-        specMenAdapter = new specMenAdapter(menuCat, context);
+        String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("category", null);
+        if (cat == "Breakfast") {
+            specMenAdapter = new specMenAdapter(menuCat, bfastImages, context);
+        } else if (cat == "Espresso") {
+            specMenAdapter = new specMenAdapter(menuCat, espressImages, context);
+        }else if (cat == "Non Espresso") {
+            specMenAdapter = new specMenAdapter(menuCat, nonepressImages, context);
+        }else if (cat == "Blended Beverage") {
+            specMenAdapter = new specMenAdapter(menuCat, blendImages, context);
+        }
+
         //orderItemAdapter = new OrderItemAdapter(itemList);
 
         specMenRecyclerView.setLayoutManager(specMenLayoutManager);

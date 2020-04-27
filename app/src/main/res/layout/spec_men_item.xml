@@ -48,7 +48,7 @@
                 android:paddingBottom="8dp"
                 android:text="@string/line1"
                 android:textColor="@android:color/tertiary_text_light"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
