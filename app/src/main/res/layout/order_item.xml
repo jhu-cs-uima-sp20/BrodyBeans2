@@ -58,7 +58,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/delete_x"
-                    tools:srcCompat="@drawable/delete_x" />
+                    tools:srcCompat="@drawable/delete_x"
+                    />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
