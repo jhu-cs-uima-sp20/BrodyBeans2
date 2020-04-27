@@ -20,6 +20,7 @@ public class Order {
         this.inProg = false;
         this.firebaseKey = "";
         this.token = tokenInput;
+        this.paid = false;
     }
 
     public ArrayList<OrderItem> getOrder() {
