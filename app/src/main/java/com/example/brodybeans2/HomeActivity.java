@@ -39,6 +39,10 @@ public class HomeActivity extends AppCompatActivity {
     private TextView welcomeMsg;
     private Context context;
     private DataSnapshot ds;
+    TextView fav1_text;
+    TextView fav2_text;
+    TextView fav3_text;
+    TextView fav4_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,10 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_home);
-
+        fav1_text = findViewById(R.id.fav1_text);
+        fav2_text = findViewById(R.id.fav2_text);
+        fav3_text = findViewById(R.id.fav3_text);
+        fav4_text = findViewById(R.id.fav4_text);
 
 
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -108,6 +115,15 @@ public class HomeActivity extends AppCompatActivity {
         };
         mUsersDatabaseReference.addChildEventListener(mChildEventListener);
 
+        String fav1_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_0","N/A");
+        fav1_text.setText(fav1_item);
+        String fav2_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_1","N/A");
+        fav2_text.setText(fav2_item);
+        String fav3_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_2","N/A");
+        fav3_text.setText(fav3_item);
+        String fav4_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_3","N/A");
+        fav4_text.setText(fav4_item);
+
 
 
 
@@ -129,6 +145,14 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        String fav1_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_0","N/A");
+        fav1_text.setText(fav1_item);
+        String fav2_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_1","N/A");
+        fav2_text.setText(fav2_item);
+        String fav3_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_2","N/A");
+        fav3_text.setText(fav3_item);
+        String fav4_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_3","N/A");
+        fav4_text.setText(fav4_item);
     }
 
     @Override

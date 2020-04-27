@@ -71,10 +71,10 @@
 
     <ImageButton
         android:id="@+id/fav1"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="1dp"
         android:background="@drawable/beans_logo_background"
         android:contentDescription="image of fav1"
@@ -89,10 +89,10 @@
 
     <ImageButton
         android:id="@+id/fav2"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/beans_logo_background"
         android:contentDescription="image of fav2"
@@ -106,10 +106,10 @@
 
     <ImageButton
         android:id="@+id/fav3"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="1dp"
         android:background="@drawable/beans_logo_background"
         android:contentDescription="image of fav3"
@@ -122,10 +122,10 @@
 
     <ImageButton
         android:id="@+id/fav4"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/beans_logo_background"
         android:contentDescription="image of fav4"
@@ -135,4 +135,59 @@
         app:layout_constraintTop_toBottomOf="@+id/new_order_text2"
         app:srcCompat="@mipmap/icedcoffee_foreground" />
 
+    <TextView
+        android:id="@+id/fav1_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="10dp"
+        android:text="fav1"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@id/fav1"
+        app:layout_constraintStart_toStartOf="@id/fav1"
+        app:layout_constraintTop_toBottomOf="@id/fav1" />
+
+    <TextView
+        android:id="@+id/fav2_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="10dp"
+        android:text="fav2"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@id/fav2"
+        app:layout_constraintStart_toStartOf="@id/fav2"
+        app:layout_constraintTop_toBottomOf="@id/fav2" />
+
+    <TextView
+        android:id="@+id/fav3_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="10dp"
+        android:text="fav3"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@id/fav3"
+        app:layout_constraintStart_toStartOf="@id/fav3"
+        app:layout_constraintTop_toBottomOf="@id/fav3" />
+
+    <TextView
+        android:id="@+id/fav4_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="10dp"
+        android:text="fav4"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@id/fav4"
+        app:layout_constraintStart_toStartOf="@id/fav4"
+        app:layout_constraintTop_toBottomOf="@id/fav4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

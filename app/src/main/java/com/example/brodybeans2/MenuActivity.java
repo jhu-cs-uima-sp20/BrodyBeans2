@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.TextView;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -17,6 +18,7 @@ public class MenuActivity extends AppCompatActivity {
     Button nonEspressoBtn;
     Button blendedBevBtn;
     Button bfastBtn;
+
     private Context context;
 
 
@@ -79,7 +81,6 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
 
 
