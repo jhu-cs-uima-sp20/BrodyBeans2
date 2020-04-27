@@ -14,6 +14,12 @@ public class OrderItem {
         category = item;
     }
 
+    public OrderItem(String item, String temp, String sz) {
+        category = item;
+        temperature = temp;
+        size = sz;
+    }
+
     public OrderItem(String item, String temp, String sz, String mod) {
         category = item;
         temperature = temp;

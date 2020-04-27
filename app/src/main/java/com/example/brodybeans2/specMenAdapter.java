@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,14 +40,15 @@ public class specMenAdapter extends RecyclerView.Adapter<specMenAdapter.specMenH
         public class specMenHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
             public TextView specMenTextView;
+            public ImageView imgView;
 
 
 
             public specMenHolder(View itemView) {
                 super(itemView);
 
-
                 specMenTextView = itemView.findViewById(R.id.specMenTextView);
+                //imgView = itemView.findViewById(R.id.item_image_view);
                 //clickItem = itemView.findViewById(R.id.deleteItem);
                 specMenTextView.setOnClickListener(this);
             }
@@ -64,7 +66,7 @@ public class specMenAdapter extends RecyclerView.Adapter<specMenAdapter.specMenH
                 //editor.putString("item", menItem);
                 PreferenceManager.getDefaultSharedPreferences(cxt).edit().putString("item", menItem ).apply();
                 Toast.makeText(v.getContext(), menItem,Toast.LENGTH_SHORT).show();
-                intent = new Intent(cxt, CartActivity.class);
+                intent = new Intent(cxt, Customization.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 cxt.startActivity(intent);
             }

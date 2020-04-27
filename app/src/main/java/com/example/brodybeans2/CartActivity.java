@@ -197,8 +197,11 @@ public class CartActivity extends AppCompatActivity {
         //SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         //String cat = sharedPreferences.getString("item", "no item??");
         String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("item", null);
+        String temp = PreferenceManager.getDefaultSharedPreferences(context).getString("temp", null);
+        String size = PreferenceManager.getDefaultSharedPreferences(context).getString("size", null);
         if (cat != null) {
-            itemList.add(new OrderItem(cat));
+            //TODO put this back to cat
+            itemList.add(new OrderItem(cat, temp, size));
         }
 
         mAdapter.notifyDataSetChanged();
