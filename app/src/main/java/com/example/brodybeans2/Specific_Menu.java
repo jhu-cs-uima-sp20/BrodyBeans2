@@ -41,8 +41,8 @@ public class Specific_Menu extends AppCompatActivity {
     //ActionBar actionBar = getActionBar();
     private static ArrayList<Integer> bfastImages = new ArrayList<>(Arrays.asList(R.mipmap.bagel, R.mipmap.jel, R.mipmap.hum, R.mipmap.ec, R.mipmap.bec, R.mipmap.sec, R.mipmap.muff2));
     private static ArrayList<Integer> espressImages = new ArrayList<>(Arrays.asList(R.mipmap.amer, R.mipmap.coffee4, R.mipmap.newcoff, R.mipmap.drip, R.mipmap.coffee9, R.mipmap.newmach2, R.mipmap.espres2, R.mipmap.coffee6,R.mipmap.coffee9,R.mipmap.jittermachine, R.mipmap.heartcaf, R.mipmap.coffee8));
-    private static ArrayList<Integer> nonepressImages = new ArrayList<>(Arrays.asList(R.mipmap.drip, R.mipmap.refill, R.mipmap.chailatte, R.mipmap.london, R.mipmap.newtea, R.mipmap.hotchoco, R.mipmap.steamer, R.mipmap.newicedcof, R.mipmap.icedtea));
-    private static ArrayList<Integer> blendImages = new ArrayList<>(Arrays.asList(R.mipmap.mochjava, R.mipmap.choco, R.mipmap.cc, R.mipmap.coconut2, R.mipmap.coftof, R.mipmap.javchip, R.mipmap.greensmooth, R.mipmap.smooth));
+    private static ArrayList<Integer> nonepressImages = new ArrayList<>(Arrays.asList(R.mipmap.drip, R.mipmap.refill, R.mipmap.chailatte, R.mipmap.londonfoggg, R.mipmap.newtea, R.mipmap.hotchoco, R.mipmap.steamer, R.mipmap.newicedcof, R.mipmap.icedtea));
+    private static ArrayList<Integer> blendImages = new ArrayList<>(Arrays.asList(R.mipmap.mochjava, R.mipmap.chocoshake, R.mipmap.cc, R.mipmap.coconut2, R.mipmap.mochaachip, R.mipmap.javaachip, R.mipmap.greensmooth, R.mipmap.smooth));
     //espresso.add("latte");
     //espresso.add("cappicino");
 
