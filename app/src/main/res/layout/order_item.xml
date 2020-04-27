@@ -58,8 +58,16 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/delete_x"
-                    tools:srcCompat="@drawable/delete_x"
-                    />
+                    tools:srcCompat="@drawable/delete_x" />
+
+                <TextView
+                    android:id="@+id/optionsTextView"
+                    android:layout_width="267dp"
+                    android:layout_height="20dp"
+                    android:text="TextView"
+                    app:layout_constraintEnd_toStartOf="@+id/more_info"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/itemTextView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

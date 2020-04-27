@@ -22,11 +22,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     public class OrderItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView orderTextView;
+        public TextView extraOrderInfo;
         public ImageButton deleteItem;
 
         public OrderItemHolder(View itemView) {
             super(itemView);
             orderTextView = itemView.findViewById(R.id.itemTextView);
+            extraOrderInfo = itemView.findViewById(R.id.optionsTextView);
             deleteItem = itemView.findViewById(R.id.deleteItem);
             deleteItem.setOnClickListener(this);
         }
@@ -71,6 +73,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     public void onBindViewHolder(@NonNull OrderItemAdapter.OrderItemHolder holder, int position) {
         OrderItem currItem = mItemList.get(position);
         holder.orderTextView.setText(currItem.getCategory());
+        String extra = currItem.getSize() + currItem.getTemp();
+        holder.extraOrderInfo.setText(extra);
     }
 
     @Override

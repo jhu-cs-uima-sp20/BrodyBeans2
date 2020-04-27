@@ -7,16 +7,18 @@ public class Order {
     private String email;
     private Integer orderNumber;
     private Boolean inProg;
-    private Boolean paid;
+    private String firebaseKey;
+    private String token;
 
     public Order() {}
 
-    public Order(ArrayList<OrderItem> order, String user, Integer orderNumber) {
+    public Order(ArrayList<OrderItem> order, String user, Integer orderNumber, String tokenInput) {
         this.order = order;
         this.email = user;
         this.orderNumber = orderNumber;
         this.inProg = false;
-        this.paid = false;
+        this.firebaseKey = "";
+        this.token = tokenInput;
     }
 
     public ArrayList<OrderItem> getOrder() {
@@ -51,11 +53,15 @@ public class Order {
         this.inProg = progress;
     }
 
-    public Boolean getPaid() {
-        return paid;
+    public String getFirebaseKey() { return firebaseKey; }
+
+    public void setFirebaseKey(String fKey) { this.firebaseKey = fKey; }
+
+    public String getToken() {
+        return this.token;
     }
 
-    public void setPaid(Boolean paid) {
-        this.paid = paid;
+    public void setToken(String token) {
+        this.token = token;
     }
 }

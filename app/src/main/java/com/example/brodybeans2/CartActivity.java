@@ -4,12 +4,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -17,6 +20,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,6 +53,7 @@ public class CartActivity extends AppCompatActivity {
     AlertDialog.Builder builder;
 
     private static Integer orderNumber;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +73,33 @@ public class CartActivity extends AppCompatActivity {
         builder = new AlertDialog.Builder(this,R.style.AlertDialogTheme);
 
         placeOrderBtn = (Button) findViewById(R.id.place_order_btn);
+
+
+        //****************************************
+        //finds the token
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if (!task.isSuccessful()) {
+                    Log.w("idk", "getInstanceId failed", task.getException());
+                    return;
+                }
+
+                //get instance ID token
+                token = task.getResult().getToken();
+            }
+        });
+
+        //****************************************
+
+
         placeOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
                 FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                final Order order = new Order(itemList, user.getEmail(), orderNumber);
+
+                final Order order = new Order(itemList, user.getEmail(), orderNumber, token);
 
                 if (itemList.isEmpty()) {
                     Toast.makeText(CartActivity.this, "Can't place an empty order!",
@@ -170,8 +197,11 @@ public class CartActivity extends AppCompatActivity {
         //SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         //String cat = sharedPreferences.getString("item", "no item??");
         String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("item", null);
+        String temp = PreferenceManager.getDefaultSharedPreferences(context).getString("temp", null);
+        String size = PreferenceManager.getDefaultSharedPreferences(context).getString("size", null);
         if (cat != null) {
-            itemList.add(new OrderItem(cat));
+            //TODO put this back to cat
+            itemList.add(new OrderItem(cat, temp, size));
         }
 
         mAdapter.notifyDataSetChanged();

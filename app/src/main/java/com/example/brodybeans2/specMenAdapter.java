@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,15 +35,18 @@ import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 public class specMenAdapter extends RecyclerView.Adapter<specMenAdapter.specMenHolder> {
 
     // need to add items to the list
-    private ArrayList<String> specMenItemList;
+        private ArrayList<String> specMenItemList;
     private Context cxt;
     private Intent intent;
 
-    public class specMenHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        public class specMenHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView specMenTextView;
         public ImageButton starBtn;
         public boolean isFavorite = false;
+        public ImageView imgView;
+
 
         public specMenHolder(final View itemView) {
             super(itemView);

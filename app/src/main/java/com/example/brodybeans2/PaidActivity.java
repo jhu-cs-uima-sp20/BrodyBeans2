@@ -99,7 +99,7 @@ public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnEx
                     order.setEmail(email);
                     order.setOrderNumber(num);
                     order.setOrder(items);
-                    order.setPaid(true);
+                    //TODO: order.setPaid(true);
 
                     orderList.add(order);
 
@@ -126,7 +126,7 @@ public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnEx
                     order.setEmail(email);
                     order.setOrderNumber(num);
                     order.setOrder(items);
-                    order.setPaid(true);
+                    //TODO: order.setPaid(true);
 
                     orderList.add(order);
 
