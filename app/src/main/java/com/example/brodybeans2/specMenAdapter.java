@@ -45,8 +45,6 @@ public class specMenAdapter extends RecyclerView.Adapter<specMenAdapter.specMenH
         public class specMenHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView specMenTextView;
-        public ImageButton starBtn;
-        public boolean isFavorite = false;
         public ImageView imgView;
 
 
@@ -55,38 +53,7 @@ public class specMenAdapter extends RecyclerView.Adapter<specMenAdapter.specMenH
             specMenTextView = itemView.findViewById(R.id.specMenTextView);
             imgView = itemView.findViewById(R.id.item_image_view);
             specMenTextView.setOnClickListener(this);
-            starBtn = itemView.findViewById(R.id.starItem);
 
-            starBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (isFavorite) {
-                        // click the star button of a favorite item to remove it
-                        starBtn.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(),android.R.drawable.btn_star_big_off));
-                        for (int i = 0; i < 4; i++) {
-                            if (PreferenceManager.getDefaultSharedPreferences(cxt).getString("fav_" + i, "N/A").equals((String) specMenTextView.getText())) {
-                                PreferenceManager.getDefaultSharedPreferences(cxt).edit().putString("fav_"+i, "N/A").apply();
-                            }
-                        }
-                        isFavorite = false;
-                    } else {
-                        // click the star button of a non-favorite item to add it
-                        boolean hasSpace = false;
-                        for (int i = 0; i < 4; i++) {
-                            if (PreferenceManager.getDefaultSharedPreferences(cxt).getString("fav_" + i, "N/A").equals("N/A")) {
-                                PreferenceManager.getDefaultSharedPreferences(cxt).edit().putString("fav_"+i, (String) specMenTextView.getText()).apply();
-                                hasSpace = true;
-                                starBtn.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(),android.R.drawable.btn_star_big_on));
-                                isFavorite = true;
-                                break;
-                            }
-                        }
-                        if (!hasSpace) {
-                            Toast.makeText(cxt,"Need to remove an old favorite item before adding a new one", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            });
         }
 
 
@@ -140,13 +107,6 @@ public class specMenAdapter extends RecyclerView.Adapter<specMenAdapter.specMenH
         String currItem = specMenItemList.get(position);
         holder.specMenTextView.setText(currItem);
         holder.imgView.setImageResource(images.get(position));
-        // check if the item is a favorite
-        for (int i = 0; i < 4; i++) {
-            if (PreferenceManager.getDefaultSharedPreferences(cxt).getString("fav_" + i, "N/A").equals(currItem)) {
-                holder.starBtn.setImageDrawable(ContextCompat.getDrawable(cxt,android.R.drawable.btn_star_big_on));
-                holder.isFavorite = true;
-            }
-        }
     }
 
     @Override

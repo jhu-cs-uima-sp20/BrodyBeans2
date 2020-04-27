@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +45,11 @@ public class HomeActivity extends AppCompatActivity {
     TextView fav2_text;
     TextView fav3_text;
     TextView fav4_text;
+    ImageButton fav1_image;
+    ImageButton fav2_image;
+    ImageButton fav3_image;
+    ImageButton fav4_image;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +77,10 @@ public class HomeActivity extends AppCompatActivity {
         fav2_text = findViewById(R.id.fav2_text);
         fav3_text = findViewById(R.id.fav3_text);
         fav4_text = findViewById(R.id.fav4_text);
+        fav1_image = findViewById(R.id.fav1);
+        fav2_image = findViewById(R.id.fav2);
+        fav3_image = findViewById(R.id.fav3);
+        fav4_image = findViewById(R.id.fav4);
 
 
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -115,15 +126,75 @@ public class HomeActivity extends AppCompatActivity {
         };
         mUsersDatabaseReference.addChildEventListener(mChildEventListener);
 
-        String fav1_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_0","N/A");
-        fav1_text.setText(fav1_item);
-        String fav2_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_1","N/A");
-        fav2_text.setText(fav2_item);
-        String fav3_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_2","N/A");
-        fav3_text.setText(fav3_item);
-        String fav4_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_3","N/A");
-        fav4_text.setText(fav4_item);
+        String fav0_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_0","N/A");
+        fav1_text.setText(fav0_item);
+        String fav1_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_1","N/A");
+        fav2_text.setText(fav1_item);
+        String fav2_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_2","N/A");
+        fav3_text.setText(fav2_item);
+        String fav3_item = PreferenceManager.getDefaultSharedPreferences(this).getString("fav_3","N/A");
+        fav4_text.setText(fav3_item);
 
+
+        if (!fav0_item.equals("N/A")) {
+            fav1_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Context context = getApplicationContext();
+                    String fav0_item = PreferenceManager.getDefaultSharedPreferences(context).getString("fav_0","N/A");
+                    PreferenceManager.getDefaultSharedPreferences(context).edit().putString("item", fav0_item).apply();
+                    String fav0_cat = PreferenceManager.getDefaultSharedPreferences(context).getString("fav_0cat","N/A");
+                    PreferenceManager.getDefaultSharedPreferences(context).edit().putString("category", fav0_cat).apply();
+                    Intent intent = new Intent(context, Customization.class);
+                    startActivity(intent);
+                }
+            });
+        }
+
+        if (!fav1_item.equals("N/A")) {
+            fav2_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Context context = getApplicationContext();
+                    String fav1_item = PreferenceManager.getDefaultSharedPreferences(context).getString("fav_1","N/A");
+                    PreferenceManager.getDefaultSharedPreferences(context).edit().putString("item", fav1_item).apply();
+                    String fav1_cat = PreferenceManager.getDefaultSharedPreferences(context).getString("fav_1cat","N/A");
+                    PreferenceManager.getDefaultSharedPreferences(context).edit().putString("category", fav1_cat).apply();
+                    Intent intent = new Intent(context, Customization.class);
+                    startActivity(intent);
+                }
+            });
+        }
+
+        if (!fav2_item.equals("N/A")) {
+            fav3_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Context context = getApplicationContext();
+                    String fav2_item = PreferenceManager.getDefaultSharedPreferences(context).getString("fav_2","N/A");
+                    PreferenceManager.getDefaultSharedPreferences(context).edit().putString("item", fav2_item).apply();
+                    String fav2_cat = PreferenceManager.getDefaultSharedPreferences(context).getString("fav_2cat","N/A");
+                    PreferenceManager.getDefaultSharedPreferences(context).edit().putString("category", fav2_cat).apply();
+                    Intent intent = new Intent(context, Customization.class);
+                    startActivity(intent);
+                }
+            });
+        }
+
+        if (!fav3_item.equals("N/A")) {
+            fav4_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Context context = getApplicationContext();
+                    String fav3_item = PreferenceManager.getDefaultSharedPreferences(context).getString("fav_3","N/A");
+                    PreferenceManager.getDefaultSharedPreferences(context).edit().putString("item", fav3_item).apply();
+                    String fav3_cat = PreferenceManager.getDefaultSharedPreferences(context).getString("fav_3cat","N/A");
+                    PreferenceManager.getDefaultSharedPreferences(context).edit().putString("category", fav3_cat).apply();
+                    Intent intent = new Intent(context, Customization.class);
+                    startActivity(intent);
+                }
+            });
+        }
 
 
 

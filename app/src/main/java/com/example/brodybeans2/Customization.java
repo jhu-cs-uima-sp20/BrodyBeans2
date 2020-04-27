@@ -1,17 +1,18 @@
 package com.example.brodybeans2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +31,10 @@ public class Customization extends AppCompatActivity {
     CheckBox med;
     CheckBox lrg;
     EditText cust;
-
+    Switch fav_switch;
+    boolean hasSpace = true;
+    int wasFav = 0;
+    int isFavNow = 0;
 
 
     @Override
@@ -40,11 +44,40 @@ public class Customization extends AppCompatActivity {
 
 
         addToCart = findViewById(R.id.addToCart);
+        fav_switch = findViewById(R.id.fav_switch);
 
+        // check if the item was a favorite item of the user
+        String item = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("item", null);
+        for (int i = 0; i < 4; i++) {
+            if (PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("fav_" + i, "N/A").equals(item)) {
+                wasFav = 1;
+                fav_switch.setChecked(true);
+                String size = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("fav_"+i+"size", "N/A");
+                if (size.equals("Small, ")) {
+                    sml = (CheckBox)findViewById(R.id.smallCB);
+                    sml.setChecked(true);
+                } else if (size.equals("Medium, ")) {
+                    med = (CheckBox)findViewById(R.id.mediumCB);
+                    med.setChecked(true);
+                } else if (size.equals("Large, ")) {
+                    lrg = (CheckBox)findViewById(R.id.LargeCB);
+                    lrg.setChecked(true);
+                }
+                String temp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("fav_"+i+"temp", "N/A");
+                if (temp.equals("Cold")) {
+                    cold = (CheckBox)findViewById(R.id.icedCB);
+                    cold.setChecked(true);
+                } else if (temp.equals("Hot")) {
+                    hot = (CheckBox)findViewById(R.id.hotCB);
+                    hot.setChecked(true);
+                }
+                cust = findViewById(R.id.customInput);
+                cust.setText(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("fav_"+i+"custom", "N/A"));
+                break;
+            }
+        }
 
-            //code to check if this checkbox is checked!
-
-
+        //code to check if this checkbox is checked!
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,11 +87,16 @@ public class Customization extends AppCompatActivity {
                 boolean coldCheck = false;
                 context = getApplicationContext();
                 String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("category", null);
+                String item = PreferenceManager.getDefaultSharedPreferences(context).getString("item", null);
                 cust = findViewById(R.id.customInput);
                 custom = cust.getText().toString();
                 System.out.println("the inputted customizations are " + custom );
                 PreferenceManager.getDefaultSharedPreferences(context).edit().putString("custom", custom ).apply();
 
+                // check if the item was is now a favorite item of the user
+                if (fav_switch.isChecked()) {
+                    isFavNow = 1;
+                }
 
                 cold = (CheckBox)findViewById(R.id.icedCB);
                 if(cold.isChecked()){
@@ -117,8 +155,11 @@ public class Customization extends AppCompatActivity {
                     Toast.makeText(v.getContext(), "Blended beverages must be cold",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Intent intent = new Intent(v.getContext(), CartActivity.class);
-                    startActivity(intent);
+                    addOrRemoveFav(wasFav, isFavNow, context, cat, item, size, temp, custom);
+                    if (hasSpace) {
+                        Intent intent = new Intent(v.getContext(), CartActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });
@@ -133,6 +174,42 @@ public class Customization extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    // handle the favorites here
+    public void addOrRemoveFav (int wasFav, int isFavNow, Context cxt, String cat, String item, String size, String temp, String custom) {
+        // add a favorite item
+        if (wasFav == 0 && isFavNow == 1) {
+            // assume no space to add new item in this case
+            hasSpace = false;
+            for (int i = 0; i < 4; i++) {
+                if (PreferenceManager.getDefaultSharedPreferences(cxt).getString("fav_" + i, "N/A").equals("N/A")) {
+                    PreferenceManager.getDefaultSharedPreferences(cxt).edit().putString("fav_"+i, item).apply();
+                    PreferenceManager.getDefaultSharedPreferences(cxt).edit().putString("fav_"+i+"cat", cat).apply();
+                    PreferenceManager.getDefaultSharedPreferences(cxt).edit().putString("fav_"+i+"size", size).apply();
+                    PreferenceManager.getDefaultSharedPreferences(cxt).edit().putString("fav_"+i+"temp", temp).apply();
+                    PreferenceManager.getDefaultSharedPreferences(cxt).edit().putString("fav_"+i+"custom", custom).apply();
+                    hasSpace = true;
+                    break;
+                }
+            }
+            if (!hasSpace) {
+                hasSpace = false;
+                Toast.makeText(cxt,"Need to remove an old favorite item before adding a new one", Toast.LENGTH_SHORT).show();
+            }
+        }
+        // remove a favorite item
+        else if (wasFav == 1 && isFavNow == 0) {
+            for (int i = 0; i < 4; i++) {
+                if (PreferenceManager.getDefaultSharedPreferences(cxt).getString("fav_" + i, "N/A").equals(item)) {
+                    PreferenceManager.getDefaultSharedPreferences(cxt).edit().putString("fav_"+i, "N/A").apply();
+                    PreferenceManager.getDefaultSharedPreferences(cxt).edit().putString("fav_"+i+"cat", "N/A").apply();
+                    PreferenceManager.getDefaultSharedPreferences(cxt).edit().putString("fav_"+i+"size", "N/A").apply();
+                    PreferenceManager.getDefaultSharedPreferences(cxt).edit().putString("fav_"+i+"temp", "N/A").apply();
+                    PreferenceManager.getDefaultSharedPreferences(cxt).edit().putString("fav_"+i+"custom", "N/A").apply();
+                }
+            }
+        }
     }
 
 
