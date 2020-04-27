@@ -157,11 +157,13 @@ public class OrdersActivity extends AppCompatActivity {
 
                 //notify
                 //int i = Integer.parseInt(token.replaceAll("[\\D]", ""));
-                if (dataSnapshot.child("email").getValue().equals(email) && dataSnapshot.child("progressStatus").getValue().equals("true")) {
+                if (dataSnapshot.child("email").getValue().equals(email)) {
                     datasnap = dataSnapshot;
+                    String key = dataSnapshot.getKey();
                     orderPlacedText.setText("Your order is being prepared!");
                     if (dataSnapshot.child("paid").getValue(Boolean.class)) {
                         orderInProg = false;
+                        mOrdersDatabaseReference.child(key).child("progressStatus").setValue("false");
                         //thanksText.setVisibility(View.INVISIBLE)
                         orderNumberMessage.setVisibility(View.INVISIBLE);
                         orderNumberText.setVisibility(View.INVISIBLE);
@@ -177,47 +179,49 @@ public class OrdersActivity extends AppCompatActivity {
                     } else {
                         onChildAdded(dataSnapshot, "");
                     }
-                    String message = "Your order is being prepared!";
-                    String title = "Brody Beans";
-                    Uri defSoundsUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
-                            .setSmallIcon(R.drawable.beans_logo_background)
-                            .setContentTitle(title)
-                            .setContentText(message)
-                            .setSound(defSoundsUri)
-                            .setAutoCancel(true);
+                    if (dataSnapshot.child("progressStatus").getValue().equals("true")){
+                        String message = "Your order is being prepared!";
+                        String title = "Brody Beans";
+                        Uri defSoundsUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+                                .setSmallIcon(R.drawable.beans_logo_background)
+                                .setContentTitle(title)
+                                .setContentText(message)
+                                .setSound(defSoundsUri)
+                                .setAutoCancel(true);
 
-                    //Message m = Message.builder().putData().setToken().build();
-
-
-                    Intent intent = new Intent(getApplicationContext(), OrdersActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.putExtra("message", message);
-
-                    PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    builder.setContentIntent(pendingIntent);
-
-                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        //Message m = Message.builder().putData().setToken().build();
 
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        //String channelId = "Your_channel_id";
-                        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                        NotificationChannel channel = new NotificationChannel(
-                                CHANNEL_ID,
-                                "Channel human readable title",
-                                importance);
-                        channel.enableLights(true);
-                        channel.enableVibration(true);
-                        channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+                        Intent intent = new Intent(getApplicationContext(), OrdersActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("message", message);
+
+                        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        builder.setContentIntent(pendingIntent);
+
+                        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
 
-                        notificationManager.createNotificationChannel(channel);
-                        builder.setChannelId(CHANNEL_ID);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            //String channelId = "Your_channel_id";
+                            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                            NotificationChannel channel = new NotificationChannel(
+                                    CHANNEL_ID,
+                                    "Channel human readable title",
+                                    importance);
+                            channel.enableLights(true);
+                            channel.enableVibration(true);
+                            channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
 
+
+                            notificationManager.createNotificationChannel(channel);
+                            builder.setChannelId(CHANNEL_ID);
+
+                        }
+
+                        notificationManager.notify(0, builder.build());
                     }
-
-                    notificationManager.notify(0, builder.build());
                 }
             }
 
