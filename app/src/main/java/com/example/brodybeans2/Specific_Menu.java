@@ -30,12 +30,12 @@ public class Specific_Menu extends AppCompatActivity {
 
     // this is hard coded
     private ArrayList<String> menuCat;
-    private static ArrayList<String> espresso = new ArrayList<>(Arrays.asList("Americano","Latte", "Mocha","Red Eye","Cappuccino","Macchiato Traditional","Espresso","Dirty Chai"));
+    private static ArrayList<String> espresso = new ArrayList<>(Arrays.asList("Americano","Latte", "Mocha","Red Eye","Cappuccino","Macchiato Traditional","Espresso","Dirty Chai", "Black & White" , "Jitter Machine" , "Ferrero Rocher","Milky Way"));
     private static ArrayList<String> nonEspresso = new
             ArrayList<>(Arrays.asList("Drip Coffee", "Coffee Refill",
             "Chai Tea Latte" , "London Fog", "Hot Tea","Hot Chocolate", "Steamer", "Iced Coffee", "Iced Tea" ));
     private static ArrayList<String> breakfast = new ArrayList<>(Arrays.asList("Bagel w/ Cream Cheese" , "Bagel w/ Butter or Jelly",
-            "Bagel w/ Hummus", "Egg & cheese"));
+            "Bagel w/ Hummus", "Egg & cheese", "Bacon, Egg & cheese", "Sausage, Egg & cheese", "Muffins & Pastries"));
     private static ArrayList<String> blendBev = new ArrayList<>(Arrays.asList("Mocha Java","Chocolate Chunk","Cookies & Cream","Toasted Coconut","Coffee Toffee","Java Chip", "Green Tea", "Fruit Smoothie"));
     private HashMap<String,  ArrayList<String>> menu;
     //ActionBar actionBar = getActionBar();
