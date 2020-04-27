@@ -113,6 +113,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                     //set the text of settings box to current username
                     mNewUsername.setHint(curUsername);
+                    Toast.makeText(SettingsActivity.this, "Name updated",Toast.LENGTH_LONG).show();
                 }
             }
 
