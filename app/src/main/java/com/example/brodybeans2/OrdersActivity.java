@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +55,7 @@ public class OrdersActivity extends AppCompatActivity {
     private final String CHANNEL_ID = "my channel id";
 
     private DataSnapshot datasnap;
+    private Button cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,20 @@ public class OrdersActivity extends AppCompatActivity {
         orderNum = 0;
         orderInProg = false;
 
-
+        cancel = findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (datasnap != null) {
+                    if (!datasnap.child("progressStatus").getValue(Boolean.class)) {
+                        datasnap.getRef().removeValue();
+                    } else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Sorry. Your order cannot be deleted once it is in progress", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                }
+            }
+        });
 
         mChildEventListener = new ChildEventListener() {
             @Override
