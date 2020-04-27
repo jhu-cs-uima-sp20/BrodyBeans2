@@ -9,6 +9,8 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -25,7 +27,7 @@ public class Customization extends AppCompatActivity {
     CheckBox sml;
     CheckBox med;
     CheckBox lrg;
-    TextInputEditText cust;
+    EditText cust;
 
 
 
@@ -46,9 +48,14 @@ public class Customization extends AppCompatActivity {
             public void onClick(View v) {
                 int tempCount = 0;
                 int sizeCount = 0;
+                String custom;
                 boolean coldCheck = false;
                 context = getApplicationContext();
                 String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("category", null);
+                cust = findViewById(R.id.customInput);
+                custom = cust.getText().toString();
+                System.out.println("the inputted customizations are " + custom );
+                PreferenceManager.getDefaultSharedPreferences(context).edit().putString("custom", custom ).apply();
 
 
                 cold = (CheckBox)findViewById(R.id.icedCB);
@@ -79,6 +86,10 @@ public class Customization extends AppCompatActivity {
                 }
                 cust = findViewById(R.id.customInput);
                 //notes = cust.getText();
+
+
+                //get the text from the modification section
+                //set it to the other text box
 
 
                 //hard coded as an example of the data we should store

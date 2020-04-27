@@ -201,14 +201,15 @@ public class CartActivity extends AppCompatActivity {
         String item = PreferenceManager.getDefaultSharedPreferences(context).getString("item", null);
         String temp = PreferenceManager.getDefaultSharedPreferences(context).getString("temp", null);
         String size = PreferenceManager.getDefaultSharedPreferences(context).getString("size", null);
+        String custom = PreferenceManager.getDefaultSharedPreferences(context).getString("custom", null);
+
         if (cat != null) {
             if (cat == "Breakfast") {
-                System.out.println("registerd that the category is breakfast");
-                //TODO put this back to cat
+                //System.out.println("registered that the category is breakfast");
                 itemList.add(new OrderItem(item));
 
             } else {
-                itemList.add(new OrderItem(cat, item, temp, size));
+                itemList.add(new OrderItem(cat, item, temp, size, custom));
             }
         }
         mAdapter.notifyDataSetChanged();

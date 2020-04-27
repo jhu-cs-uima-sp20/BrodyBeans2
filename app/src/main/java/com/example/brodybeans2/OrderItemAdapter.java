@@ -23,12 +23,14 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
         public TextView orderTextView;
         public TextView extraOrderInfo;
+        public TextView custMod;
         public ImageButton deleteItem;
 
         public OrderItemHolder(View itemView) {
             super(itemView);
             orderTextView = itemView.findViewById(R.id.itemTextView);
             extraOrderInfo = itemView.findViewById(R.id.optionsTextView);
+            custMod = itemView.findViewById(R.id.custInfo);
             deleteItem = itemView.findViewById(R.id.deleteItem);
             deleteItem.setOnClickListener(this);
         }
@@ -72,6 +74,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     @Override
     public void onBindViewHolder(@NonNull OrderItemAdapter.OrderItemHolder holder, int position) {
         String extra;
+        String modi;
         OrderItem currItem = mItemList.get(position);
         holder.orderTextView.setText(currItem.getItem());
         if (currItem.getSize() == null || currItem.getTemp() == null) {
@@ -80,6 +83,12 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             extra = currItem.getSize() + currItem.getTemp();
         }
         holder.extraOrderInfo.setText(extra);
+        if (currItem.getMod() == null) {
+            modi = " ";
+        } else {
+            modi = currItem.getMod();
+        }
+        holder.custMod.setText(modi);
     }
 
     @Override
