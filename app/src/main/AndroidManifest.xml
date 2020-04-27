@@ -15,7 +15,9 @@
         <activity android:name=".Specific_Menu"
             android:label="Specific Items"
             android:parentActivityName=".MenuActivity">
-            />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
         </activity>
         <activity android:name=".Customization"
             android:parentActivityName=".HomeActivity"

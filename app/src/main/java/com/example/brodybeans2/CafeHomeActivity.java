@@ -170,7 +170,16 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                int count = 0;
+                for (Order o : orderList) {
+                    if (dataSnapshot.child("orderNumber").getValue(Integer.class) == o.getOrderNumber()) {
+                        break;
+                    }
+                    count++;
+                }
 
+                orderList.remove(count);
+                orderAdapter.notifyDataSetChanged();
             }
 
             @Override
