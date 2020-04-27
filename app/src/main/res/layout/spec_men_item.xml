@@ -19,7 +19,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/specMenTextView"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/fui_idp_button_background_yahoo" />
+            app:srcCompat="@mipmap/hot_coffee_foreground" />
 
         <TextView
             android:id="@+id/specMenTextView"
