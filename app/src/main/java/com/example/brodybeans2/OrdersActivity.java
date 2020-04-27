@@ -100,57 +100,49 @@ public class OrdersActivity extends AppCompatActivity {
 
                 //notify
                 //int i = Integer.parseInt(token.replaceAll("[\\D]", ""));
-                String message = "Your order is being prepared!";
-                String title = "Brody Beans";
-                Uri defSoundsUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                NotificationCompat.Builder builder =  new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
-                        .setSmallIcon(R.drawable.beans_logo_background)
-                        .setContentTitle(title)
-                        .setContentText(message)
-                        .setSound(defSoundsUri)
-                        .setAutoCancel(true);
+                if (dataSnapshot.child("email").getValue().equals(email)) {
+                    String message = "Your order is being prepared!";
+                    String title = "Brody Beans";
+                    Uri defSoundsUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+                            .setSmallIcon(R.drawable.beans_logo_background)
+                            .setContentTitle(title)
+                            .setContentText(message)
+                            .setSound(defSoundsUri)
+                            .setAutoCancel(true);
 
-                //Message m = Message.builder().putData().setToken().build();
-
-
-                Intent intent = new Intent(getApplicationContext(), OrdersActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("message", message);
-
-                PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                builder.setContentIntent(pendingIntent);
-
-                NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-
-                //*************************************************************
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    //String channelId = "Your_channel_id";
-                    int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                    NotificationChannel channel = new NotificationChannel(
-                            CHANNEL_ID,
-                            "Channel human readable title",
-                            importance);
-                    channel.enableLights(true);
-                    channel.enableVibration(true);
-                    channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+                    //Message m = Message.builder().putData().setToken().build();
 
 
-                    notificationManager.createNotificationChannel(channel);
-                    builder.setChannelId(CHANNEL_ID);
+                    Intent intent = new Intent(getApplicationContext(), OrdersActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("message", message);
 
+                    PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    builder.setContentIntent(pendingIntent);
+
+                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        //String channelId = "Your_channel_id";
+                        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                        NotificationChannel channel = new NotificationChannel(
+                                CHANNEL_ID,
+                                "Channel human readable title",
+                                importance);
+                        channel.enableLights(true);
+                        channel.enableVibration(true);
+                        channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+
+
+                        notificationManager.createNotificationChannel(channel);
+                        builder.setChannelId(CHANNEL_ID);
+
+                    }
+
+                    notificationManager.notify(0, builder.build());
                 }
-                //*************************************************************
-
-                //change the id here
-                /*
-                int j = 0;
-                if (i>0) {
-                    j = i;
-                }
-
-                 */
-
-                notificationManager.notify(0, builder.build());
             }
 
             @Override
