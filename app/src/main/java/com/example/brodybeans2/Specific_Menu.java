@@ -1,13 +1,16 @@
 package com.example.brodybeans2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.MenuItem;
 import android.widget.Adapter;
 
 import java.lang.reflect.Array;
@@ -35,6 +38,7 @@ public class Specific_Menu extends AppCompatActivity {
             "Bagel w/ Hummus", "Egg & cheese"));
     private static ArrayList<String> blendBev = new ArrayList<>(Arrays.asList("Mocha Java","Chocolate Chunk","Cookies & Cream","Toasted Coconut","Coffee Toffee","Java Chip", "Green Tea", "Fruit Smoothie"));
     private HashMap<String,  ArrayList<String>> menu;
+    //ActionBar actionBar = getActionBar();
 
     //espresso.add("latte");
     //espresso.add("cappicino");
@@ -43,6 +47,7 @@ public class Specific_Menu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         context = getApplicationContext();
         //jsut so not null will fix in a little
@@ -66,7 +71,6 @@ public class Specific_Menu extends AppCompatActivity {
         setContentView(R.layout.activity_specific__menu);
         buildRecyclerView();
 
-
     }
 
 
@@ -74,12 +78,23 @@ public class Specific_Menu extends AppCompatActivity {
         specMenRecyclerView =findViewById(R.id.specMenList);
 
         //mRecyclerView.setHasFixedSize(true);
-        specMenLayoutManager = new LinearLayoutManager(this);
+        //specMenLayoutManager = new LinearLayoutManager(this);
+        GridLayoutManager specMenLayoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
         specMenAdapter = new specMenAdapter(menuCat, context);
         //orderItemAdapter = new OrderItemAdapter(itemList);
 
         specMenRecyclerView.setLayoutManager(specMenLayoutManager);
         specMenRecyclerView.setAdapter(specMenAdapter);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return true;
     }
 }

@@ -128,6 +128,9 @@ public class specMenAdapter extends RecyclerView.Adapter<specMenAdapter.specMenH
         return oih;
     }
 
+       // View v = LayoutInflater.from(viewGroup.getContext()).inflate(isViewWithCatalog ? R.layout.product_row_layout_list : R.layout.product_row_layout_grid, null);
+
+
     @Override
     public void onBindViewHolder(@NonNull specMenAdapter.specMenHolder holder, int position) {
         String currItem = specMenItemList.get(position);
