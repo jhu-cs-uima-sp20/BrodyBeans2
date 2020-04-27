@@ -41,9 +41,8 @@ public class Specific_Menu extends AppCompatActivity {
     //ActionBar actionBar = getActionBar();
     private static ArrayList<Integer> bfastImages = new ArrayList<>(Arrays.asList(R.mipmap.bagel, R.mipmap.jel, R.mipmap.hum, R.mipmap.ec, R.mipmap.bec, R.mipmap.sec, R.mipmap.mufftwo));
     private static ArrayList<Integer> espressImages = new ArrayList<>(Arrays.asList(R.mipmap.hot_coffee, R.mipmap.latte, R.mipmap.mocah, R.mipmap.beancof, R.mipmap.cap, R.mipmap.machtwo, R.mipmap.espres, R.mipmap.tea,R.mipmap.widecaf,R.mipmap.upcaf, R.mipmap.heartcaf, R.mipmap.prettycof));
-    private static ArrayList<Integer> nonepressImages = new ArrayList<>(Arrays.asList(R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background));
-    private static ArrayList<Integer> blendImages = new ArrayList<>(Arrays.asList(R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background, R.drawable.iced_coffee_background));
-
+    private static ArrayList<Integer> nonepressImages = new ArrayList<>(Arrays.asList(R.mipmap.mochjava, R.mipmap.choco, R.mipmap.cc, R.mipmap.coconut, R.mipmap.coftof, R.mipmap.javchip, R.mipmap.green, R.mipmap.fruit, R.mipmap.beans_logo));
+    private static ArrayList<Integer> blendImages = new ArrayList<>(Arrays.asList(R.mipmap.mochjava, R.mipmap.choco, R.mipmap.cc, R.mipmap.coconut, R.mipmap.coftof, R.mipmap.javchip, R.mipmap.green, R.mipmap.fruit));
     //espresso.add("latte");
     //espresso.add("cappicino");
 
