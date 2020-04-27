@@ -230,7 +230,7 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
         ArrayList<String> arrayList = new ArrayList<>();
 
         for (OrderItem oi : orderList.get(position).getOrder()) {
-            arrayList.add(oi.getCategory());
+            arrayList.add(oi.getCategory() + "   S: " + oi.getSize() + "  T: " + oi.getTemp() + "  M: " + oi.getMod());
         }
 
 
