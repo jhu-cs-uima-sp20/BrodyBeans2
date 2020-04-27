@@ -71,9 +71,14 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
     @Override
     public void onBindViewHolder(@NonNull OrderItemAdapter.OrderItemHolder holder, int position) {
+        String extra;
         OrderItem currItem = mItemList.get(position);
-        holder.orderTextView.setText(currItem.getCategory());
-        String extra = currItem.getSize() + currItem.getTemp();
+        holder.orderTextView.setText(currItem.getItem());
+        if (currItem.getSize() == null || currItem.getTemp() == null) {
+            extra = " ";
+        } else {
+            extra = currItem.getSize() + currItem.getTemp();
+        }
         holder.extraOrderInfo.setText(extra);
     }
 

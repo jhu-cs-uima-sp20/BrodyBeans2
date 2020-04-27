@@ -97,11 +97,21 @@ public class specMenAdapter extends RecyclerView.Adapter<specMenAdapter.specMenH
             String menItem = (String) specMenTextView.getText();
             System.out.println("the item I want to add to cart is" + menItem);
             //editor.putString("item", menItem);
+            String cat = PreferenceManager.getDefaultSharedPreferences(cxt).getString("category", null);
+            System.out.println("the category preference on the specific menu is " + cat);
             PreferenceManager.getDefaultSharedPreferences(cxt).edit().putString("item", menItem ).apply();
-            Toast.makeText(v.getContext(), menItem,Toast.LENGTH_SHORT).show();
-            intent = new Intent(cxt, CartActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            cxt.startActivity(intent);
+            //get rid of toast
+            //Toast.makeText(v.getContext(), menItem,Toast.LENGTH_SHORT).show();
+
+            if (cat == "Breakfast") {
+                intent = new Intent(cxt, CartActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                cxt.startActivity(intent);
+            } else {
+                intent = new Intent(cxt, Customization.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                cxt.startActivity(intent);
+            }
         }
 
     }

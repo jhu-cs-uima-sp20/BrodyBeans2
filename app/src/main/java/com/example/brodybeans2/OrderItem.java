@@ -2,6 +2,7 @@ package com.example.brodybeans2;
 
 public class OrderItem {
     private String category;
+    private String item;
     private String temperature;
     private String modifications;
     private String size;
@@ -10,19 +11,21 @@ public class OrderItem {
 
     public OrderItem() {}
 
-    public OrderItem(String item) {
-        category = item;
+    public OrderItem(String itm) {
+        item = itm;
     }
 
-    public OrderItem(String item, String temp, String sz) {
-        category = item;
+    public OrderItem(String cat, String itm, String temp, String sz) {
+        category = cat;
+        item = itm;
         temperature = temp;
         size = sz;
     }
 
-    public OrderItem(String item, String temp, String sz, String mod) {
+    public OrderItem(String item, String itm, String temp, String sz, String mod) {
         category = item;
         temperature = temp;
+        item = itm;
         size = sz;
         modifications = mod;
     }
@@ -36,6 +39,15 @@ public class OrderItem {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public String getItem() {
+        return item;
+    }
+
+    public void setItem(String item) {
+        this.item = item;
+    }
+
 
 
     public String getSize() {

@@ -196,14 +196,21 @@ public class CartActivity extends AppCompatActivity {
     public void insertItem() {
         //SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         //String cat = sharedPreferences.getString("item", "no item??");
-        String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("item", null);
+        String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("category", null);
+        System.out.println("the category is registered on the menu is " + cat);
+        String item = PreferenceManager.getDefaultSharedPreferences(context).getString("item", null);
         String temp = PreferenceManager.getDefaultSharedPreferences(context).getString("temp", null);
         String size = PreferenceManager.getDefaultSharedPreferences(context).getString("size", null);
         if (cat != null) {
-            //TODO put this back to cat
-            itemList.add(new OrderItem(cat, temp, size));
-        }
+            if (cat == "Breakfast") {
+                System.out.println("registerd that the category is breakfast");
+                //TODO put this back to cat
+                itemList.add(new OrderItem(item));
 
+            } else {
+                itemList.add(new OrderItem(cat, item, temp, size));
+            }
+        }
         mAdapter.notifyDataSetChanged();
     }
 
