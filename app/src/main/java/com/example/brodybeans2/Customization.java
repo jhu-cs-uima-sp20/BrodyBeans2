@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -43,26 +44,33 @@ public class Customization extends AppCompatActivity {
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int tempCount = 0;
+                int sizeCount = 0;
                 context = getApplicationContext();
 
                 cold = (CheckBox)findViewById(R.id.icedCB);
                 if(cold.isChecked()){
+                    tempCount++;
                     temp = "Cold";
                 }
                 hot = (CheckBox)findViewById(R.id.hotCB);
                 if(hot.isChecked()){
+                    tempCount++;
                     temp = "Hot";
                 }
                 sml = (CheckBox)findViewById(R.id.smallCB);
                 if(sml.isChecked()){
+                    sizeCount++;
                     size = "Small, ";
                 }
                 med = (CheckBox)findViewById(R.id.mediumCB);
                 if(med.isChecked()){
+                    sizeCount++;
                     size = "Medium, ";
                 }
                 lrg = (CheckBox)findViewById(R.id.LargeCB);
                 if(lrg.isChecked()){
+                    sizeCount++;
                     size = "Large, ";
                 }
                 cust = findViewById(R.id.customInput);
@@ -78,9 +86,19 @@ public class Customization extends AppCompatActivity {
                 //what ever additional notes are written
                 //PreferenceManager.getDefaultSharedPreferences(context).edit().putString("notes", "small").apply();
 
+                if (sizeCount != 1){
+                    //throw new toast
+                    Toast.makeText(v.getContext(), "Please select exactly 1 size",Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(v.getContext(), CartActivity.class);
-                startActivity(intent);
+                }
+                else if (tempCount != 1){
+                    //throw new toast
+                    Toast.makeText(v.getContext(), "Please select exactly 1 temperature",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent(v.getContext(), CartActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

@@ -22,8 +22,8 @@ public class OrderItem {
         size = sz;
     }
 
-    public OrderItem(String item, String itm, String temp, String sz, String mod) {
-        category = item;
+    public OrderItem(String cat, String itm, String temp, String sz, String mod) {
+        category = cat;
         temperature = temp;
         item = itm;
         size = sz;
