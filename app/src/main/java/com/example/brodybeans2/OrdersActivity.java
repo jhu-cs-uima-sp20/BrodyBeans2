@@ -43,6 +43,7 @@ public class OrdersActivity extends AppCompatActivity {
     private TextView thanksText;
     private TextView orderPlacedText;
     private TextView orderNumberMessage;
+    private TextView notifyMessage;
 
     private final String CHANNEL_ID = "my channel id";
 
@@ -56,6 +57,7 @@ public class OrdersActivity extends AppCompatActivity {
         thanksText = (TextView) findViewById(R.id.thanks_txt);
         orderPlacedText = (TextView) findViewById(R.id.order_placed_msg);
         orderNumberMessage = (TextView) findViewById(R.id.order_num_msg);
+        notifyMessage = (TextView) findViewById(R.id.notify_msg);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mOrdersDatabaseReference = mFirebaseDatabase.getReference().child("orders");
@@ -84,6 +86,9 @@ public class OrdersActivity extends AppCompatActivity {
                     if (getSupportActionBar() != null) {
                         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                         getSupportActionBar().setHomeButtonEnabled(false);
+                        //change visibility of notify message on screen
+                        notifyMessage.setVisibility(View.INVISIBLE);
+                        orderPlacedText.setVisibility(View.VISIBLE);
                     }
                 }
                 else {
@@ -97,6 +102,10 @@ public class OrdersActivity extends AppCompatActivity {
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 //orderNum =  dataSnapshot.getValue(Integer.class);
+
+                //change visibility of notify message on screen
+                notifyMessage.setVisibility(View.VISIBLE);
+                orderPlacedText.setVisibility(View.INVISIBLE);
 
                 //notify
                 //int i = Integer.parseInt(token.replaceAll("[\\D]", ""));
@@ -152,6 +161,8 @@ public class OrdersActivity extends AppCompatActivity {
                     //thanksText.setVisibility(View.INVISIBLE)
                     orderNumberMessage.setVisibility(View.INVISIBLE);
                     orderNumberText.setVisibility(View.INVISIBLE);
+                    orderPlacedText.setVisibility(View.VISIBLE);
+                    notifyMessage.setVisibility(View.INVISIBLE);
                     orderPlacedText.setText("Click the back button to place a new one!");
                     orderPlacedText.setTextColor(getResources().getColor(R.color.colorPrimary));
                     thanksText.setText("Your order has been paid. \n\n");
