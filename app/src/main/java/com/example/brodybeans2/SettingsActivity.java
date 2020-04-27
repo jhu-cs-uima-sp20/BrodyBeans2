@@ -22,7 +22,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,7 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
     //database fields
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mUsersDatabaseReference;
-    private DatabaseReference mUsersDatabaseReferenceName;
+    private DatabaseReference mOrdersDatabaseReference;
     private ChildEventListener mChildEventListener;
     private FirebaseAuth mFirebaseAuth;
 
@@ -49,6 +52,8 @@ public class SettingsActivity extends AppCompatActivity {
     private String curPassword;
     private String newPassword;
     private String newName;
+    private String userKey;
+    private ArrayList<Order> orderList;
 
     private FirebaseUser user;
 
@@ -57,6 +62,8 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        orderList = new ArrayList<>();
 
         mNewPassword = findViewById(R.id.new_password);
         mCurPassword = findViewById(R.id.cur_password);
@@ -82,8 +89,7 @@ public class SettingsActivity extends AppCompatActivity {
         //String key = getIntent().getExtras().getKey().toString();
         //mUsersDatabaseReferenceName = mFirebaseDatabase.getInstance().getReference().child("users");
         mUsersDatabaseReference = mFirebaseDatabase.getInstance().getReference().child("users");
-
-
+        mOrdersDatabaseReference = mFirebaseDatabase.getInstance().getReference().child("orders");
 
 
         mChildEventListener = new ChildEventListener() {
@@ -94,7 +100,11 @@ public class SettingsActivity extends AppCompatActivity {
 
                     //set the text of settings box to current username
                     mNewUsername.setHint(curUsername);
+
+                    //set the current user key
+                    userKey = dataSnapshot.getKey();
                 }
+
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -184,7 +194,13 @@ public class SettingsActivity extends AppCompatActivity {
         updateName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //check if current username field is empty
+                newName = mNewUsername.getEditText().getText().toString().trim();
+                if (TextUtils.isEmpty(newName)) {
+                    mNewUsername.setError("Empty field");
+                    return;
+                }
+                mUsersDatabaseReference.child(userKey).child("fullName").setValue(newName);
             }
         });
 
