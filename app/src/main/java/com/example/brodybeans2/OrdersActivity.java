@@ -51,6 +51,7 @@ public class OrdersActivity extends AppCompatActivity {
     private TextView orderPlacedText;
     private TextView orderNumberMessage;
     private TextView notifyMessage;
+    private String mainKey;
 
     private final String CHANNEL_ID = "my channel id";
 
@@ -75,6 +76,7 @@ public class OrdersActivity extends AppCompatActivity {
 
         orderNum = 0;
         orderInProg = false;
+        mainKey = "";
 
         cancel = findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +111,7 @@ public class OrdersActivity extends AppCompatActivity {
                     ArrayList<String> arrayList = new ArrayList<>();
 
                     for (OrderItem oi : items) {
-                        arrayList.add(oi.getCategory());
+                        arrayList.add(oi.getItem());
                     }
 
 
@@ -163,7 +165,6 @@ public class OrdersActivity extends AppCompatActivity {
                     orderPlacedText.setText("Your order is being prepared!");
                     if (dataSnapshot.child("paid").getValue(Boolean.class)) {
                         orderInProg = false;
-                        mOrdersDatabaseReference.child(key).child("progressStatus").setValue("false");
                         //thanksText.setVisibility(View.INVISIBLE)
                         orderNumberMessage.setVisibility(View.INVISIBLE);
                         orderNumberText.setVisibility(View.INVISIBLE);
@@ -178,10 +179,12 @@ public class OrdersActivity extends AppCompatActivity {
                         }
                     } else {
                         onChildAdded(dataSnapshot, "");
+                        mOrdersDatabaseReference.child(key).child("progressStatus").setValue("false");
                     }
                     if (dataSnapshot.child("progressStatus").getValue().equals("true")){
                         String message = "Your order is being prepared!";
                         String title = "Brody Beans";
+                        mainKey = (String)dataSnapshot.getValue();
                         Uri defSoundsUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
                                 .setSmallIcon(R.drawable.beans_logo_background)
