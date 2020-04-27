@@ -39,9 +39,9 @@ public class Specific_Menu extends AppCompatActivity {
     private static ArrayList<String> blendBev = new ArrayList<>(Arrays.asList("Mocha Java","Chocolate Chunk","Cookies & Cream","Toasted Coconut","Coffee Toffee","Java Chip", "Green Tea", "Fruit Smoothie"));
     private HashMap<String,  ArrayList<String>> menu;
     //ActionBar actionBar = getActionBar();
-    private static ArrayList<Integer> bfastImages = new ArrayList<>(Arrays.asList(R.mipmap.bagel, R.mipmap.jel, R.mipmap.hum, R.mipmap.ec, R.mipmap.bec, R.mipmap.sec, R.mipmap.mufftwo));
-    private static ArrayList<Integer> espressImages = new ArrayList<>(Arrays.asList(R.mipmap.amer, R.mipmap.coffee4, R.mipmap.mocah, R.mipmap.coffee3, R.mipmap.cap, R.mipmap.machtwo, R.mipmap.espres2, R.mipmap.tea,R.mipmap.widecaf,R.mipmap.upcaf, R.mipmap.heartcaf, R.mipmap.prettycof));
-    private static ArrayList<Integer> nonepressImages = new ArrayList<>(Arrays.asList(R.mipmap.drip, R.mipmap.refill, R.mipmap.chailatte, R.mipmap.london, R.mipmap.hottea, R.mipmap.hotchoco, R.mipmap.steamer, R.mipmap.icedcoffee, R.mipmap.icedtea));
+    private static ArrayList<Integer> bfastImages = new ArrayList<>(Arrays.asList(R.mipmap.bagel, R.mipmap.jel, R.mipmap.hum, R.mipmap.ec, R.mipmap.bec, R.mipmap.sec, R.mipmap.muff2));
+    private static ArrayList<Integer> espressImages = new ArrayList<>(Arrays.asList(R.mipmap.amer, R.mipmap.coffee4, R.mipmap.newcoff, R.mipmap.drip, R.mipmap.coffee9, R.mipmap.newmach2, R.mipmap.espres2, R.mipmap.coffee6,R.mipmap.coffee9,R.mipmap.jittermachine, R.mipmap.heartcaf, R.mipmap.coffee8));
+    private static ArrayList<Integer> nonepressImages = new ArrayList<>(Arrays.asList(R.mipmap.drip, R.mipmap.refill, R.mipmap.chailatte, R.mipmap.london, R.mipmap.newtea, R.mipmap.hotchoco, R.mipmap.steamer, R.mipmap.newicedcof, R.mipmap.icedtea));
     private static ArrayList<Integer> blendImages = new ArrayList<>(Arrays.asList(R.mipmap.mochjava, R.mipmap.choco, R.mipmap.cc, R.mipmap.coconut2, R.mipmap.coftof, R.mipmap.javchip, R.mipmap.greensmooth, R.mipmap.smooth));
     //espresso.add("latte");
     //espresso.add("cappicino");
