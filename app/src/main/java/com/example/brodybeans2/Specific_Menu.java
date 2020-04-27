@@ -50,7 +50,7 @@ public class Specific_Menu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().setHomeButtonEnabled(true);
+        //getSupportActionBar().setHomeButtonEnabled(true);
 
         context = getApplicationContext();
         //jsut so not null will fix in a little

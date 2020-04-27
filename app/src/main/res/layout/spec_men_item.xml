@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:background="@color/colorPrimaryDark"
     android:baselineAligned="false"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Specific_Menu">
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
