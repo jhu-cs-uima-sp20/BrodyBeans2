@@ -39,10 +39,10 @@ public class Specific_Menu extends AppCompatActivity {
     private static ArrayList<String> blendBev = new ArrayList<>(Arrays.asList("Mocha Java","Chocolate Chunk","Cookies & Cream","Toasted Coconut","Coffee Toffee","Java Chip", "Green Tea", "Fruit Smoothie"));
     private HashMap<String,  ArrayList<String>> menu;
     //ActionBar actionBar = getActionBar();
-    private static ArrayList<Integer> bfastImages = new ArrayList<>(Arrays.asList(R.mipmap.bagel, R.mipmap.jel, R.mipmap.hum, R.mipmap.ec, R.mipmap.bec, R.mipmap.sec, R.mipmap.mufftwo));
-    private static ArrayList<Integer> espressImages = new ArrayList<>(Arrays.asList(R.mipmap.hot_coffee, R.mipmap.latte, R.mipmap.mocah, R.mipmap.beancof, R.mipmap.cap, R.mipmap.machtwo, R.mipmap.espres, R.mipmap.tea,R.mipmap.widecaf,R.mipmap.upcaf, R.mipmap.heartcaf, R.mipmap.prettycof));
-    private static ArrayList<Integer> nonepressImages = new ArrayList<>(Arrays.asList(R.mipmap.mochjava, R.mipmap.choco, R.mipmap.cc, R.mipmap.coconut, R.mipmap.coftof, R.mipmap.javchip, R.mipmap.green, R.mipmap.fruit, R.mipmap.beans_logo));
-    private static ArrayList<Integer> blendImages = new ArrayList<>(Arrays.asList(R.mipmap.mochjava, R.mipmap.choco, R.mipmap.cc, R.mipmap.coconut, R.mipmap.coftof, R.mipmap.javchip, R.mipmap.green, R.mipmap.fruit));
+    private static ArrayList<Integer> bfastImages = new ArrayList<>(Arrays.asList(R.mipmap.bagel, R.mipmap.jel, R.mipmap.hum, R.mipmap.ec, R.mipmap.bec, R.mipmap.sec, R.mipmap.muff2));
+    private static ArrayList<Integer> espressImages = new ArrayList<>(Arrays.asList(R.mipmap.amer, R.mipmap.coffee4, R.mipmap.newcoff, R.mipmap.drip, R.mipmap.coffee9, R.mipmap.newmach2, R.mipmap.espres2, R.mipmap.coffee6,R.mipmap.coffee9,R.mipmap.jittermachine, R.mipmap.heartcaf, R.mipmap.coffee8));
+    private static ArrayList<Integer> nonepressImages = new ArrayList<>(Arrays.asList(R.mipmap.drip, R.mipmap.refill, R.mipmap.chailatte, R.mipmap.londonfoggg, R.mipmap.newtea, R.mipmap.hotchoco, R.mipmap.steamer, R.mipmap.newicedcof, R.mipmap.icedtea));
+    private static ArrayList<Integer> blendImages = new ArrayList<>(Arrays.asList(R.mipmap.mochjava, R.mipmap.chocoshake, R.mipmap.cc, R.mipmap.coconut2, R.mipmap.mochaachip, R.mipmap.javaachip, R.mipmap.greensmooth, R.mipmap.smooth));
     //espresso.add("latte");
     //espresso.add("cappicino");
 
@@ -50,7 +50,7 @@ public class Specific_Menu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().setHomeButtonEnabled(true);
+        //getSupportActionBar().setHomeButtonEnabled(true);
 
         context = getApplicationContext();
         //jsut so not null will fix in a little
@@ -84,16 +84,18 @@ public class Specific_Menu extends AppCompatActivity {
         //specMenLayoutManager = new LinearLayoutManager(this);
         GridLayoutManager specMenLayoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
         String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("category", null);
-        if (cat == "Breakfast") {
-            specMenAdapter = new specMenAdapter(menuCat, bfastImages, context);
-        } else if (cat == "Espresso") {
-            specMenAdapter = new specMenAdapter(menuCat, espressImages, context);
-        }else if (cat == "Non Espresso") {
-            specMenAdapter = new specMenAdapter(menuCat, nonepressImages, context);
-        }else if (cat == "Blended Beverage") {
-            specMenAdapter = new specMenAdapter(menuCat, blendImages, context);
-        }
+        if (cat != null) {
+            if (cat == "Breakfast") {
+                specMenAdapter = new specMenAdapter(menuCat, bfastImages, context);
+            } else if (cat == "Espresso") {
+                specMenAdapter = new specMenAdapter(menuCat, espressImages, context);
+            } else if (cat == "Non Espresso") {
+                specMenAdapter = new specMenAdapter(menuCat, nonepressImages, context);
+            } else if (cat == "Blended Beverage") {
+                specMenAdapter = new specMenAdapter(menuCat, blendImages, context);
+            }
 
+        }
         //orderItemAdapter = new OrderItemAdapter(itemList);
 
         specMenRecyclerView.setLayoutManager(specMenLayoutManager);

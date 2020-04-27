@@ -144,7 +144,7 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (!dataSnapshot.child("paid").getValue(Boolean.class)) {
+                if (!dataSnapshot.child("paid").getValue(Boolean.class) && dataSnapshot.child("progressStatus").equals("false")) {
 
                     Log.d("Children Num", String.valueOf(dataSnapshot.getChildrenCount()));
                     Order order = new Order();
@@ -170,7 +170,16 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                int count = 0;
+                for (Order o : orderList) {
+                    if (dataSnapshot.child("orderNumber").getValue(Integer.class) == o.getOrderNumber()) {
+                        break;
+                    }
+                    count++;
+                }
 
+                orderList.remove(count);
+                orderAdapter.notifyDataSetChanged();
             }
 
             @Override

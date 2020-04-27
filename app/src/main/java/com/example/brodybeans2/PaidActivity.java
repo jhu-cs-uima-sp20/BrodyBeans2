@@ -181,6 +181,7 @@ public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnEx
 
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                 ds.getRef().child("paid").setValue(false);
+                                ds.getRef().child("progressStatus").setValue("false");
                             }
                         }
 

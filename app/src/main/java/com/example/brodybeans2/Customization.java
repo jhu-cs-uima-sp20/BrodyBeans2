@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -90,8 +91,8 @@ public class Customization extends AppCompatActivity {
                 String item = PreferenceManager.getDefaultSharedPreferences(context).getString("item", null);
                 cust = findViewById(R.id.customInput);
                 custom = cust.getText().toString();
-                System.out.println("the inputted customizations are " + custom );
-                PreferenceManager.getDefaultSharedPreferences(context).edit().putString("custom", custom ).apply();
+                //System.out.println("the inputted customizations are " + custom );
+                PreferenceManager.getDefaultSharedPreferences(context).edit().putString("custom", custom).apply();
 
                 // check if the item was is now a favorite item of the user
                 if (fav_switch.isChecked()) {
@@ -153,8 +154,9 @@ public class Customization extends AppCompatActivity {
                 else if (cat == "Blended Beverage" && coldCheck != true ){
                     //throw new toast
                     Toast.makeText(v.getContext(), "Blended beverages must be cold",Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else if (custom.length() > 40) {
+                    Toast.makeText(v.getContext(), "please limit customization to 40 characters",Toast.LENGTH_SHORT).show();
+                } else {
                     addOrRemoveFav(wasFav, isFavNow, context, cat, item, size, temp, custom);
                     if (hasSpace) {
                         Intent intent = new Intent(v.getContext(), CartActivity.class);

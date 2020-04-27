@@ -51,6 +51,7 @@ public class OrdersActivity extends AppCompatActivity {
     private TextView orderPlacedText;
     private TextView orderNumberMessage;
     private TextView notifyMessage;
+    private String mainKey;
 
     private final String CHANNEL_ID = "my channel id";
 
@@ -66,7 +67,6 @@ public class OrdersActivity extends AppCompatActivity {
         thanksText = (TextView) findViewById(R.id.thanks_txt);
         orderPlacedText = (TextView) findViewById(R.id.order_placed_msg);
         orderNumberMessage = (TextView) findViewById(R.id.order_num_msg);
-        notifyMessage = (TextView) findViewById(R.id.notify_msg);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mOrdersDatabaseReference = mFirebaseDatabase.getReference().child("orders");
@@ -76,6 +76,7 @@ public class OrdersActivity extends AppCompatActivity {
 
         orderNum = 0;
         orderInProg = false;
+        mainKey = "";
 
         cancel = findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +111,7 @@ public class OrdersActivity extends AppCompatActivity {
                     ArrayList<String> arrayList = new ArrayList<>();
 
                     for (OrderItem oi : items) {
-                        arrayList.add(oi.getCategory());
+                        arrayList.add(oi.getItem());
                     }
 
 
@@ -135,7 +136,7 @@ public class OrdersActivity extends AppCompatActivity {
                         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                         getSupportActionBar().setHomeButtonEnabled(false);
                         //change visibility of notify message on screen
-                        notifyMessage.setVisibility(View.INVISIBLE);
+                        //notifyMessage.setVisibility(View.INVISIBLE);
                         orderPlacedText.setVisibility(View.VISIBLE);
                     }
                 }
@@ -152,13 +153,16 @@ public class OrdersActivity extends AppCompatActivity {
                 //orderNum =  dataSnapshot.getValue(Integer.class);
 
                 //change visibility of notify message on screen
-                notifyMessage.setVisibility(View.VISIBLE);
-                orderPlacedText.setVisibility(View.INVISIBLE);
+                //notifyMessage.setVisibility(View.VISIBLE);
+                //orderPlacedText.setVisibility(View.INVISIBLE);
+
 
                 //notify
                 //int i = Integer.parseInt(token.replaceAll("[\\D]", ""));
                 if (dataSnapshot.child("email").getValue().equals(email)) {
                     datasnap = dataSnapshot;
+                    String key = dataSnapshot.getKey();
+                    orderPlacedText.setText("Your order is being prepared!");
                     if (dataSnapshot.child("paid").getValue(Boolean.class)) {
                         orderInProg = false;
                         //thanksText.setVisibility(View.INVISIBLE)
@@ -175,48 +179,52 @@ public class OrdersActivity extends AppCompatActivity {
                         }
                     } else {
                         onChildAdded(dataSnapshot, "");
+                        mOrdersDatabaseReference.child(key).child("progressStatus").setValue("false");
                     }
-                    String message = "Your order is being prepared!";
-                    String title = "Brody Beans";
-                    Uri defSoundsUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
-                            .setSmallIcon(R.drawable.beans_logo_background)
-                            .setContentTitle(title)
-                            .setContentText(message)
-                            .setSound(defSoundsUri)
-                            .setAutoCancel(true);
+                    if (dataSnapshot.child("progressStatus").getValue().equals("true")){
+                        String message = "Your order is being prepared!";
+                        String title = "Brody Beans";
+                        mainKey = (String)dataSnapshot.getValue();
+                        Uri defSoundsUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+                                .setSmallIcon(R.drawable.beans_logo_background)
+                                .setContentTitle(title)
+                                .setContentText(message)
+                                .setSound(defSoundsUri)
+                                .setAutoCancel(true);
 
-                    //Message m = Message.builder().putData().setToken().build();
-
-
-                    Intent intent = new Intent(getApplicationContext(), OrdersActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.putExtra("message", message);
-
-                    PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    builder.setContentIntent(pendingIntent);
-
-                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        //Message m = Message.builder().putData().setToken().build();
 
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        //String channelId = "Your_channel_id";
-                        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                        NotificationChannel channel = new NotificationChannel(
-                                CHANNEL_ID,
-                                "Channel human readable title",
-                                importance);
-                        channel.enableLights(true);
-                        channel.enableVibration(true);
-                        channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+                        Intent intent = new Intent(getApplicationContext(), OrdersActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("message", message);
+
+                        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        builder.setContentIntent(pendingIntent);
+
+                        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
 
-                        notificationManager.createNotificationChannel(channel);
-                        builder.setChannelId(CHANNEL_ID);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            //String channelId = "Your_channel_id";
+                            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                            NotificationChannel channel = new NotificationChannel(
+                                    CHANNEL_ID,
+                                    "Channel human readable title",
+                                    importance);
+                            channel.enableLights(true);
+                            channel.enableVibration(true);
+                            channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
 
+
+                            notificationManager.createNotificationChannel(channel);
+                            builder.setChannelId(CHANNEL_ID);
+
+                        }
+
+                        notificationManager.notify(0, builder.build());
                     }
-
-                    notificationManager.notify(0, builder.build());
                 }
             }
 
@@ -225,11 +233,13 @@ public class OrdersActivity extends AppCompatActivity {
                 if (email.equals(dataSnapshot.child("email").getValue(String.class))) {
                     datasnap = dataSnapshot;
                     orderInProg = false;
+                    String s = dataSnapshot.getKey();
+                    mOrdersDatabaseReference.child(s).child("progressStatus").setValue("false");
                     //thanksText.setVisibility(View.INVISIBLE)
                     orderNumberMessage.setVisibility(View.INVISIBLE);
                     orderNumberText.setVisibility(View.INVISIBLE);
                     orderPlacedText.setVisibility(View.VISIBLE);
-                    notifyMessage.setVisibility(View.INVISIBLE);
+                    //notifyMessage.setVisibility(View.INVISIBLE);
                     orderPlacedText.setText("Click the back button to place a new one!");
                     orderPlacedText.setTextColor(getResources().getColor(R.color.colorPrimary));
                     thanksText.setText("Your order has been cancelled. \n\n");
