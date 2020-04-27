@@ -66,7 +66,6 @@ public class OrdersActivity extends AppCompatActivity {
         thanksText = (TextView) findViewById(R.id.thanks_txt);
         orderPlacedText = (TextView) findViewById(R.id.order_placed_msg);
         orderNumberMessage = (TextView) findViewById(R.id.order_num_msg);
-        notifyMessage = (TextView) findViewById(R.id.notify_msg);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mOrdersDatabaseReference = mFirebaseDatabase.getReference().child("orders");
@@ -135,7 +134,7 @@ public class OrdersActivity extends AppCompatActivity {
                         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                         getSupportActionBar().setHomeButtonEnabled(false);
                         //change visibility of notify message on screen
-                        notifyMessage.setVisibility(View.INVISIBLE);
+                        //notifyMessage.setVisibility(View.INVISIBLE);
                         orderPlacedText.setVisibility(View.VISIBLE);
                     }
                 }
@@ -152,13 +151,15 @@ public class OrdersActivity extends AppCompatActivity {
                 //orderNum =  dataSnapshot.getValue(Integer.class);
 
                 //change visibility of notify message on screen
-                notifyMessage.setVisibility(View.VISIBLE);
-                orderPlacedText.setVisibility(View.INVISIBLE);
+                //notifyMessage.setVisibility(View.VISIBLE);
+                //orderPlacedText.setVisibility(View.INVISIBLE);
+
 
                 //notify
                 //int i = Integer.parseInt(token.replaceAll("[\\D]", ""));
-                if (dataSnapshot.child("email").getValue().equals(email)) {
+                if (dataSnapshot.child("email").getValue().equals(email) && dataSnapshot.child("progressStatus").getValue().equals("true")) {
                     datasnap = dataSnapshot;
+                    orderPlacedText.setText("Your order is being prepared!");
                     if (dataSnapshot.child("paid").getValue(Boolean.class)) {
                         orderInProg = false;
                         //thanksText.setVisibility(View.INVISIBLE)
@@ -225,11 +226,13 @@ public class OrdersActivity extends AppCompatActivity {
                 if (email.equals(dataSnapshot.child("email").getValue(String.class))) {
                     datasnap = dataSnapshot;
                     orderInProg = false;
+                    String s = dataSnapshot.getKey();
+                    mOrdersDatabaseReference.child(s).child("progressStatus").setValue("false");
                     //thanksText.setVisibility(View.INVISIBLE)
                     orderNumberMessage.setVisibility(View.INVISIBLE);
                     orderNumberText.setVisibility(View.INVISIBLE);
                     orderPlacedText.setVisibility(View.VISIBLE);
-                    notifyMessage.setVisibility(View.INVISIBLE);
+                    //notifyMessage.setVisibility(View.INVISIBLE);
                     orderPlacedText.setText("Click the back button to place a new one!");
                     orderPlacedText.setTextColor(getResources().getColor(R.color.colorPrimary));
                     thanksText.setText("Your order has been cancelled. \n\n");
