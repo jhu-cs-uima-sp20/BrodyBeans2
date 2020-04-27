@@ -56,9 +56,8 @@ public class Customization extends AppCompatActivity {
                 String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("category", null);
                 cust = findViewById(R.id.customInput);
                 custom = cust.getText().toString();
-                System.out.println("the inputted customizations are " + custom );
-                PreferenceManager.getDefaultSharedPreferences(context).edit().putString("custom", custom ).apply();
-
+                //System.out.println("the inputted customizations are " + custom );
+                PreferenceManager.getDefaultSharedPreferences(context).edit().putString("custom", custom).apply();
 
                 cold = (CheckBox)findViewById(R.id.icedCB);
                 if(cold.isChecked()){
@@ -115,8 +114,9 @@ public class Customization extends AppCompatActivity {
                 else if (cat == "Blended Beverage" && coldCheck != true ){
                     //throw new toast
                     Toast.makeText(v.getContext(), "Blended beverages must be cold",Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else if (custom.length() > 40) {
+                    Toast.makeText(v.getContext(), "please limit customization to 40 characters",Toast.LENGTH_SHORT).show();
+                } else {
                     Intent intent = new Intent(v.getContext(), CartActivity.class);
                     startActivity(intent);
                 }

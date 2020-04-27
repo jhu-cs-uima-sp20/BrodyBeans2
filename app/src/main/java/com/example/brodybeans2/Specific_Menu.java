@@ -84,16 +84,18 @@ public class Specific_Menu extends AppCompatActivity {
         //specMenLayoutManager = new LinearLayoutManager(this);
         GridLayoutManager specMenLayoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
         String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("category", null);
-        if (cat == "Breakfast") {
-            specMenAdapter = new specMenAdapter(menuCat, bfastImages, context);
-        } else if (cat == "Espresso") {
-            specMenAdapter = new specMenAdapter(menuCat, espressImages, context);
-        }else if (cat == "Non Espresso") {
-            specMenAdapter = new specMenAdapter(menuCat, nonepressImages, context);
-        }else if (cat == "Blended Beverage") {
-            specMenAdapter = new specMenAdapter(menuCat, blendImages, context);
-        }
+        if (cat != null) {
+            if (cat == "Breakfast") {
+                specMenAdapter = new specMenAdapter(menuCat, bfastImages, context);
+            } else if (cat == "Espresso") {
+                specMenAdapter = new specMenAdapter(menuCat, espressImages, context);
+            } else if (cat == "Non Espresso") {
+                specMenAdapter = new specMenAdapter(menuCat, nonepressImages, context);
+            } else if (cat == "Blended Beverage") {
+                specMenAdapter = new specMenAdapter(menuCat, blendImages, context);
+            }
 
+        }
         //orderItemAdapter = new OrderItemAdapter(itemList);
 
         specMenRecyclerView.setLayoutManager(specMenLayoutManager);
