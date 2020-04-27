@@ -46,11 +46,15 @@ public class Customization extends AppCompatActivity {
             public void onClick(View v) {
                 int tempCount = 0;
                 int sizeCount = 0;
+                boolean coldCheck = false;
                 context = getApplicationContext();
+                String cat = PreferenceManager.getDefaultSharedPreferences(context).getString("category", null);
+
 
                 cold = (CheckBox)findViewById(R.id.icedCB);
                 if(cold.isChecked()){
                     tempCount++;
+                    coldCheck = true;
                     temp = "Cold";
                 }
                 hot = (CheckBox)findViewById(R.id.hotCB);
@@ -94,6 +98,10 @@ public class Customization extends AppCompatActivity {
                 else if (tempCount != 1){
                     //throw new toast
                     Toast.makeText(v.getContext(), "Please select exactly 1 temperature",Toast.LENGTH_SHORT).show();
+                }
+                else if (cat == "Blended Beverage" && coldCheck != true ){
+                    //throw new toast
+                    Toast.makeText(v.getContext(), "Blended beverages must be cold",Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Intent intent = new Intent(v.getContext(), CartActivity.class);
