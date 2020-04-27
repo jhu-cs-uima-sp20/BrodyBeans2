@@ -53,7 +53,12 @@
         <activity
             android:name=".OrdersActivity"
             android:label="My Order"
-            android:parentActivityName=".OrdersActivity" />
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+
+        </activity>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/settings"
