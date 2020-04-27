@@ -12,13 +12,17 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -45,6 +49,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -66,6 +72,7 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
     private LinearLayoutManager mLayoutManager;
 
     private Button signOut;
+    private final String CHANNEL_ID = "my channel id";
 
     private DrawerLayout drawer;
 
@@ -141,41 +148,66 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
                 //send notification
                 //s is the key of our dude
-                int i = 3;
-                Integer orderNum = (Integer)dataSnapshot.child("orderNumber").getValue();
+                //int i = 3;
+                Long orderNum = (Long)dataSnapshot.child("orderNumber").getValue();
+                String token = (String) dataSnapshot.child("token").getValue();
 
+
+                //int i = Integer.parseInt(token.replaceAll("[\\D]", ""));
+                /*
                 String message = "Your order is being prepared!";
                 String title = "Brody Beans";
-                NotificationCompat.Builder builder =  new NotificationCompat.Builder(CafeHomeActivity.this)
+                Uri defSoundsUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                NotificationCompat.Builder builder =  new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
                         .setSmallIcon(R.drawable.beans_logo_background)
                         .setContentTitle(title)
                         .setContentText(message)
+                        .setSound(defSoundsUri)
                         .setAutoCancel(true);
 
-                Intent intent = new Intent(CafeHomeActivity.this, OrdersActivity.class);
-                intent .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //Message m = Message.builder().putData().setToken().build();
+
+
+                Intent intent = new Intent(getApplicationContext(), OrdersActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("message", message);
 
-                PendingIntent pendingIntent = PendingIntent.getActivity(CafeHomeActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 builder.setContentIntent(pendingIntent);
 
                 NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 
                 //*************************************************************
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    String channelId = "Your_channel_id";
+                    //String channelId = "Your_channel_id";
                     int importance = NotificationManager.IMPORTANCE_DEFAULT;
                     NotificationChannel channel = new NotificationChannel(
-                            channelId,
+                            CHANNEL_ID,
                             "Channel human readable title",
                             importance);
+                    channel.enableLights(true);
+                    channel.enableVibration(true);
+                    channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+
+
                     notificationManager.createNotificationChannel(channel);
-                    builder.setChannelId(channelId);
+                    builder.setChannelId(CHANNEL_ID);
 
                 }
                 //*************************************************************
 
+                //change the id here
+                /*
+                int j = 0;
+                if (i>0) {
+                    j = i;
+                }
+
+                 */
+
+                /*
                 notificationManager.notify(0, builder.build());
+                */
             }
 
             @Override
