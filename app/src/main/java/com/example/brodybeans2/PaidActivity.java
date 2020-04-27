@@ -51,20 +51,18 @@ public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnEx
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paid);
 
-        if (savedInstanceState == null) {
-            Toolbar toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-            drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
 
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                    R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            NavigationView navigationView = findViewById(R.id.nav_view);
-            navigationView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
-            drawer.addDrawerListener(toggle);
-            toggle.syncState();
-        }
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mOrdersDatabaseReference = mFirebaseDatabase.getReference().child("orders");
@@ -99,7 +97,7 @@ public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnEx
                     order.setEmail(email);
                     order.setOrderNumber(num);
                     order.setOrder(items);
-                    //TODO: order.setPaid(true);
+                    order.setPaid(true);
 
                     orderList.add(order);
 
@@ -126,7 +124,7 @@ public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnEx
                     order.setEmail(email);
                     order.setOrderNumber(num);
                     order.setOrder(items);
-                    //TODO: order.setPaid(true);
+                    order.setPaid(true);
 
                     orderList.add(order);
 
@@ -182,23 +180,7 @@ public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnEx
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                /**Order order = new Order();
-                                ArrayList<OrderItem> items = new ArrayList<>();
-
-                                GenericTypeIndicator<ArrayList<OrderItem>> map = new GenericTypeIndicator<ArrayList<OrderItem>>(){};
-                                items = ds.child("order").getValue(map);
-
-                                Integer num = ds.child("orderNumber").getValue(Integer.class);
-                                String email = ds.child("email").getValue(String.class);
-
-                                order.setEmail(email);
-                                order.setOrderNumber(num);
-                                order.setOrder(items);**/
                                 ds.getRef().child("paid").setValue(false);
-
-                                /**FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                                DatabaseReference ordersDatabaseReference = firebaseDatabase.getReference().child("orders");
-                                ordersDatabaseReference.push().setValue(order);**/
                             }
                         }
 
@@ -283,7 +265,6 @@ public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnEx
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(PaidActivity.this, LogInActivity.class);
         startActivity(intent);
-        finish();
         finish();
     }
 

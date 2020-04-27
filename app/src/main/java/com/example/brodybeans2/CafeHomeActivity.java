@@ -40,6 +40,7 @@ import com.example.brodybeans2.notifications.MyFirebaseMessagingService;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -57,7 +58,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.OnExpandListener {
+public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.OnExpandListener, NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mOrdersDatabaseReference;
@@ -88,6 +89,8 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -111,33 +114,58 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
         mChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d("Children Num",String.valueOf(dataSnapshot.getChildrenCount()));
-                Order order = new Order();
-                ArrayList<OrderItem> items = new ArrayList<>();
+                if (!dataSnapshot.child("paid").getValue(Boolean.class)) {
 
-                GenericTypeIndicator<ArrayList<OrderItem>> map = new GenericTypeIndicator<ArrayList<OrderItem>>(){};
-                items = dataSnapshot.child("order").getValue(map);
+                    Log.d("Children Num", String.valueOf(dataSnapshot.getChildrenCount()));
+                    Order order = new Order();
+                    ArrayList<OrderItem> items = new ArrayList<>();
 
-                Integer num = dataSnapshot.child("orderNumber").getValue(Integer.class);
-                String email = dataSnapshot.child("email").getValue(String.class);
-                String key = dataSnapshot.getKey();
-                String token = dataSnapshot.child("token").getValue(String.class);
+                    GenericTypeIndicator<ArrayList<OrderItem>> map = new GenericTypeIndicator<ArrayList<OrderItem>>() {
+                    };
+                    items = dataSnapshot.child("order").getValue(map);
 
-                order.setEmail(email);
-                order.setOrderNumber(num);
-                order.setOrder(items);
-                order.setFirebaseKey(key);
-                order.setToken(token);
+                    Integer num = dataSnapshot.child("orderNumber").getValue(Integer.class);
+                    String email = dataSnapshot.child("email").getValue(String.class);
+                    String key = dataSnapshot.getKey();
+                    String token = dataSnapshot.child("token").getValue(String.class);
 
-                orderList.add(order);
+                    order.setEmail(email);
+                    order.setOrderNumber(num);
+                    order.setOrder(items);
+                    order.setFirebaseKey(key);
+                    order.setToken(token);
 
-                orderAdapter.notifyDataSetChanged();
-                Log.d("Array size", String.valueOf(orderList.size()));
+                    orderList.add(order);
+
+                    orderAdapter.notifyDataSetChanged();
+                    Log.d("Array size", String.valueOf(orderList.size()));
+                }
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                if (!dataSnapshot.child("paid").getValue(Boolean.class)) {
 
+                    Log.d("Children Num", String.valueOf(dataSnapshot.getChildrenCount()));
+                    Order order = new Order();
+                    ArrayList<OrderItem> items = new ArrayList<>();
+
+                    GenericTypeIndicator<ArrayList<OrderItem>> map = new GenericTypeIndicator<ArrayList<OrderItem>>() {
+                    };
+                    items = dataSnapshot.child("order").getValue(map);
+
+                    Integer num = dataSnapshot.child("orderNumber").getValue(Integer.class);
+                    String email = dataSnapshot.child("email").getValue(String.class);
+
+                    order.setEmail(email);
+                    order.setOrderNumber(num);
+                    order.setOrder(items);
+
+                    orderList.add(order);
+
+                    orderAdapter.notifyDataSetChanged();
+                    Log.d("Array size", String.valueOf(orderList.size()));
+                }
             }
 
             @Override
@@ -188,7 +216,7 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                ds.getRef().removeValue();
+                                ds.getRef().child("paid").setValue(true);
                             }
                         }
 
@@ -262,6 +290,23 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
         //mRecyclerView.setAdapter(orderItemAdapter);
 
         //orderItemAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.nav_home:
+                break;
+            case R.id.nav_paid:
+                Intent intent = new Intent(this,PaidActivity.class);
+                drawer.closeDrawer(GravityCompat.START);
+                startActivity(intent);
+                break;
+            case R.id.action_settings:
+                signOut();
+                break;
+        }
+        return true;
     }
 
     @Override

@@ -9,6 +9,7 @@ public class Order {
     private Boolean inProg;
     private String firebaseKey;
     private String token;
+    private Boolean paid;
 
     public Order() {}
 
@@ -64,4 +65,13 @@ public class Order {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
+    }
+
+    public Boolean getPaid() {
+        return paid;
+    }
+
 }
