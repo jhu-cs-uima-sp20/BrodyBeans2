@@ -19,6 +19,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +31,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+
+import java.util.ArrayList;
 
 public class OrdersActivity extends AppCompatActivity {
 
@@ -47,6 +53,7 @@ public class OrdersActivity extends AppCompatActivity {
 
     private final String CHANNEL_ID = "my channel id";
 
+    private DataSnapshot datasnap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +80,37 @@ public class OrdersActivity extends AppCompatActivity {
         mChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
                 if (dataSnapshot.child("email").getValue().equals(email)) {
+                    datasnap = dataSnapshot;
                     orderNum = dataSnapshot.child("orderNumber").getValue(Integer.class);
                     orderNumberText.setText(orderNum.toString());
                     orderInProg = true;
+                    ListView listView = findViewById(R.id.more_view);
+                    ArrayList<OrderItem> items = new ArrayList<>();
+
+                    GenericTypeIndicator<ArrayList<OrderItem>> map = new GenericTypeIndicator<ArrayList<OrderItem>>() {
+                    };
+                    items = dataSnapshot.child("order").getValue(map);
+
+                    ArrayList<String> arrayList = new ArrayList<>();
+
+                    for (OrderItem oi : items) {
+                        arrayList.add(oi.getCategory());
+                    }
+
+
+                    ViewGroup.LayoutParams params = listView.getLayoutParams();
+                    if (arrayList != null) {
+                        params.height = 135 * arrayList.size();
+                    }
+                    listView.setLayoutParams(params);
+                    listView.requestLayout();
+                    ArrayAdapter arrayAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayList);
+                    listView.setAdapter(arrayAdapter);
+
+                    orderNumberMessage.setVisibility(View.VISIBLE);
+                    orderNumberText.setVisibility(View.VISIBLE);
+                    findViewById(R.id.more_view).setVisibility(View.VISIBLE);
                 }
 
                 PreferenceManager.getDefaultSharedPreferences(OrdersActivity.this).edit().putString("status", Boolean.toString(orderInProg)).apply();
@@ -110,6 +143,24 @@ public class OrdersActivity extends AppCompatActivity {
                 //notify
                 //int i = Integer.parseInt(token.replaceAll("[\\D]", ""));
                 if (dataSnapshot.child("email").getValue().equals(email)) {
+                    datasnap = dataSnapshot;
+                    if (dataSnapshot.child("paid").getValue(Boolean.class)) {
+                        orderInProg = false;
+                        //thanksText.setVisibility(View.INVISIBLE)
+                        orderNumberMessage.setVisibility(View.INVISIBLE);
+                        orderNumberText.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.more_view).setVisibility(View.INVISIBLE);
+                        orderPlacedText.setText("Click the back button to place a new one!");
+                        orderPlacedText.setTextColor(getResources().getColor(R.color.colorPrimary));
+                        thanksText.setText("Your order has been paid. \n\n");
+                        orderNum = 0;
+                        if (getSupportActionBar() != null) {
+                            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                            getSupportActionBar().setHomeButtonEnabled(true);
+                        }
+                    } else {
+                        onChildAdded(dataSnapshot, "");
+                    }
                     String message = "Your order is being prepared!";
                     String title = "Brody Beans";
                     Uri defSoundsUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -157,6 +208,7 @@ public class OrdersActivity extends AppCompatActivity {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 if (email.equals(dataSnapshot.child("email").getValue(String.class))) {
+                    datasnap = dataSnapshot;
                     orderInProg = false;
                     //thanksText.setVisibility(View.INVISIBLE)
                     orderNumberMessage.setVisibility(View.INVISIBLE);
@@ -165,7 +217,7 @@ public class OrdersActivity extends AppCompatActivity {
                     notifyMessage.setVisibility(View.INVISIBLE);
                     orderPlacedText.setText("Click the back button to place a new one!");
                     orderPlacedText.setTextColor(getResources().getColor(R.color.colorPrimary));
-                    thanksText.setText("Your order has been paid. \n\n");
+                    thanksText.setText("Your order has been cancelled. \n\n");
                     orderNum = 0;
                     if (getSupportActionBar() != null) {
                         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
