@@ -12,8 +12,15 @@
         <activity android:name=".PaidActivity"
             android:label="Paid Orders"
             android:theme="@style/AppTheme2" />
-        <activity android:name=".Specific_Menu" />
-        <activity android:name=".Customization" />
+        <activity android:name=".Specific_Menu"
+            android:label="Specific Items"
+            android:parentActivityName=".MenuActivity">
+            />
+        </activity>
+        <activity android:name=".Customization"
+            android:parentActivityName=".HomeActivity"
+            android:label="Customize Item">
+        </activity>
         <activity
             android:name=".SignUpActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -67,6 +74,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomeActivity" />
         </activity>
+
 
         <service android:name=".notifications.MyFirebaseMessagingService"
             android:exported="false">
