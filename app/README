@@ -19,7 +19,7 @@ existing log ins and passwords:
   you can only have one order in progress at a time (which is why you'll need the cafe
   to unlock it).
 
-
+SPRINT 1:
 features that have been included are:
 -A loading screen with a cute animation (please wait while our app loads and enjoy
  the coffee brew). This was throwing a memory error on Jerry's computer, but not on
@@ -70,7 +70,47 @@ features that have been included are:
     -swipe function removes the order from the database
     -sign out button in top right corner logs user out
 
-
+SPRINT 2:
+features that have been included:
+-customer side (once logged in)
+	-home page
+		-settings added to allow user to change username and password
+		-notifications toggle does not work, but default set true
+		-display of items favorited (max of 4)  
+	-menu page
+		-when a user clicks one of the cateogories they are taken to a page with the specific items under that category
+	-specific menu page
+		-new to sprint 2
+		-page that displays the items for the category chosen on the previous menu page. When item is clicked, it will
+		send the user to a page to customize that item.
+	-customazation page
+		-new to sprint 2
+		-this is where item selections can be customized. Some categories do not allow certain options to be selected
+		so a toast will appear and the user may not place an order if their options violate that. The same will happen
+		if the user attempts to select multiple checkboxes for the same option (i.e. temp/size) or enter over 50 characters
+		into modifications.
+		-Once valid options are selected, the user can hit add and it will take them to the cart
+	-cart page
+		-The orders now display the additional information added for each item
+	-orders page
+		-displays a list of the users order (not their size/temp/mods)
+		-notification sent to user when their order is in progress
+		-cancel button allows a user to cancel an order if it is not in progress or been paid for
+		-locked on page until they've paid or cancelled order
+-brody cafe side (once logged in)
+	-nav bar
+		-has options to switch between current orders page and paid orders page
+		-sign out has been put into nav bar
+		-now displays the modifications for each order
+	-Current orders page
+		-holds the current, unpaid orders.
+		-swiping left will mark the order as paid, remove it from current orders, and move its display to paid orders page
+		-hitting the in progress check box will mark the order as in progress and send a notification to the user
+	-Paid orders page
+		-holds the paid orders
+		-swiping left will mark the order as unpaid and mark its status to not in progress. It will be removed from paid orders
+		and move its display back to current orders
+	
 -----------------------------------------
 
 Log of our meetings:
