@@ -95,7 +95,8 @@ features that have been included:
 	-orders page
 		-displays a list of the users order (not their size/temp/mods)
 		-notification sent to user when their order is in progress
-		-cancel button allows a user to cancel an order if it is not in progress or been paid for
+		-****REMOVED BECUASE OF BUGS***
+		cancel button allows a user to cancel an order if it is not in progress or been paid for
 		-locked on page until they've paid or cancelled order
 -brody cafe side (once logged in)
 	-nav bar
