@@ -71,14 +71,6 @@ public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnEx
 
         buildRecyclerView();
 
-//        signOut = findViewById(R.id.sign_out);
-//        signOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                signOut();
-//            }
-//        });
-
         mChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -109,7 +101,6 @@ public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnEx
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (dataSnapshot.child("paid").getValue(Boolean.class)) {
-
                     Log.d("Children Num", String.valueOf(dataSnapshot.getChildrenCount()));
                     Order order = new Order();
                     ArrayList<OrderItem> items = new ArrayList<>();
@@ -146,8 +137,8 @@ public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnEx
         };
         mOrdersDatabaseReference.addChildEventListener(mChildEventListener);
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+        //ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        //itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     public void buildRecyclerView() {
@@ -161,12 +152,13 @@ public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnEx
         mRecyclerView.setAdapter(orderAdapter);
 
     }
-
-    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+    /**Swipe to un pay order feature not implemented**/
+    /**ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
         }
+
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
@@ -195,7 +187,7 @@ public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnEx
                     break;
             }
         }
-    };
+    };**/
 
     @Override
     public void onExpandClick(int position, View view, boolean open) {
@@ -242,7 +234,9 @@ public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnEx
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
+                Intent intent = new Intent(this,CafeHomeActivity.class);
                 drawer.closeDrawer(GravityCompat.START);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.nav_paid:
@@ -259,7 +253,7 @@ public class PaidActivity extends AppCompatActivity implements OrderAdapter.OnEx
     @Override
     public void onCheckboxClick(int position, View view, boolean clicked) {
         //do something
-        Toast.makeText(view.getContext(), "Testing",Toast.LENGTH_LONG).show();
+        //Toast.makeText(view.getContext(), "Testing",Toast.LENGTH_LONG).show();
     }
 
     public void signOut() {

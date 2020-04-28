@@ -103,14 +103,6 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
         buildRecyclerView();
 
-//        signOut = findViewById(R.id.sign_out);
-//        signOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                signOut();
-//            }
-//        });
-
         mChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -311,6 +303,7 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
                 Intent intent = new Intent(this,PaidActivity.class);
                 drawer.closeDrawer(GravityCompat.START);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.action_settings:
                 signOut();

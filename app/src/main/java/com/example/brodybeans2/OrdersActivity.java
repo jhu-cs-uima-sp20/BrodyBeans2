@@ -189,7 +189,7 @@ public class OrdersActivity extends AppCompatActivity {
                         onChildAdded(dataSnapshot, "");
                         //mOrdersDatabaseReference.child(key).child("progressStatus").setValue("false");
                     }
-                    if (dataSnapshot.child("progressStatus").getValue().equals("true")){
+                    if (dataSnapshot.child("progressStatus").getValue().equals("true") && !dataSnapshot.child("paid").getValue(Boolean.class)){
                         cancel.setVisibility(View.INVISIBLE);
                         String message = "Your order is being prepared!";
                         String title = "Brody Beans";
