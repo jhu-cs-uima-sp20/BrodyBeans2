@@ -101,6 +101,7 @@ public class OrdersActivity extends AppCompatActivity {
                     orderNum = dataSnapshot.child("orderNumber").getValue(Integer.class);
                     orderNumberText.setText(orderNum.toString());
                     orderInProg = true;
+                    cancel.setVisibility(View.VISIBLE);
                     ListView listView = findViewById(R.id.more_view);
                     ArrayList<OrderItem> items = new ArrayList<>();
 
@@ -233,8 +234,6 @@ public class OrdersActivity extends AppCompatActivity {
                 if (email.equals(dataSnapshot.child("email").getValue(String.class))) {
                     datasnap = dataSnapshot;
                     orderInProg = false;
-                    String s = dataSnapshot.getKey();
-                    mOrdersDatabaseReference.child(s).child("progressStatus").setValue("false");
                     //thanksText.setVisibility(View.INVISIBLE)
                     orderNumberMessage.setVisibility(View.INVISIBLE);
                     orderNumberText.setVisibility(View.INVISIBLE);
@@ -248,6 +247,9 @@ public class OrdersActivity extends AppCompatActivity {
                         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                         getSupportActionBar().setHomeButtonEnabled(true);
                     }
+                    cancel.setVisibility(View.INVISIBLE);
+                    findViewById(R.id.more_view).setVisibility(View.INVISIBLE);
+
                 }
                 PreferenceManager.getDefaultSharedPreferences(OrdersActivity.this).edit().putString("status", Boolean.toString(orderInProg)).apply();
             }

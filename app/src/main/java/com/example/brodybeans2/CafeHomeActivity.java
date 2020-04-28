@@ -180,6 +180,7 @@ public class CafeHomeActivity extends AppCompatActivity implements OrderAdapter.
 
                 orderList.remove(count);
                 orderAdapter.notifyDataSetChanged();
+
             }
 
             @Override
