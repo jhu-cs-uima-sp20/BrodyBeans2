@@ -78,12 +78,12 @@ public class OrdersActivity extends AppCompatActivity {
         orderInProg = false;
         mainKey = "";
 
-        cancel = findViewById(R.id.cancel);
+        cancel = (Button)findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (datasnap != null) {
-                    if (!datasnap.child("progressStatus").getValue(Boolean.class)) {
+                    if (!datasnap.child("progressStatus").getValue(Boolean.class) || !datasnap.child("paid").getValue(Boolean.class)) {
                         datasnap.getRef().removeValue();
                     } else {
                         Toast toast = Toast.makeText(getApplicationContext(), "Sorry. Your order cannot be deleted once it is in progress", Toast.LENGTH_LONG);
@@ -93,6 +93,7 @@ public class OrdersActivity extends AppCompatActivity {
             }
         });
 
+
         mChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -101,7 +102,13 @@ public class OrdersActivity extends AppCompatActivity {
                     orderNum = dataSnapshot.child("orderNumber").getValue(Integer.class);
                     orderNumberText.setText(orderNum.toString());
                     orderInProg = true;
-                    cancel.setVisibility(View.VISIBLE);
+                    if (dataSnapshot.child("progressStatus").equals("false")) {
+                        cancel.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        cancel.setVisibility(View.INVISIBLE);
+                        orderPlacedText.setText("Your order is being prepared!");
+                    }
                     ListView listView = findViewById(R.id.more_view);
                     ArrayList<OrderItem> items = new ArrayList<>();
 
@@ -178,14 +185,15 @@ public class OrdersActivity extends AppCompatActivity {
                             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                             getSupportActionBar().setHomeButtonEnabled(true);
                         }
-                    } else {
+                    } else if (dataSnapshot.child("progressStatus").equals("false")){
                         onChildAdded(dataSnapshot, "");
-                        mOrdersDatabaseReference.child(key).child("progressStatus").setValue("false");
+                        //mOrdersDatabaseReference.child(key).child("progressStatus").setValue("false");
                     }
                     if (dataSnapshot.child("progressStatus").getValue().equals("true")){
+                        cancel.setVisibility(View.INVISIBLE);
                         String message = "Your order is being prepared!";
                         String title = "Brody Beans";
-                        mainKey = (String)dataSnapshot.getValue();
+                        //mainKey = (String)dataSnapshot.getValue();
                         Uri defSoundsUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
                                 .setSmallIcon(R.drawable.beans_logo_background)
