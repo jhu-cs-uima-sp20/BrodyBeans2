@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ConstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="61dp"
+        android:layout_height="103dp"
         android:layout_marginBottom="0dp"
         android:background="@color/colorAccent">
 
@@ -54,10 +54,26 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ListView
-        android:id="@+id/more_view"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/common_google_signin_btn_text_dark_default" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/more_view"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@color/common_google_signin_btn_text_dark_default"
+                android:fastScrollAlwaysVisible="true"
+                android:fastScrollEnabled="true"
+                android:scrollbarSize="8dp"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
