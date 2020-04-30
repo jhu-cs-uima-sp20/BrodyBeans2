@@ -173,6 +173,7 @@ public class OrdersActivity extends AppCompatActivity {
                     orderPlacedText.setText("Your order is being prepared!");
                     if (dataSnapshot.child("paid").getValue(Boolean.class)) {
                         orderInProg = false;
+                        PreferenceManager.getDefaultSharedPreferences(OrdersActivity.this).edit().putString("status", Boolean.toString(orderInProg)).apply();
                         //thanksText.setVisibility(View.INVISIBLE)
                         orderNumberMessage.setVisibility(View.INVISIBLE);
                         orderNumberText.setVisibility(View.INVISIBLE);
